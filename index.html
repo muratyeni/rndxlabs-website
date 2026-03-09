@@ -43,11 +43,11 @@
     .nav-links a:hover { color: var(--text); background: var(--accent-dim); }
     .nav-cta { color: var(--accent) !important; border: 1px solid rgba(10,79,255,0.25) !important; padding: 0.4rem 1rem !important; }
     .nav-cta:hover { background: var(--accent-dim) !important; border-color: var(--accent) !important; }
-    .nav-lang { font-family: var(--mono); font-size: 0.72rem; color: var(--text-muted); text-decoration: none; padding: 0.3rem 0.6rem; border: 1px solid var(--border); border-radius: var(--radius); letter-spacing: 0.06em; margin-left: 0.5rem; transition: color var(--transition), border-color var(--transition); }
-    .nav-lang:hover { color: var(--text); border-color: rgba(10,79,255,0.3); }
+    .nav-lang { font-family: var(--mono); font-size: 0.78rem; color: var(--accent); text-decoration: none; padding: 0.4rem 0.75rem; border: 1px solid rgba(10,79,255,0.25); border-radius: var(--radius); letter-spacing: 0.06em; margin-left: 0.5rem; line-height: 1.2; transition: color var(--transition), border-color var(--transition), background var(--transition); }
+    .nav-lang:hover { background: var(--accent-dim); border-color: var(--accent); }
     .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
     .hamburger span { width: 22px; height: 1.5px; background: var(--text-muted); display: block; }
-    .mobile-nav { display: none; position: fixed; top: 64px; left: 0; right: 0; z-index: 99; background: rgba(247,246,243,0.97); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); padding: 1.5rem; flex-direction: column; gap: 0.5rem; }
+    .mobile-nav { display: none; position: fixed; top: 64px; left: 0; right: 0; z-index: 99; background: rgba(235,234,228,0.98); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); padding: 1.5rem; flex-direction: column; gap: 0.5rem; box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
     .mobile-nav.open { display: flex; }
     .mobile-nav a { font-family: var(--mono); font-size: 0.88rem; color: var(--text-muted); text-decoration: none; padding: 0.6rem 0; border-bottom: 1px solid var(--border); }
     .mobile-nav a:last-child { border-bottom: none; color: var(--accent); margin-top: 0.5rem; }
@@ -73,7 +73,7 @@
     .btn-ghost:hover { color: var(--text); border-color: rgba(10,79,255,0.3); transform: translateY(-1px); }
 
     /* HERO */
-    .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding-top: 10rem; padding-bottom: 6rem; position: relative; overflow: hidden; }
+    .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding-top: 10rem; padding-bottom: 5rem; position: relative; overflow: hidden; }
     .hero-grid-bg { position: absolute; inset: 0; z-index: 0; background-image: linear-gradient(rgba(10,79,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(10,79,255,0.05) 1px, transparent 1px); background-size: 60px 60px; mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 30%, transparent 80%); }
     .hero-glow { position: absolute; top: 20%; left: 50%; transform: translateX(-50%); width: 600px; height: 300px; background: radial-gradient(ellipse, rgba(10,79,255,0.05) 0%, transparent 70%); pointer-events: none; }
     .hero-inner { max-width: 1200px; margin: 0 auto; padding: 0 2rem; position: relative; z-index: 1; }
@@ -163,13 +163,14 @@
       .domains-grid { grid-template-columns: 1fr; }
       .industries-grid { grid-template-columns: 1fr; }
       nav { padding: 0 1.25rem; }
-      .hero { padding-top: 7rem; padding-bottom: 4rem; }
+      .hero { padding-top: 6rem; padding-bottom: 3rem; min-height: auto; }
       .hero-inner { padding: 0 1.25rem; }
       .hero h1 { font-size: clamp(1.5rem, 7vw, 2.2rem); letter-spacing: -0.02em; word-break: break-word; overflow-wrap: break-word; }
       .hero-sub { font-size: 0.82rem; margin-top: 1.5rem; }
       .hero-tag { font-size: 0.62rem; letter-spacing: 0.08em; white-space: normal; }
       .hero-actions { margin-top: 2rem; flex-direction: column; }
       .hero-actions a { text-align: center; }
+      footer { flex-direction: column; align-items: center; text-align: center; padding: 2rem 1.25rem; }
       /* FIX 2: grotere font-size voor cards op mobiel */
       .domain-desc { font-size: 0.88rem; }
       .industry-card p { font-size: 0.88rem; }
@@ -190,7 +191,7 @@
     <li><a href="#sectoren">Sectoren</a></li>
     <li><a href="#onderzoek">Innovatie</a></li>
     <li><a href="#contact" class="nav-cta">Neem contact op</a></li>
-    <a href="/en/" class="nav-lang">EN</a>
+    <li><a href="/en/" class="nav-lang">EN</a></li>
   </ul>
   <div class="hamburger" onclick="toggleNav()" aria-label="Menu">
     <span></span><span></span><span></span>
@@ -409,7 +410,7 @@
     <h2>Start een gesprek</h2>
     <p style="margin-top:1.5rem;">RNDX Labs werkt samen met gemeenten, bedrijven, energieconsultants en technologiepartners aan energie- en infrastructuurtechnologie.</p>
     <p>Interesse in samenwerking, hardwareontwikkeling, pilotprojecten of monitoringoplossingen? Neem contact op.</p>
-    <a href="mailto:contact@rndxlabs.com" class="contact-email">✉ contact@rndxlabs.com</a>
+    <a href="/cdn-cgi/l/email-protection#e5868a8b91848691a5978b819d89848796cb868a88" class="contact-email">✉ <span class="__cf_email__" data-cfemail="65060a0b1104061125170b011d090407164b060a08">[email&#160;protected]</span></a>
     <div class="contact-meta">
       RNDX Labs<br>
       Utrecht, Nederland<br>
@@ -422,15 +423,6 @@
 <!-- FIX 4: geen cookies regel toegevoegd -->
 <footer>
   <div class="footer-logo">RNDX<span>&nbsp;Labs</span></div>
-  <div class="footer-links">
-    <a href="#over">Over</a>
-    <a href="#oplossingen">Oplossingen</a>
-    <a href="#technologie">Technologie</a>
-    <a href="#sectoren">Sectoren</a>
-    <a href="#onderzoek">Onderzoek</a>
-    <a href="#contact">Contact</a>
-    <a href="/en/">EN</a>
-  </div>
   <div class="footer-copy">© 2025 RNDX Labs · Utrecht, NL</div>
   <div class="footer-copy" style="width:100%;margin-top:-0.5rem;text-align:center;">Geen cookies · Geen tracking · Geen toestemming nodig</div>
 </footer>
