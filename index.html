@@ -18,12 +18,21 @@
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"Organization","name":"RNDX Labs","url":"https://rndxlabs.com","email":"contact@rndxlabs.com","description":"Europees deep-tech innovatielab gericht op intelligente infrastructuursystemen.","address":{"@type":"PostalAddress","addressLocality":"Utrecht","addressCountry":"NL"}}
   </script>
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
-  <link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Kode+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon-180.png" />
+  <style>
+    @font-face { font-family: 'DM Mono'; font-style: normal; font-weight: 300; font-display: swap; src: url('/fonts/dm-mono-v16-latin-300.woff2') format('woff2'); }
+    @font-face { font-family: 'DM Mono'; font-style: normal; font-weight: 400; font-display: swap; src: url('/fonts/dm-mono-v16-latin-regular.woff2') format('woff2'); }
+    @font-face { font-family: 'DM Mono'; font-style: normal; font-weight: 500; font-display: swap; src: url('/fonts/dm-mono-v16-latin-500.woff2') format('woff2'); }
+    @font-face { font-family: 'Syne'; font-style: normal; font-weight: 400; font-display: swap; src: url('/fonts/syne-v24-latin-regular.woff2') format('woff2'); }
+    @font-face { font-family: 'Syne'; font-style: normal; font-weight: 500; font-display: swap; src: url('/fonts/syne-v24-latin-500.woff2') format('woff2'); }
+    @font-face { font-family: 'Syne'; font-style: normal; font-weight: 600; font-display: swap; src: url('/fonts/syne-v24-latin-600.woff2') format('woff2'); }
+    @font-face { font-family: 'Syne'; font-style: normal; font-weight: 700; font-display: swap; src: url('/fonts/syne-v24-latin-700.woff2') format('woff2'); }
+    @font-face { font-family: 'Syne'; font-style: normal; font-weight: 800; font-display: swap; src: url('/fonts/syne-v24-latin-800.woff2') format('woff2'); }
+    @font-face { font-family: 'Kode Mono'; font-style: normal; font-weight: 400; font-display: swap; src: url('/fonts/kode-mono-v4-latin-regular.woff2') format('woff2'); }
+    @font-face { font-family: 'Kode Mono'; font-style: normal; font-weight: 700; font-display: swap; src: url('/fonts/kode-mono-v4-latin-700.woff2') format('woff2'); }
+  </style>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -413,7 +422,7 @@
     <h2>Start een gesprek</h2>
     <p style="margin-top:1.5rem;">RNDX Labs werkt samen met gemeenten, bedrijven, energieconsultants en technologiepartners aan energie- en infrastructuurtechnologie.</p>
     <p>Interesse in samenwerking, hardwareontwikkeling, pilotprojecten of monitoringoplossingen? Neem contact op.</p>
-    <a href="mailto:contact@rndxlabs.com" class="contact-email">✉ contact@rndxlabs.com</a>
+    <a href="/cdn-cgi/l/email-protection#beddd1d0cadfddcafeccd0dac6d2dfdccd90ddd1d3" class="contact-email">✉ <span class="__cf_email__" data-cfemail="54373b3a2035372014263a302c383536277a373b39">[email&#160;protected]</span></a>
     <div class="contact-meta">
       RNDX Labs<br>
       Utrecht, Nederland<br>
@@ -430,7 +439,7 @@
   <div class="footer-copy" style="width:100%;margin-top:-0.5rem;text-align:center;">Geen cookies · Geen tracking · Geen toestemming nodig</div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   function toggleNav() { document.getElementById('mobileNav').classList.toggle('open'); }
   document.addEventListener('click', function(e) {
     const nav = document.getElementById('mobileNav');
@@ -443,10 +452,4 @@
   const allSections = document.querySelectorAll('[id]');
   const navLinks = document.querySelectorAll('.nav-links a');
   window.addEventListener('scroll', () => {
-    let current = '';
-    allSections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) current = s.id; });
-    navLinks.forEach(a => { a.style.color = a.getAttribute('href') === '#' + current ? 'var(--text)' : ''; });
-  });
-</script>
-</body>
-</html>
+    let cur
