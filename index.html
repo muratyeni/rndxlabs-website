@@ -439,7 +439,7 @@
   <div class="footer-copy" style="width:100%;margin-top:-0.5rem;text-align:center;">Geen cookies · Geen tracking · Geen toestemming nodig</div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
   function toggleNav() { document.getElementById('mobileNav').classList.toggle('open'); }
   document.addEventListener('click', function(e) {
     const nav = document.getElementById('mobileNav');
@@ -452,4 +452,10 @@
   const allSections = document.querySelectorAll('[id]');
   const navLinks = document.querySelectorAll('.nav-links a');
   window.addEventListener('scroll', () => {
-    let cur
+    let current = '';
+    allSections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) current = s.id; });
+    navLinks.forEach(a => { a.style.color = a.getAttribute('href') === '#' + current ? 'var(--text)' : ''; });
+  });
+</script>
+</body>
+</html>
