@@ -690,12 +690,12 @@
   }
 
   .footer-logo {
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: rgba(247,246,243,0.35);
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    transition: opacity 0.2s;
   }
+  .footer-logo:hover { opacity: 0.6; }
 
   .footer-copy {
     font-family: var(--mono);
@@ -1099,13 +1099,16 @@
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner">
-    <span class="footer-logo">RNDX Labs · Utrecht</span>
-    <ul class="footer-links">
-      <li><a href="#">Privacy</a></li>
-      <li><a href="#">Terms</a></li>
-      <li><a href="https://rndxlabs.com" target="_blank">rndxlabs.com</a></li>
-    </ul>
-    <span class="footer-copy">© 2025 RnDxLabs B.V. All rights reserved.</span>
+    <a href="#home" class="footer-logo" aria-label="RNDX Labs">
+      <svg viewBox="0 0 1249 175" height="12" xmlns="http://www.w3.org/2000/svg" style="display:block;fill:rgba(247,246,243,0.35);">
+        <g transform="matrix(1.46784,0,0,1.46784,-540.252,-1598.55)">
+          <text x="356.562px" y="1206.03px" style="font-family:'Exo 2',sans-serif;font-weight:700;font-size:166.628px;">RND</text>
+          <text x="698.483px" y="1206.03px" style="font-family:'Exo 2',sans-serif;font-weight:700;font-style:italic;font-size:166.628px;">X</text>
+          <text x="841.284px" y="1206.03px" style="font-family:'Exo 2',sans-serif;font-weight:400;font-size:166.628px;">LABS</text>
+        </g>
+      </svg>
+    </a>
+    <span class="footer-copy">© 2025 Rndxlabs B.V. All rights reserved.</span>
   </div>
 </footer>
 
