@@ -1113,7 +1113,7 @@
     let W, H, dpr, points = [], gridPoints = [];
 
     const COLS = 10, ROWS = 10;
-    const CYCLE = 12000;
+    const CYCLE = 8000;
 
     const eInOut = t => t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2, 3) / 2;
 
@@ -1149,7 +1149,7 @@
         sx: W * 0.10 + Math.random() * W * 0.80,
         sy: H * 0.10 + Math.random() * H * 0.80,
         tx: gp.tx, ty: gp.ty,
-        alpha: 0.14 + Math.random() * 0.20,
+        alpha: 0.30 + Math.random() * 0.30,
         size:  0.8  + Math.random() * 0.9,
         phaseOffset: (i / (COLS * ROWS)) * 0.18,
       }));
@@ -1196,7 +1196,7 @@
                 : 0;
       if (vis <= 0) return;
       const mx = W * 0.09, my = H * 0.09;
-      ctx.strokeStyle = `rgba(15,15,13,${0.06 * vis})`;
+      ctx.strokeStyle = `rgba(15,15,13,${0.14 * vis})`;
       ctx.lineWidth = 0.5;
       for (let r = 0; r < ROWS; r++) {
         const y = my + (r / (ROWS-1)) * (H - my*2);
@@ -1221,7 +1221,7 @@
           const dy = points[i].y - points[j].y;
           const d  = Math.sqrt(dx*dx + dy*dy);
           if (d < MAX_DIST) {
-            const a = (1 - d / MAX_DIST) * 0.09 * vis;
+            const a = (1 - d / MAX_DIST) * 0.20 * vis;
             ctx.beginPath();
             ctx.moveTo(points[i].x, points[i].y);
             ctx.lineTo(points[j].x, points[j].y);
@@ -1266,7 +1266,7 @@
         requestAnimationFrame(frame);
         io.disconnect();
       }
-    }, { threshold: 0.1 });
+    }, { threshold: 0.05 });
     io.observe(techSection);
   })();
 
