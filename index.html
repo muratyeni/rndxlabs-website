@@ -125,6 +125,38 @@
     color: var(--bg);
   }
 
+  /* ─── LANGUAGE SWITCHER ─── */
+  .nav-lang {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    margin-left: 2px;
+  }
+
+  .nav-lang a {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    text-decoration: none;
+    padding: 4px 6px;
+    transition: color 0.2s;
+  }
+
+  .nav-lang a:hover { color: var(--ink); }
+
+  .nav-lang a.active {
+    color: var(--ink);
+    border-bottom: 1px solid var(--ink);
+  }
+
+  .nav-lang-divider {
+    width: 1px;
+    height: 10px;
+    background: var(--rule-strong);
+  }
+
   /* ─── SECTIONS ─── */
   section { padding: 120px 48px; }
 
@@ -137,9 +169,9 @@
   #home {
     min-height: 100vh;
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     padding-top: 72px;
-    padding-bottom: 80px;
+    padding-bottom: 60px;
     position: relative;
     overflow: hidden;
   }
@@ -729,7 +761,7 @@
     section { padding: 80px 24px; }
     nav { padding: 0 24px; }
 
-    .nav-links, .nav-cta { display: none; }
+    .nav-links, .nav-cta, .nav-lang { display: none; }
     .nav-burger { display: flex; }
 
     .hero-inner { grid-template-columns: 1fr; gap: 48px; }
@@ -768,7 +800,11 @@
       <li><a href="#industries">Industries</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
-    <a href="#contact" class="nav-cta">Initiate Contact</a>
+    <div class="nav-lang">
+      <a href="/">NL</a>
+      <div class="nav-lang-divider"></div>
+      <a href="/en/" class="active">EN</a>
+    </div>
     <div class="nav-burger" onclick="toggleMenu()">
       <span></span><span></span><span></span>
     </div>
@@ -1481,20 +1517,43 @@
   })();
   function toggleMenu() {
     const links = document.querySelector('.nav-links');
-    const cta = document.querySelector('.nav-cta');
     if (links) {
       const visible = links.style.display === 'flex';
-      links.style.display = visible ? 'none' : 'flex';
-      links.style.flexDirection = 'column';
-      links.style.position = 'absolute';
-      links.style.top = '72px';
-      links.style.left = '0';
-      links.style.right = '0';
-      links.style.background = 'rgba(247,246,243,0.97)';
-      links.style.padding = '24px 24px';
-      links.style.gap = '24px';
-      links.style.borderBottom = '1px solid rgba(15,15,13,0.08)';
-      if (cta) cta.style.display = visible ? 'none' : 'block';
+      if (!visible) {
+        // Open menu
+        links.style.display = 'flex';
+        links.style.flexDirection = 'column';
+        links.style.position = 'absolute';
+        links.style.top = '72px';
+        links.style.left = '0';
+        links.style.right = '0';
+        links.style.background = 'rgba(247,246,243,0.97)';
+        links.style.padding = '24px 24px 20px';
+        links.style.gap = '24px';
+        links.style.borderBottom = '1px solid rgba(15,15,13,0.08)';
+
+        // Add language switcher at bottom if not already present
+        if (!links.querySelector('.nav-lang-mobile')) {
+          const divider = document.createElement('li');
+          divider.style.height = '1px';
+          divider.style.background = 'rgba(15,15,13,0.08)';
+          divider.style.margin = '0 0 4px';
+
+          const langItem = document.createElement('li');
+          langItem.className = 'nav-lang-mobile';
+          langItem.innerHTML = `
+            <div style="display:flex;align-items:center;gap:2px;">
+              <a href="/" style="font-family:var(--mono);font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-light);text-decoration:none;">NL</a>
+              <div style="width:1px;height:10px;background:rgba(15,15,13,0.2);margin:0 2px;"></div>
+              <a href="/en/" style="font-family:var(--mono);font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink);text-decoration:none;border-bottom:1px solid var(--ink);">EN</a>
+            </div>`;
+          links.appendChild(divider);
+          links.appendChild(langItem);
+        }
+      } else {
+        // Close menu
+        links.style.display = 'none';
+      }
     }
   }
 </script>
