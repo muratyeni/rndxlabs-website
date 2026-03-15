@@ -820,7 +820,7 @@
       <h1 class="fade-up fade-up-d1">Advanced<br>engineering<br>turned into<br><em>real products.</em></h1>
     </div>
     <div class="hero-right fade-up fade-up-d2">
-      <p class="hero-desc">RNDX Labs develops advanced hardware and software technologies — translating complex research into operational systems and market-ready products.</p>
+      <p class="hero-desc">RNDX Labs develops advanced hardware and software technologies, translating complex research into operational systems and market-ready products.</p>
       <a href="#contact" class="btn-primary">Start a conversation</a>
       <div class="hero-stats fade-up fade-up-d3">
         <div class="stat-item">
@@ -850,7 +850,7 @@
       </div>
       <div class="about-right fade-up fade-up-d1">
         <p>RNDX Labs operates at the intersection of fundamental research and applied engineering. We design, develop, and validate technologies that are technically demanding and commercially significant.</p>
-        <p>Our work spans the full development lifecycle — from initial concept and feasibility through prototyping, system integration, and product realization. We engage where the problems are hard and the stakes are high.</p>
+        <p>Our work spans the full development lifecycle, from initial concept and feasibility through prototyping, system integration, and product realization. We engage where the problems are hard and the stakes are high.</p>
         <p>Based in Utrecht, the Netherlands, we collaborate with engineering teams, research institutions, and strategic partners across Europe and beyond.</p>
 
         <div class="about-pillars">
@@ -976,7 +976,7 @@
       </div>
       <div class="tech-right">
         <h2 class="fade-up">Built on<br><em>engineering rigor.</em></h2>
-        <p class="fade-up fade-up-d1">Our technology practice combines precision hardware design with robust software architecture. We work across the full stack — from silicon to system — applying disciplined engineering methods throughout.</p>
+        <p class="fade-up fade-up-d1">Our technology practice combines precision hardware design with robust software architecture. We work across the full stack, from silicon to system, applying disciplined engineering methods throughout.</p>
         <p class="fade-up fade-up-d1">Every system we develop is designed for verifiable performance, long-term reliability, and clear technical accountability.</p>
         <div class="tech-specs fade-up fade-up-d2">
           <div class="spec-row">
@@ -1073,19 +1073,27 @@
         <div class="contact-info">
           <div class="contact-row">
             <span class="contact-row-label">Location</span>
-            <span class="contact-row-val">Utrecht, Netherlands</span>
+            <span class="contact-row-val">Zeist (Utrecht) Netherlands</span>
           </div>
           <div class="contact-row">
             <span class="contact-row-label">Email</span>
-            <span class="contact-row-val"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f49d9a929bb4869a908c98959687da979b99">[email&#160;protected]</a></span>
+            <span class="contact-row-val">
+              <a class="obf-email" href="#"
+                data-u="contact"
+                data-d="rndxlabs.com"
+                style="color:rgba(247,246,243,0.6);text-decoration:none;font-family:var(--mono);font-size:12px;transition:color 0.2s;"
+                onmouseover="this.style.color='rgba(247,246,243,0.9)'"
+                onmouseout="this.style.color='rgba(247,246,243,0.6)'"
+              >contact&#64;rndxlabs&#46;com</a>
+            </span>
           </div>
           <div class="contact-row">
-            <span class="contact-row-label">Entity</span>
-            <span class="contact-row-val">RnDxLabs B.V.</span>
+            <span class="contact-row-label">KVK</span>
+            <span class="contact-row-val">RNDXLABS BV - 76492117</span>
           </div>
           <div class="contact-row">
-            <span class="contact-row-label">Registration</span>
-            <span class="contact-row-val">KvK Netherlands</span>
+            <span class="contact-row-label">IBAN</span>
+            <span class="contact-row-val">NL37BUNQ2040706739</span>
           </div>
         </div>
       </div>
@@ -1113,6 +1121,16 @@
 </footer>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // ── EMAIL OBFUSCATION ────────────────────────────────────────────────────────
+  document.querySelectorAll('.obf-email').forEach(el => {
+    el.addEventListener('click', function(e) {
+      e.preventDefault();
+      const u = this.getAttribute('data-u');
+      const d = this.getAttribute('data-d');
+      window.location.href = 'mailto:' + u + '@' + d;
+    });
+  });
+
   // Scroll reveal
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => {
