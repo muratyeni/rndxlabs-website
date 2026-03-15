@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RNDX Labs — Deep-Tech Innovation</title>
+<title>RNDX Labs — Deep-Tech Innovatie</title>
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
   <link rel="icon" href="/assets/icon-192.png" sizes="192x192">
@@ -690,12 +690,12 @@
   }
 
   .footer-logo {
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: rgba(247,246,243,0.35);
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    transition: opacity 0.2s;
   }
+  .footer-logo:hover { opacity: 0.6; }
 
   .footer-copy {
     font-family: var(--mono);
@@ -765,6 +765,7 @@
     .nav-burger { display: flex; }
 
     .hero-inner { grid-template-columns: 1fr; gap: 48px; }
+    #home { padding-top: 120px; padding-bottom: 60px; align-items: flex-start; }
     .about-layout { grid-template-columns: 1fr; gap: 48px; }
     .domains-grid { grid-template-columns: 1fr; }
     .tech-layout { grid-template-columns: 1fr; gap: 48px; }
@@ -794,16 +795,16 @@
       </svg>
     </a>
     <ul class="nav-links">
-      <li><a href="#about">About</a></li>
-      <li><a href="#domains">Core Domains</a></li>
-      <li><a href="#technology">Technology</a></li>
-      <li><a href="#industries">Industries</a></li>
+      <li><a href="#about">Over ons</a></li>
+      <li><a href="#domains">Kerngebieden</a></li>
+      <li><a href="#technology">Technologie</a></li>
+      <li><a href="#industries">Sectoren</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
     <div class="nav-lang">
-      <a href="/">NL</a>
+      <a href="/" class="active">NL</a>
       <div class="nav-lang-divider"></div>
-      <a href="/en/" class="active">EN</a>
+      <a href="/en/">EN</a>
     </div>
     <div class="nav-burger" onclick="toggleMenu()">
       <span></span><span></span><span></span>
@@ -817,19 +818,19 @@
   <div class="hero-inner">
     <div class="hero-left">
       <div class="hero-eyebrow fade-up">Deep-Tech Innovation Lab · Utrecht, NL</div>
-      <h1 class="fade-up fade-up-d1">Advanced<br>engineering<br>turned into<br><em>real products.</em></h1>
+      <h1 class="fade-up fade-up-d1">Geavanceerde<br>engineering<br>vertaald naar<br><em>echte producten.</em></h1>
     </div>
     <div class="hero-right fade-up fade-up-d2">
-      <p class="hero-desc">RNDX Labs develops advanced hardware and software technologies — translating complex research into operational systems and market-ready products.</p>
-      <a href="#contact" class="btn-primary">Start a conversation</a>
+      <p class="hero-desc">RNDX Labs ontwikkelt geavanceerde hardware- en softwaretechnologieën, en vertaalt complex onderzoek naar operationele systemen en marktklare producten.</p>
+      <a href="#contact" class="btn-primary">Start een gesprek</a>
       <div class="hero-stats fade-up fade-up-d3">
         <div class="stat-item">
           <span class="stat-num">10+</span>
-          <span class="stat-label">Years active</span>
+          <span class="stat-label">Jaar actief</span>
         </div>
         <div class="stat-item">
           <span class="stat-num">R&D</span>
-          <span class="stat-label">Core discipline</span>
+          <span class="stat-label">Kerndiscipline</span>
         </div>
         <div class="stat-item">
           <span class="stat-num">HW/SW</span>
@@ -843,36 +844,36 @@
 <!-- ABOUT -->
 <section id="about">
   <div class="inner">
-    <div class="section-label">About</div>
+    <div class="section-label">Over ons</div>
     <div class="about-layout">
       <div class="about-left fade-up">
-        <h2>Research,<br>engineering,<br><em>realization.</em></h2>
+        <h2>Onderzoek,<br>engineering,<br><em>realisatie.</em></h2>
       </div>
       <div class="about-right fade-up fade-up-d1">
-        <p>RNDX Labs operates at the intersection of fundamental research and applied engineering. We design, develop, and validate technologies that are technically demanding and commercially significant.</p>
-        <p>Our work spans the full development lifecycle — from initial concept and feasibility through prototyping, system integration, and product realization. We engage where the problems are hard and the stakes are high.</p>
-        <p>Based in Utrecht, the Netherlands, we collaborate with engineering teams, research institutions, and strategic partners across Europe and beyond.</p>
+        <p>RNDX Labs opereert op het snijvlak van fundamenteel onderzoek en toegepaste engineering. Wij ontwerpen, ontwikkelen en valideren technologieën die technisch veeleisend en commercieel significant zijn.</p>
+        <p>Ons werk omvat de volledige ontwikkelcyclus, van initieel concept en haalbaarheid tot prototyping, systeemintegratie en productverwerkelijking. Wij zijn actief daar waar de problemen complex zijn en de belangen groot.</p>
+        <p>Vanuit Utrecht werken wij samen met engineeringteams, onderzoeksinstellingen en strategische partners in Europa en daarbuiten.</p>
 
         <div class="about-pillars">
           <div class="pillar fade-up">
             <span class="pillar-num">01</span>
             <h3>Research</h3>
-            <p>Applied research grounded in real-world constraints. We investigate what is technically feasible before committing to what must be built.</p>
+            <p>Toegepast onderzoek verankerd in praktijkgerichte randvoorwaarden. Wij onderzoeken wat technisch haalbaar is, voordat wij bepalen wat gebouwd moet worden.</p>
           </div>
           <div class="pillar fade-up fade-up-d1">
             <span class="pillar-num">02</span>
             <h3>Engineering</h3>
-            <p>Rigorous system design across hardware and software. We build to function under operational conditions, not laboratory ideals.</p>
+            <p>Rigoureus systeemontwerp voor hardware en software. Wij bouwen voor operationele omstandigheden, niet voor laboratoriumidealen.</p>
           </div>
           <div class="pillar fade-up fade-up-d2">
             <span class="pillar-num">03</span>
             <h3>Prototyping</h3>
-            <p>Rapid development of functional prototypes to validate performance, architecture, and scalability before full production.</p>
+            <p>Snelle ontwikkeling van functionele prototypes om prestaties, architectuur en schaalbaarheid te valideren vóór volledige productie.</p>
           </div>
           <div class="pillar fade-up fade-up-d3">
             <span class="pillar-num">04</span>
             <h3>Venture Building</h3>
-            <p>Structured pathways from technology to product. We support the organizational and commercial development of new technology ventures.</p>
+            <p>Gestructureerde trajecten van technologie naar product. Wij ondersteunen de organisatorische en commerciële ontwikkeling van nieuwe technologieventures.</p>
           </div>
         </div>
       </div>
@@ -883,8 +884,8 @@
 <!-- CORE DOMAINS -->
 <section id="domains">
   <div class="inner">
-    <div class="section-label">Core Domains</div>
-    <h2 class="fade-up">Where we<br>operate <em>with depth.</em></h2>
+    <div class="section-label">Kerngebieden</div>
+    <h2 class="fade-up">Waar wij<br>werken <em>met diepgang.</em></h2>
     <div class="domains-grid">
 
       <div class="domain-card fade-up">
@@ -896,7 +897,7 @@
           <circle cx="29" cy="11" r="2" fill="rgba(247,246,243,0.5)"/>
         </svg>
         <h3>Embedded Systems</h3>
-        <p>Low-level hardware design, firmware development, and embedded software for constrained and real-time operating environments.</p>
+        <p>Low-level hardwareontwerp, firmwareontwikkeling en embedded software voor beperkte en realtime besturingsomgevingen.</p>
         <div class="domain-tag">Hardware · Firmware · RTOS</div>
       </div>
 
@@ -909,8 +910,8 @@
           <line x1="6" y1="20" x2="14" y2="20" stroke="rgba(247,246,243,0.5)" stroke-width="1"/>
           <line x1="26" y1="20" x2="34" y2="20" stroke="rgba(247,246,243,0.5)" stroke-width="1"/>
         </svg>
-        <h3>Sensing & Measurement</h3>
-        <p>Precision instrumentation, sensor integration, and data acquisition systems for demanding industrial and scientific applications.</p>
+        <h3>Sensing & Meting</h3>
+        <p>Precisie-instrumentatie, sensorintegratie en dataverwervingssystemen voor veeleisende industriële en wetenschappelijke toepassingen.</p>
         <div class="domain-tag">Sensors · Metrology · Signal Processing</div>
       </div>
 
@@ -921,8 +922,8 @@
           <circle cx="20" cy="26" r="2" fill="rgba(247,246,243,0.4)"/>
           <circle cx="28" cy="10" r="2" fill="rgba(247,246,243,0.4)"/>
         </svg>
-        <h3>Data & Intelligence</h3>
-        <p>Advanced analytics, machine learning integration, and intelligent systems design for automated decision-making and process optimization.</p>
+        <h3>Data & Intelligentie</h3>
+        <p>Geavanceerde analyses, machine learning-integratie en intelligente systeemontwerpen voor geautomatiseerde besluitvorming en procesoptimalisatie.</p>
         <div class="domain-tag">ML · Edge AI · Analytics</div>
       </div>
 
@@ -933,8 +934,8 @@
           <rect x="12" y="8" width="16" height="6" stroke="rgba(247,246,243,0.4)" stroke-width="1"/>
           <line x1="16" y1="25" x2="24" y2="25" stroke="rgba(247,246,243,0.4)" stroke-width="1"/>
         </svg>
-        <h3>System Architecture</h3>
-        <p>End-to-end system design integrating hardware, software, communication protocols, and infrastructure for complex operational systems.</p>
+        <h3>Systeemarchitectuur</h3>
+        <p>End-to-end systeemontwerp dat hardware, software, communicatieprotocollen en infrastructuur integreert voor complexe operationele systemen.</p>
         <div class="domain-tag">Integration · Protocols · Infrastructure</div>
       </div>
 
@@ -944,8 +945,8 @@
           <polygon points="20,12 30,28 10,28" stroke="rgba(247,246,243,0.3)" stroke-width="1" fill="none"/>
           <circle cx="20" cy="22" r="2" fill="rgba(247,246,243,0.5)"/>
         </svg>
-        <h3>Product Realization</h3>
-        <p>From validated prototype to manufacturable product. Engineering for scale, reliability, compliance, and sustained operational performance.</p>
+        <h3>Productverwerkelijking</h3>
+        <p>Van gevalideerd prototype naar maakbaar product. Engineering voor schaalbaarheid, betrouwbaarheid, certificering en duurzame operationele prestaties.</p>
         <div class="domain-tag">DFM · Certification · Lifecycle</div>
       </div>
 
@@ -958,7 +959,7 @@
           <line x1="16" y1="24" x2="24" y2="24" stroke="rgba(247,246,243,0.4)" stroke-width="1"/>
         </svg>
         <h3>Technology Ventures</h3>
-        <p>Supporting the formation and development of technology-driven ventures from within or alongside existing organizations and research programs.</p>
+        <p>Ondersteuning bij de oprichting en ontwikkeling van technologiegedreven ventures, vanuit of naast bestaande organisaties en onderzoeksprogramma's.</p>
         <div class="domain-tag">Venture · Strategy · Development</div>
       </div>
 
@@ -969,15 +970,15 @@
 <!-- TECHNOLOGY -->
 <section id="technology">
   <div class="inner">
-    <div class="section-label">Technology</div>
+    <div class="section-label">Technologie</div>
     <div class="tech-layout">
       <div class="tech-visual fade-up">
         <canvas id="tech-canvas"></canvas>
       </div>
       <div class="tech-right">
-        <h2 class="fade-up">Built on<br><em>engineering rigor.</em></h2>
-        <p class="fade-up fade-up-d1">Our technology practice combines precision hardware design with robust software architecture. We work across the full stack — from silicon to system — applying disciplined engineering methods throughout.</p>
-        <p class="fade-up fade-up-d1">Every system we develop is designed for verifiable performance, long-term reliability, and clear technical accountability.</p>
+        <h2 class="fade-up">Gebouwd op<br><em>engineering vakmanschap.</em></h2>
+        <p class="fade-up fade-up-d1">Onze technologiepraktijk combineert precisiehardwareontwerp met robuuste softwarearchitectuur. Wij werken over de volledige stack, van silicium tot systeem, met een rigoureuze engineeringaanpak gedurende het gehele traject.</p>
+        <p class="fade-up fade-up-d1">Elk systeem dat wij ontwikkelen is ontworpen voor aantoonbare prestaties, langdurige betrouwbaarheid en heldere technische verantwoording.</p>
         <div class="tech-specs fade-up fade-up-d2">
           <div class="spec-row">
             <span class="spec-label">Hardware</span>
@@ -988,16 +989,16 @@
             <span class="spec-value">Firmware · OS · Applications · APIs</span>
           </div>
           <div class="spec-row">
-            <span class="spec-label">Connectivity</span>
+            <span class="spec-label">Connectiviteit</span>
             <span class="spec-value">Industrial protocols · IoT · Edge</span>
           </div>
           <div class="spec-row">
-            <span class="spec-label">Validation</span>
+            <span class="spec-label">Validatie</span>
             <span class="spec-value">Testing · Certification · QA</span>
           </div>
           <div class="spec-row">
-            <span class="spec-label">Location</span>
-            <span class="spec-value">Utrecht, Netherlands</span>
+            <span class="spec-label">Locatie</span>
+            <span class="spec-value">Utrecht, Nederland</span>
           </div>
         </div>
       </div>
@@ -1008,29 +1009,29 @@
 <!-- INDUSTRIES -->
 <section id="industries">
   <div class="inner">
-    <div class="section-label">Industries</div>
+    <div class="section-label">Sectoren</div>
     <div class="industries-layout">
       <div class="industries-left fade-up">
-        <h2>Where our<br>work <em>applies.</em></h2>
-        <p style="margin-top:24px;">We engage with industries where technology complexity is high and failure tolerance is low.</p>
+        <h2>Waar ons<br>werk <em>van toepassing is.</em></h2>
+        <p style="margin-top:24px;">Wij werken met sectoren waar technologische complexiteit hoog is en de tolerantie voor fouten laag.</p>
       </div>
       <div class="industries-list fade-up fade-up-d1">
         <div class="industry-item">
-          <span class="industry-name">Energy & Utilities</span>
+          <span class="industry-name">Energie & Nutsvoorzieningen</span>
           <div class="industry-meta">
             <span class="industry-desc">Grid · Metering · BEMS</span>
             <span class="industry-arrow">→</span>
           </div>
         </div>
         <div class="industry-item">
-          <span class="industry-name">Industrial Automation</span>
+          <span class="industry-name">Industriële Automatisering</span>
           <div class="industry-meta">
             <span class="industry-desc">Control · Monitoring · Integration</span>
             <span class="industry-arrow">→</span>
           </div>
         </div>
         <div class="industry-item">
-          <span class="industry-name">Mobility & Transport</span>
+          <span class="industry-name">Mobiliteit & Transport</span>
           <div class="industry-meta">
             <span class="industry-desc">EV · Fleet · Infrastructure</span>
             <span class="industry-arrow">→</span>
@@ -1044,14 +1045,14 @@
           </div>
         </div>
         <div class="industry-item">
-          <span class="industry-name">Aerospace & Defence</span>
+          <span class="industry-name">Luchtvaart & Defensie</span>
           <div class="industry-meta">
             <span class="industry-desc">Sensing · Systems · Reliability</span>
             <span class="industry-arrow">→</span>
           </div>
         </div>
         <div class="industry-item">
-          <span class="industry-name">Smart Infrastructure</span>
+          <span class="industry-name">Slimme Infrastructuur</span>
           <div class="industry-meta">
             <span class="industry-desc">Buildings · Cities · Networks</span>
             <span class="industry-arrow">→</span>
@@ -1068,24 +1069,32 @@
     <div class="section-label" style="color:rgba(247,246,243,0.3);">Contact</div>
     <div class="contact-layout">
       <div class="contact-left fade-up">
-        <h2>Let us discuss<br>your <em>challenge.</em></h2>
-        <p>We engage with organizations, research institutions, and technology ventures for development partnerships, technology licensing, and strategic collaboration.</p>
+        <h2>Laten we uw<br><em>uitdaging bespreken.</em></h2>
+        <p>Wij werken samen met organisaties, onderzoeksinstellingen en technologieventures voor ontwikkelingspartnerschappen, technologielicenties en strategische samenwerking.</p>
         <div class="contact-info">
           <div class="contact-row">
             <span class="contact-row-label">Location</span>
-            <span class="contact-row-val">Utrecht, Netherlands</span>
+            <span class="contact-row-val">Utrecht (Zeist), Netherlands</span>
           </div>
           <div class="contact-row">
             <span class="contact-row-label">Email</span>
-            <span class="contact-row-val"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f49d9a929bb4869a908c98959687da979b99">[email&#160;protected]</a></span>
+            <span class="contact-row-val">
+              <a class="obf-email" href="#"
+                data-u="contact"
+                data-d="rndxlabs.com"
+                style="color:rgba(247,246,243,0.6);text-decoration:none;font-family:var(--mono);font-size:12px;transition:color 0.2s;"
+                onmouseover="this.style.color='rgba(247,246,243,0.9)'"
+                onmouseout="this.style.color='rgba(247,246,243,0.6)'"
+              >contact&#64;rndxlabs&#46;com</a>
+            </span>
           </div>
           <div class="contact-row">
-            <span class="contact-row-label">Entity</span>
-            <span class="contact-row-val">RnDxLabs B.V.</span>
+            <span class="contact-row-label">KVK</span>
+            <span class="contact-row-val">RNDXLABS BV - 76492117</span>
           </div>
           <div class="contact-row">
-            <span class="contact-row-label">Registration</span>
-            <span class="contact-row-val">KvK Netherlands</span>
+            <span class="contact-row-label">IBAN</span>
+            <span class="contact-row-val">NL37BUNQ2040706739</span>
           </div>
         </div>
       </div>
@@ -1099,17 +1108,30 @@
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner">
-    <span class="footer-logo">RNDX Labs · Utrecht</span>
-    <ul class="footer-links">
-      <li><a href="#">Privacy</a></li>
-      <li><a href="#">Terms</a></li>
-      <li><a href="https://rndxlabs.com" target="_blank">rndxlabs.com</a></li>
-    </ul>
-    <span class="footer-copy">© 2025 RnDxLabs B.V. All rights reserved.</span>
+    <a href="#home" class="footer-logo" aria-label="RNDX Labs">
+      <svg viewBox="0 0 1249 175" height="12" xmlns="http://www.w3.org/2000/svg" style="display:block;fill:rgba(247,246,243,0.35);">
+        <g transform="matrix(1.46784,0,0,1.46784,-540.252,-1598.55)">
+          <text x="356.562px" y="1206.03px" style="font-family:'Exo 2',sans-serif;font-weight:700;font-size:166.628px;">RND</text>
+          <text x="698.483px" y="1206.03px" style="font-family:'Exo 2',sans-serif;font-weight:700;font-style:italic;font-size:166.628px;">X</text>
+          <text x="841.284px" y="1206.03px" style="font-family:'Exo 2',sans-serif;font-weight:400;font-size:166.628px;">LABS</text>
+        </g>
+      </svg>
+    </a>
+    <span class="footer-copy">© 2025 Rndxlabs B.V. All rights reserved.</span>
   </div>
 </footer>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // ── EMAIL OBFUSCATION ────────────────────────────────────────────────────────
+  document.querySelectorAll('.obf-email').forEach(el => {
+    el.addEventListener('click', function(e) {
+      e.preventDefault();
+      const u = this.getAttribute('data-u');
+      const d = this.getAttribute('data-d');
+      window.location.href = 'mailto:' + u + '@' + d;
+    });
+  });
+
   // Scroll reveal
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => {
@@ -1543,9 +1565,9 @@
           langItem.className = 'nav-lang-mobile';
           langItem.innerHTML = `
             <div style="display:flex;align-items:center;gap:2px;">
-              <a href="/" style="font-family:var(--mono);font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-light);text-decoration:none;">NL</a>
+              <a href="/" style="font-family:var(--mono);font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink);text-decoration:none;border-bottom:1px solid var(--ink);">NL</a>
               <div style="width:1px;height:10px;background:rgba(15,15,13,0.2);margin:0 2px;"></div>
-              <a href="/en/" style="font-family:var(--mono);font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink);text-decoration:none;border-bottom:1px solid var(--ink);">EN</a>
+              <a href="/en/" style="font-family:var(--mono);font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-light);text-decoration:none;">EN</a>
             </div>`;
           links.appendChild(divider);
           links.appendChild(langItem);
