@@ -1,454 +1,1561 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>RNDX Labs — Intelligent Infrastructure Systems</title>
-  <meta name="description" content="RNDX Labs is a European deep-tech innovation lab developing intelligent systems for energy infrastructure, grid monitoring, and industrial environments." />
-  <meta name="keywords" content="energy monitoring, grid congestion, infrastructure intelligence, IoT, edge computing, smart energy grid, solar arc fault detection, Utrecht" />
-  <meta name="author" content="RNDX Labs" />
-  <meta property="og:title" content="RNDX Labs — Intelligent Infrastructure Systems" />
-  <meta property="og:description" content="Deep-tech innovation lab building intelligent systems for energy and infrastructure." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://rndxlabs.com/en" />
-  <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://rndxlabs.com/en" />
-  <link rel="alternate" hreflang="en" href="https://rndxlabs.com/en" />
-  <link rel="alternate" hreflang="nl" href="https://rndxlabs.com" />
-  <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"Organization","name":"RNDX Labs","url":"https://rndxlabs.com","email":"contact@rndxlabs.com","description":"European deep-tech innovation lab focused on intelligent infrastructure systems.","address":{"@type":"PostalAddress","addressLocality":"Utrecht","addressCountry":"NL"}}
-  </script>
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
-  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png" />
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon-180.png" />
-  <style>
-    @font-face { font-family: 'DM Mono'; font-style: normal; font-weight: 300; font-display: swap; src: url('/fonts/dm-mono-v16-latin-300.woff2') format('woff2'); }
-    @font-face { font-family: 'DM Mono'; font-style: normal; font-weight: 400; font-display: swap; src: url('/fonts/dm-mono-v16-latin-regular.woff2') format('woff2'); }
-    @font-face { font-family: 'DM Mono'; font-style: normal; font-weight: 500; font-display: swap; src: url('/fonts/dm-mono-v16-latin-500.woff2') format('woff2'); }
-    @font-face { font-family: 'Syne'; font-style: normal; font-weight: 400; font-display: swap; src: url('/fonts/syne-v24-latin-regular.woff2') format('woff2'); }
-    @font-face { font-family: 'Syne'; font-style: normal; font-weight: 500; font-display: swap; src: url('/fonts/syne-v24-latin-500.woff2') format('woff2'); }
-    @font-face { font-family: 'Syne'; font-style: normal; font-weight: 600; font-display: swap; src: url('/fonts/syne-v24-latin-600.woff2') format('woff2'); }
-    @font-face { font-family: 'Syne'; font-style: normal; font-weight: 700; font-display: swap; src: url('/fonts/syne-v24-latin-700.woff2') format('woff2'); }
-    @font-face { font-family: 'Syne'; font-style: normal; font-weight: 800; font-display: swap; src: url('/fonts/syne-v24-latin-800.woff2') format('woff2'); }
-    @font-face { font-family: 'Kode Mono'; font-style: normal; font-weight: 400; font-display: swap; src: url('/fonts/kode-mono-v4-latin-regular.woff2') format('woff2'); }
-    @font-face { font-family: 'Kode Mono'; font-style: normal; font-weight: 700; font-display: swap; src: url('/fonts/kode-mono-v4-latin-700.woff2') format('woff2'); }
-  </style>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --bg: #f7f6f3; --bg-2: #f0efe9; --bg-3: #e8e7e0; --surface: #ffffff;
-      --border: rgba(0,0,0,0.08); --text: #0c0c0c; --text-muted: #6b6b6b; --text-dim: #3a3a3a;
-      --accent: #0a4fff; --accent-dim: rgba(10,79,255,0.08);
-      --mono: 'DM Mono', monospace; --sans: 'Syne', sans-serif;
-      --radius: 4px; --transition: 0.25s cubic-bezier(0.4,0,0.2,1);
-    }
-    html { scroll-behavior: smooth; }
-    body { font-family: var(--sans); background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
-    ::-webkit-scrollbar { width: 6px; } ::-webkit-scrollbar-track { background: var(--bg); } ::-webkit-scrollbar-thumb { background: #d0cfc8; border-radius: 3px; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RNDX Labs — Deep-Tech Innovation</title>
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="icon" href="/assets/icon-192.png" sizes="192x192">
+  <link rel="icon" href="/assets/icon-512.png" sizes="512x512">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Playfair+Display:wght@400;500&family=DM+Sans:wght@300;400;500&family=Exo+2:ital,wght@0,400;0,700;1,700&display=swap');
 
-    /* NAV */
-    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 0 2rem; height: 64px; display: flex; align-items: center; justify-content: space-between; background: rgba(247,246,243,0.92); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
-    .nav-logo { font-family: var(--sans); font-weight: 800; font-size: 1.1rem; letter-spacing: -0.02em; color: var(--text); text-decoration: none; }
-    .nav-logo .labs { color: var(--text-muted); font-weight: 400; font-size: 0.85em; }
-    .nav-links { display: flex; align-items: center; gap: 0.25rem; list-style: none; }
-    .nav-links a { font-family: var(--mono); font-size: 0.78rem; color: var(--text-muted); text-decoration: none; padding: 0.4rem 0.75rem; border-radius: var(--radius); transition: color var(--transition), background var(--transition); letter-spacing: 0.02em; }
-    .nav-links a:hover { color: var(--text); background: var(--accent-dim); }
-    .nav-cta { color: var(--accent) !important; border: 1px solid rgba(10,79,255,0.25) !important; padding: 0.4rem 1rem !important; }
-    .nav-cta:hover { background: var(--accent-dim) !important; border-color: var(--accent) !important; }
-    .nav-lang { font-family: var(--mono); font-size: 0.78rem; color: var(--accent); text-decoration: none; padding: 0.4rem 0.75rem; border: 1px solid rgba(10,79,255,0.25); border-radius: var(--radius); letter-spacing: 0.06em; margin-left: 0.5rem; line-height: 1.2; transition: color var(--transition), border-color var(--transition), background var(--transition); }
-    .nav-lang:hover { background: var(--accent-dim); border-color: var(--accent); }
-    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
-    .hamburger span { width: 22px; height: 1.5px; background: var(--text-muted); display: block; }
-    .mobile-nav { display: none; position: fixed; top: 64px; left: 0; right: 0; z-index: 99; background: rgba(235,234,228,0.98); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); padding: 1.5rem; flex-direction: column; gap: 0.5rem; box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
-    .mobile-nav.open { display: flex; }
-    .mobile-nav a { font-family: var(--mono); font-size: 0.88rem; color: var(--text-muted); text-decoration: none; padding: 0.6rem 0; border-bottom: 1px solid var(--border); }
-    .mobile-nav a:last-child { border-bottom: none; color: var(--accent); margin-top: 0.5rem; }
-    .mobile-nav .mobile-lang { color: var(--text-muted) !important; font-size: 0.78rem; margin-top: 0.25rem; }
+  :root {
+    --bg: #F7F6F3;
+    --bg-alt: #EFEDE8;
+    --ink: #0F0F0D;
+    --ink-mid: #3A3A36;
+    --ink-light: #7A7A74;
+    --ink-faint: #B8B8B2;
+    --accent: #1A1A18;
+    --rule: rgba(15,15,13,0.10);
+    --rule-strong: rgba(15,15,13,0.20);
+    --mono: 'DM Mono', monospace;
+    --serif: 'Playfair Display', Georgia, serif;
+    --sans: 'DM Sans', sans-serif;
+    --max: 1280px;
+    --col: 80px;
+  }
 
-    /* LAYOUT */
-    .section { padding: 7rem 2rem; max-width: 1200px; margin: 0 auto; }
-    .section-alt { background: var(--bg-2); }
-    .section-alt > .inner { padding: 7rem 2rem; max-width: 1200px; margin: 0 auto; }
-    .divider { border: none; border-top: 1px solid var(--border); max-width: 1200px; margin: 0 auto; }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    /* SHARED */
-    .label { font-family: var(--mono); font-size: 0.7rem; color: var(--accent); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem; }
-    .label::before { content: ''; width: 20px; height: 1px; background: var(--accent); opacity: 0.6; }
-    h2 { font-size: clamp(1.3rem, 4vw, 2.8rem); font-weight: 700; letter-spacing: -0.025em; line-height: 1.15; word-break: break-word; overflow-wrap: break-word; }
-    .fade-in { opacity: 0; transform: translateY(16px); transition: opacity 0.7s ease, transform 0.7s ease; }
-    .fade-in.visible { opacity: 1; transform: none; }
-    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+  }
 
-    .btn-primary { font-family: var(--mono); font-size: 0.82rem; letter-spacing: 0.05em; color: #fff; background: var(--accent); border: none; padding: 0.8rem 1.8rem; border-radius: var(--radius); cursor: pointer; text-decoration: none; display: inline-block; transition: opacity var(--transition), transform var(--transition); }
-    .btn-primary:hover { opacity: 0.85; transform: translateY(-1px); }
-    .btn-ghost { font-family: var(--mono); font-size: 0.82rem; letter-spacing: 0.05em; color: var(--text-muted); background: transparent; border: 1px solid var(--border); padding: 0.8rem 1.8rem; border-radius: var(--radius); cursor: pointer; text-decoration: none; display: inline-block; transition: color var(--transition), border-color var(--transition), transform var(--transition); }
-    .btn-ghost:hover { color: var(--text); border-color: rgba(10,79,255,0.3); transform: translateY(-1px); }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-weight: 400;
+    overflow-x: hidden;
+  }
 
-    /* HERO */
-    .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding-top: 10rem; padding-bottom: 5rem; position: relative; overflow: hidden; }
-    .hero-grid-bg { position: absolute; inset: 0; z-index: 0; background-image: linear-gradient(rgba(10,79,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(10,79,255,0.05) 1px, transparent 1px); background-size: 60px 60px; mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 30%, transparent 80%); }
-    .hero-glow { position: absolute; top: 20%; left: 50%; transform: translateX(-50%); width: 600px; height: 300px; background: radial-gradient(ellipse, rgba(10,79,255,0.05) 0%, transparent 70%); pointer-events: none; }
-    .hero-inner { max-width: 1200px; margin: 0 auto; padding: 0 2rem; position: relative; z-index: 1; }
-    .hero-tag { font-family: var(--mono); font-size: 0.72rem; color: var(--accent); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 2rem; opacity: 0; animation: fadeUp 0.8s 0.2s forwards; }
-    .hero h1 { font-size: clamp(2.8rem, 6vw, 5.5rem); font-weight: 800; line-height: 1.05; letter-spacing: -0.03em; max-width: 820px; opacity: 0; animation: fadeUp 0.8s 0.35s forwards; }
-    .hero h1 em { font-style: normal; color: var(--accent); font-weight: 800; }
-    .hero-sub { font-family: var(--mono); font-size: 0.95rem; color: var(--text-dim); max-width: 560px; margin-top: 2rem; line-height: 1.8; opacity: 0; animation: fadeUp 0.8s 0.5s forwards; }
-    .hero-actions { display: flex; gap: 1rem; margin-top: 3rem; flex-wrap: wrap; opacity: 0; animation: fadeUp 0.8s 0.65s forwards; }
+  /* ─── NOISE OVERLAY ─── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+  }
 
-    /* ABOUT */
-    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
-    .about-grid p { font-family: var(--mono); font-size: 0.88rem; color: var(--text-dim); line-height: 1.9; margin-bottom: 1.2rem; }
+  /* ─── NAVIGATION ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 900;
+    height: 72px;
+    background: rgba(247,246,243,0.88);
+    backdrop-filter: blur(20px) saturate(1.2);
+    border-bottom: 1px solid var(--rule);
+    transition: background 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 48px;
+  }
 
-    /* DOMAINS */
-    .domains-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-top: 3rem; }
-    .domain-card { background: var(--surface); padding: 2rem 1.5rem; transition: background var(--transition); }
-    .domain-card:hover { background: var(--bg-2); }
-    .domain-num { font-family: var(--mono); font-size: 0.65rem; color: var(--text-muted); letter-spacing: 0.1em; margin-bottom: 1.2rem; }
-    .domain-title { font-size: 1rem; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 0.75rem; line-height: 1.3; }
-    .domain-desc { font-family: var(--mono); font-size: 0.78rem; color: var(--text-muted); line-height: 1.7; }
+  .nav-inner {
+    width: 100%;
+    max-width: var(--max);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 
-    /* SOLUTIONS */
-    .solutions-list { display: flex; flex-direction: column; gap: 1px; margin-top: 3rem; background: var(--border); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
-    .solution-item { display: grid; grid-template-columns: 200px 1fr auto; align-items: center; gap: 2rem; padding: 2rem; background: var(--surface); transition: background var(--transition); }
-    .solution-item:hover { background: var(--bg-2); }
-    .solution-name { font-size: 1.05rem; font-weight: 700; letter-spacing: -0.01em; }
-    .solution-name span { display: block; font-family: var(--mono); font-size: 0.7rem; color: var(--accent); font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.3rem; }
-    .solution-desc { font-family: var(--mono); font-size: 0.82rem; color: var(--text-dim); line-height: 1.7; }
-    .solution-tag { font-family: var(--mono); font-size: 0.68rem; color: var(--text-muted); border: 1px solid var(--border); padding: 0.3rem 0.75rem; border-radius: 2px; white-space: nowrap; letter-spacing: 0.05em; }
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    color: var(--ink);
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
 
-    /* TECHNOLOGY */
-    .tech-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; margin-top: 3rem; }
-    .tech-intro { font-family: var(--mono); font-size: 0.88rem; color: var(--text-dim); line-height: 1.85; margin-bottom: 1rem; }
-    .tech-stack { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 1.5rem; }
-    .tech-item { display: flex; align-items: center; gap: 1rem; padding: 0.9rem 1rem; border-left: 2px solid transparent; transition: border-color var(--transition); cursor: default; }
-    .tech-item:hover { border-left-color: var(--accent); }
-    .tech-item:hover .tech-item-name { color: var(--text); }
-    .tech-item-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--accent); opacity: 0.5; flex-shrink: 0; }
-    .tech-item-name { font-family: var(--mono); font-size: 0.82rem; color: var(--text-dim); transition: color var(--transition); }
-    .tech-box { border: 1px solid var(--border); border-radius: var(--radius); padding: 1.75rem 2rem; background: var(--bg-3); }
-    .tech-box-title { font-family: var(--mono); font-size: 0.7rem; color: var(--text-muted); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 1.25rem; }
-    .tech-box p { font-family: var(--mono); font-size: 0.78rem; color: var(--text-dim); line-height: 1.8; margin-bottom: 0.85rem; }
-    .pipeline { display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; margin-top: 1.25rem; }
-    .pipe-step { font-family: var(--mono); font-size: 0.68rem; color: var(--text-muted); background: var(--bg-2); border: 1px solid var(--border); padding: 0.25rem 0.65rem; border-radius: 2px; }
-    .pipe-step.last { color: var(--accent); background: var(--accent-dim); border-color: rgba(10,79,255,0.15); }
-    .pipe-arrow { font-family: var(--mono); font-size: 0.65rem; color: var(--text-muted); }
+  .nav-logo:hover { opacity: 0.7; }
+  .nav-logo span { color: var(--ink-light); }
 
-    /* INDUSTRIES */
-    .industries-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-top: 3rem; }
-    .industry-card { background: var(--bg-2); padding: 2rem; transition: background var(--transition); }
-    .industry-card:hover { background: var(--bg-3); }
-    .industry-card h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.75rem; }
-    .industry-card p { font-family: var(--mono); font-size: 0.78rem; color: var(--text-muted); line-height: 1.7; }
+  .nav-links {
+    display: flex;
+    gap: 40px;
+    list-style: none;
+  }
 
-    /* RESEARCH */
-    .research-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
-    .research-text p { font-family: var(--mono); font-size: 0.88rem; color: var(--text-dim); line-height: 1.9; margin-bottom: 1.2rem; }
+  .nav-links a {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
 
-    /* CONTACT */
-    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
-    .contact-info p { font-family: var(--mono); font-size: 0.88rem; color: var(--text-dim); line-height: 1.9; margin-bottom: 1rem; }
-    .contact-email { display: inline-flex; align-items: center; gap: 0.75rem; font-family: var(--mono); font-size: 0.85rem; color: var(--accent); text-decoration: none; border: 1px solid rgba(10,79,255,0.2); padding: 0.75rem 1.25rem; border-radius: var(--radius); margin-top: 1rem; transition: border-color var(--transition), background var(--transition); }
-    .contact-email:hover { border-color: var(--accent); background: var(--accent-dim); }
-    .contact-meta { font-family: var(--mono); font-size: 0.78rem; color: var(--text-muted); margin-top: 1.5rem; line-height: 1.9; }
+  .nav-links a:hover { color: var(--ink); }
 
-    /* FOOTER */
-    footer { border-top: 1px solid var(--border); padding: 3rem 2rem; max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem; }
-    .footer-logo { font-family: var(--sans); font-weight: 800; font-size: 0.95rem; letter-spacing: -0.02em; color: var(--text-muted); }
-    .footer-logo span { font-weight: 400; font-size: 0.85em; }
-    .footer-copy { font-family: var(--mono); font-size: 0.72rem; color: var(--text-muted); opacity: 0.5; }
+  .nav-cta {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+    border: 1px solid var(--rule-strong);
+    padding: 9px 20px;
+    transition: all 0.2s;
+  }
 
-    /* RESPONSIVE */
-    @media (max-width: 900px) {
-      .nav-links { display: none; } .hamburger { display: flex; }
-      .about-grid, .tech-grid, .research-grid, .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
-      .domains-grid { grid-template-columns: repeat(2, 1fr); }
-      .solution-item { grid-template-columns: 1fr; gap: 0.75rem; } .solution-tag { display: none; }
-      .industries-grid { grid-template-columns: 1fr 1fr; }
-    }
-    @media (max-width: 600px) {
-      .section { padding: 5rem 1.25rem; }
-      .section-alt > .inner { padding: 5rem 1.25rem; }
-      .domains-grid { grid-template-columns: 1fr; }
-      .industries-grid { grid-template-columns: 1fr; }
-      nav { padding: 0 1.25rem; }
-      .hero { padding-top: 6rem; padding-bottom: 3rem; min-height: auto; }
-      .hero-inner { padding: 0 1.25rem; }
-      .hero h1 { font-size: clamp(1.5rem, 7vw, 2.2rem); letter-spacing: -0.02em; word-break: break-word; overflow-wrap: break-word; }
-      .hero-sub { font-size: 0.82rem; margin-top: 1.5rem; }
-      .hero-tag { font-size: 0.62rem; letter-spacing: 0.08em; white-space: normal; }
-      .hero-actions { margin-top: 2rem; flex-direction: column; }
-      .hero-actions a { text-align: center; }
-      footer { flex-direction: column; align-items: center; text-align: center; padding: 2rem 1.25rem; }
-      .domain-desc { font-size: 0.88rem; }
-      .industry-card p { font-size: 0.88rem; }
-      .solution-desc { font-size: 0.88rem; }
-      .tech-item-name { font-size: 0.88rem; }
-    }
-  </style>
+  .nav-cta:hover {
+    background: var(--ink);
+    color: var(--bg);
+  }
+
+  /* ─── LANGUAGE SWITCHER ─── */
+  .nav-lang {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    margin-left: 2px;
+  }
+
+  .nav-lang a {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    text-decoration: none;
+    padding: 4px 6px;
+    transition: color 0.2s;
+  }
+
+  .nav-lang a:hover { color: var(--ink); }
+
+  .nav-lang a.active {
+    color: var(--ink);
+    border-bottom: 1px solid var(--ink);
+  }
+
+  .nav-lang-divider {
+    width: 1px;
+    height: 10px;
+    background: var(--rule-strong);
+  }
+
+  /* ─── SECTIONS ─── */
+  section { padding: 120px 48px; }
+
+  .inner {
+    max-width: var(--max);
+    margin: 0 auto;
+  }
+
+  /* ─── HERO ─── */
+  #home {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding-top: 72px;
+    padding-bottom: 60px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--rule) 1px, transparent 1px),
+      linear-gradient(90deg, var(--rule) 1px, transparent 1px);
+    background-size: 80px 80px;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 40%, transparent 100%);
+  }
+
+  .hero-inner {
+    max-width: var(--max);
+    margin: 0 auto;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: end;
+  }
+
+  .hero-eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    margin-bottom: 32px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 32px;
+    height: 1px;
+    background: var(--ink-faint);
+  }
+
+  h1 {
+    font-family: var(--serif);
+    font-size: clamp(48px, 5.5vw, 84px);
+    font-weight: 400;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--ink-mid);
+  }
+
+  .hero-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding-bottom: 8px;
+  }
+
+  .hero-desc {
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--ink-mid);
+    max-width: 460px;
+    margin-bottom: 48px;
+    font-weight: 400;
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 48px;
+    padding-top: 40px;
+    border-top: 1px solid var(--rule);
+  }
+
+  .stat-item {}
+
+  .stat-num {
+    font-family: var(--mono);
+    font-size: 28px;
+    font-weight: 300;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+    display: block;
+  }
+
+  .stat-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    display: block;
+    margin-top: 4px;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--bg);
+    background: var(--ink);
+    text-decoration: none;
+    padding: 14px 28px;
+    transition: all 0.25s;
+  }
+
+  .btn-primary:hover { background: var(--ink-mid); }
+
+  .btn-primary::after {
+    content: '→';
+    font-style: normal;
+  }
+
+  /* ─── RULE / DIVIDERS ─── */
+  .section-rule {
+    width: 100%;
+    height: 1px;
+    background: var(--rule);
+    max-width: var(--max);
+    margin: 0 auto;
+  }
+
+  /* ─── SECTION HEADER ─── */
+  .section-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 64px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--rule);
+  }
+
+  h2 {
+    font-family: var(--serif);
+    font-size: clamp(36px, 4vw, 60px);
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+
+  h2 em { font-style: italic; color: var(--ink-mid); }
+
+  h3 {
+    font-family: var(--sans);
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    color: var(--ink);
+  }
+
+  p {
+    font-size: 16px;
+    line-height: 1.72;
+    color: var(--ink-mid);
+    font-weight: 400;
+  }
+
+  /* ─── ABOUT ─── */
+  #about { background: var(--bg); }
+
+  .about-layout {
+    display: grid;
+    grid-template-columns: 5fr 7fr;
+    gap: 100px;
+    align-items: start;
+  }
+
+  .about-left h2 { margin-bottom: 32px; }
+
+  .about-right {
+    padding-top: 8px;
+  }
+
+  .about-right p { margin-bottom: 24px; }
+
+  .about-right p:last-child { margin-bottom: 0; }
+
+  .about-pillars {
+    margin-top: 60px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+  }
+
+  .pillar {
+    background: var(--bg);
+    padding: 32px;
+  }
+
+  .pillar-num {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    color: var(--ink-faint);
+    display: block;
+    margin-bottom: 20px;
+  }
+
+  .pillar h3 { margin-bottom: 10px; }
+
+  .pillar p {
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--ink-light);
+  }
+
+  /* ─── CORE DOMAINS ─── */
+  #domains { background: var(--ink); color: var(--bg); }
+
+  #domains .section-label { color: rgba(247,246,243,0.35); }
+  #domains .section-label::after { background: rgba(247,246,243,0.1); }
+
+  #domains h2 { color: var(--bg); }
+  #domains h2 em { color: rgba(247,246,243,0.5); }
+
+  .domains-grid {
+    margin-top: 64px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: rgba(247,246,243,0.08);
+  }
+
+  .domain-card {
+    background: var(--ink);
+    padding: 48px 40px;
+    border: 1px solid transparent;
+    transition: background 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .domain-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: rgba(247,246,243,0.08);
+  }
+
+  .domain-card:hover { background: #1A1A18; }
+
+  .domain-icon {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 36px;
+    opacity: 0.4;
+  }
+
+  .domain-card h3 {
+    font-size: 18px;
+    font-weight: 300;
+    color: var(--bg);
+    margin-bottom: 16px;
+    letter-spacing: -0.01em;
+  }
+
+  .domain-card p {
+    font-size: 14px;
+    line-height: 1.7;
+    color: rgba(247,246,243,0.45);
+  }
+
+  .domain-tag {
+    margin-top: 36px;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(247,246,243,0.25);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .domain-tag::before {
+    content: '';
+    width: 20px;
+    height: 1px;
+    background: rgba(247,246,243,0.2);
+  }
+
+  /* ─── TECHNOLOGY ─── */
+  #technology { background: var(--bg-alt); }
+
+  .tech-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+    align-items: center;
+  }
+
+  .tech-visual {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1;
+    max-width: 480px;
+    border-radius: 2px;
+    overflow: hidden;
+    background: var(--bg-alt);
+  }
+
+  #tech-canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    inset: 0;
+  }
+
+  .tech-right h2 { margin-bottom: 32px; }
+
+  .tech-right p { margin-bottom: 20px; }
+
+  .tech-specs {
+    margin-top: 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border-top: 1px solid var(--rule);
+  }
+
+  .spec-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .spec-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+  }
+
+  .spec-value {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--ink-mid);
+  }
+
+  /* ─── INDUSTRIES ─── */
+  #industries { background: var(--bg); }
+
+  .industries-layout {
+    display: grid;
+    grid-template-columns: 4fr 8fr;
+    gap: 100px;
+    align-items: start;
+  }
+
+  .industries-left h2 { margin-bottom: 24px; }
+
+  .industries-left p {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--ink-light);
+  }
+
+  .industries-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .industry-item {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding: 28px 0;
+    border-bottom: 1px solid var(--rule);
+    cursor: default;
+    transition: all 0.2s;
+  }
+
+  .industry-item:first-child { border-top: 1px solid var(--rule); }
+
+  .industry-item:hover .industry-name { color: var(--ink); }
+  .industry-item:hover .industry-arrow { opacity: 1; transform: translateX(0); }
+
+  .industry-name {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--ink-mid);
+    transition: color 0.2s;
+    letter-spacing: -0.01em;
+  }
+
+  .industry-meta {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+
+  .industry-desc {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  .industry-arrow {
+    font-size: 14px;
+    color: var(--ink-light);
+    opacity: 0;
+    transform: translateX(-8px);
+    transition: all 0.25s;
+  }
+
+  /* ─── CONTACT ─── */
+  #contact { background: var(--ink); }
+
+  .contact-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+    align-items: start;
+  }
+
+  .contact-left h2 { color: var(--bg); margin-bottom: 24px; }
+  .contact-left h2 em { color: rgba(247,246,243,0.45); }
+
+  .contact-left p {
+    color: rgba(247,246,243,0.5);
+    line-height: 1.7;
+    margin-bottom: 48px;
+  }
+
+  .contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .contact-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(247,246,243,0.08);
+  }
+
+  .contact-row:first-child { border-top: 1px solid rgba(247,246,243,0.08); }
+
+  .contact-row-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(247,246,243,0.3);
+  }
+
+  .contact-row-val {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: rgba(247,246,243,0.6);
+  }
+
+  .contact-right {
+    position: relative;
+    min-height: 560px;
+    overflow: hidden;
+  }
+
+  #contact-canvas {
+    display: block;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--ink);
+    border-top: 1px solid rgba(247,246,243,0.08);
+    padding: 32px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .footer-inner {
+    width: 100%;
+    max-width: var(--max);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .footer-logo {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(247,246,243,0.35);
+  }
+
+  .footer-copy {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: rgba(247,246,243,0.2);
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .footer-links a {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(247,246,243,0.25);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: rgba(247,246,243,0.5); }
+
+  /* ─── SCROLL ANIMATIONS ─── */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .fade-up-d1 { transition-delay: 0.1s; }
+  .fade-up-d2 { transition-delay: 0.2s; }
+  .fade-up-d3 { transition-delay: 0.3s; }
+  .fade-up-d4 { transition-delay: 0.4s; }
+
+  /* ─── MOBILE MENU ─── */
+  .nav-burger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 4px;
+  }
+
+  .nav-burger span {
+    display: block;
+    width: 22px;
+    height: 1px;
+    background: var(--ink);
+    transition: all 0.3s;
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    section { padding: 80px 24px; }
+    nav { padding: 0 24px; }
+
+    .nav-links, .nav-cta, .nav-lang { display: none; }
+    .nav-burger { display: flex; }
+
+    .hero-inner { grid-template-columns: 1fr; gap: 48px; }
+    .about-layout { grid-template-columns: 1fr; gap: 48px; }
+    .domains-grid { grid-template-columns: 1fr; }
+    .tech-layout { grid-template-columns: 1fr; gap: 48px; }
+    .industries-layout { grid-template-columns: 1fr; gap: 48px; }
+    .contact-layout { grid-template-columns: 1fr; gap: 64px; }
+    .about-pillars { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 20px; align-items: flex-start; padding: 24px; }
+    .footer-inner { flex-direction: column; gap: 20px; align-items: flex-start; }
+  }
+</style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav>
-  <a href="#home" class="nav-logo"><span style="font-family:'Kode Mono',monospace;font-weight:700;font-size:1.4rem;letter-spacing:0.02em;">RNDX</span><span style="font-family:'Kode Mono',monospace;font-weight:400;font-size:1.4rem;letter-spacing:0.02em;">.LABS</span></a>
-  <ul class="nav-links">
-    <li><a href="#about">About RNDX Labs</a></li>
-    <li><a href="#solutions">Solutions</a></li>
-    <li><a href="#technology">Technology</a></li>
-    <li><a href="#sectors">Sectors</a></li>
-    <li><a href="#research">Innovation</a></li>
-    <li><a href="#contact" class="nav-cta">Get in touch</a></li>
-    <li><a href="/" class="nav-lang">NL</a></li>
-  </ul>
-  <div class="hamburger" onclick="toggleNav()" aria-label="Menu">
-    <span></span><span></span><span></span>
+<!-- NAVIGATION -->
+<nav id="main-nav">
+  <div class="nav-inner">
+    <a href="#home" class="nav-logo" aria-label="RNDX Labs">
+      <svg viewBox="0 0 1249 175" height="20" xmlns="http://www.w3.org/2000/svg" style="display:block;fill:currentColor;" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <style>
+          @import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@400;700&family=Exo+2:ital,wght@1,700&display=swap');
+        </style>
+        <g transform="matrix(1.46784,0,0,1.46784,-540.252,-1598.55)">
+          <text x="356.562px" y="1206.03px" style="font-family:'Exo 2',sans-serif;font-weight:700;font-size:166.628px;">RND</text>
+          <text x="698.483px" y="1206.03px" style="font-family:'Exo 2',sans-serif;font-weight:700;font-style:italic;font-size:166.628px;">X</text>
+          <text x="841.284px" y="1206.03px" style="font-family:'Exo 2',sans-serif;font-weight:400;font-size:166.628px;">LABS</text>
+        </g>
+      </svg>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#domains">Core Domains</a></li>
+      <li><a href="#technology">Technology</a></li>
+      <li><a href="#industries">Industries</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-lang">
+      <a href="/">NL</a>
+      <div class="nav-lang-divider"></div>
+      <a href="/en/" class="active">EN</a>
+    </div>
+    <div class="nav-burger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
   </div>
 </nav>
-<div class="mobile-nav" id="mobileNav">
-  <a href="#about" onclick="toggleNav()">About RNDX Labs</a>
-  <a href="#solutions" onclick="toggleNav()">Solutions</a>
-  <a href="#technology" onclick="toggleNav()">Technology</a>
-  <a href="#sectors" onclick="toggleNav()">Sectors</a>
-  <a href="#research" onclick="toggleNav()">Innovation</a>
-  <a href="#contact" onclick="toggleNav()">Get in touch →</a>
-  <a href="/" class="mobile-lang" onclick="toggleNav()">🌐 Nederlandse versie</a>
-</div>
 
 <!-- HERO -->
-<div class="hero" id="home">
-  <div class="hero-grid-bg"></div>
-  <div class="hero-glow"></div>
+<section id="home">
+  <div class="hero-grid"></div>
   <div class="hero-inner">
-    <p class="hero-tag">Utrecht, Netherlands · European Technology Lab</p>
-    <h1>Intelligent <em>technology</em><br>for complex infrastructure</h1>
-    <p class="hero-sub">RNDX Labs develops hardware and data systems that help organisations monitor, analyse, and manage their infrastructure.</p>
-    <div class="hero-actions">
-      <a href="#solutions" class="btn-primary">View solutions</a>
-      <a href="#contact" class="btn-ghost">Get in touch</a>
+    <div class="hero-left">
+      <div class="hero-eyebrow fade-up">Deep-Tech Innovation Lab · Utrecht, NL</div>
+      <h1 class="fade-up fade-up-d1">Advanced<br>engineering<br>turned into<br><em>real products.</em></h1>
     </div>
-  </div>
-</div>
-
-<hr class="divider" />
-
-<!-- ABOUT -->
-<section class="section fade-in" id="about">
-  <div class="about-grid">
-    <div>
-      <div class="label">About RNDX Labs</div>
-      <h2>Intelligent systems for complex environments</h2>
-      <a href="#contact" class="btn-ghost" style="margin-top:2rem;">Discuss a project →</a>
-    </div>
-    <div>
-      <p>RNDX Labs develops hardware and data systems for monitoring and analysing complex infrastructure. Our technology is deployed in energy systems, industrial installations, and distributed energy environments.</p>
-      <p>The lab works with municipalities, industry, energy consultants, and technology partners across Europe.</p>
-      <p>Our approach is engineering-driven. We design systems, build prototypes, test in the field, and iterate until they perform reliably in real infrastructure environments.</p>
-    </div>
-  </div>
-</section>
-
-<hr class="divider" />
-
-<!-- CORE AREAS -->
-<section class="section fade-in" id="expertise">
-  <div class="label">Expertise</div>
-  <h2>Monitoring and intelligent systems</h2>
-  <div class="domains-grid">
-    <div class="domain-card">
-      <div class="domain-num">01 / Energy Monitoring</div>
-      <div class="domain-title">Energy Monitoring</div>
-      <div class="domain-desc">Real-time monitoring and analysis of energy consumption, peak loads, and distributed energy flows across energy networks and business parks.</div>
-    </div>
-    <div class="domain-card">
-      <div class="domain-num">02 / Infrastructure Monitoring</div>
-      <div class="domain-title">Infrastructure Monitoring</div>
-      <div class="domain-desc">Monitoring platforms that combine sensor data, network telemetry, and operational data into a single view of infrastructure performance.</div>
-    </div>
-    <div class="domain-card">
-      <div class="domain-num">03 / Hardware Development</div>
-      <div class="domain-title">Hardware Development</div>
-      <div class="domain-desc">Development of IoT sensors and edge hardware for industrial environments and infrastructure monitoring applications.</div>
-    </div>
-    <div class="domain-card">
-      <div class="domain-num">04 / Data Platforms</div>
-      <div class="domain-title">Data Platforms</div>
-      <div class="domain-desc">Data pipelines, cloud dashboards, and analytics platforms that turn raw infrastructure data into actionable operational insights.</div>
-    </div>
-  </div>
-</section>
-
-<hr class="divider" />
-
-<!-- SOLUTIONS -->
-<section class="section fade-in" id="solutions">
-  <div class="label">Solutions</div>
-  <h2>Technology for data and monitoring</h2>
-  <div class="solutions-list">
-    <div class="solution-item">
-      <div class="solution-name"><span>Energy Intelligence</span>eFlexIQ</div>
-      <div class="solution-desc">Device and platform that analyses smart meter data to provide insight into energy consumption, peak loads, and energy flows. Designed for monitoring and analysis of electricity grids and energy systems.</div>
-      <div class="solution-tag">Hardware + Platform</div>
-    </div>
-    <div class="solution-item">
-      <div class="solution-name"><span>Energy Management</span>HEMS</div>
-      <div class="solution-desc">Home Energy Management System with proprietary hardware and mobile apps. Controls EV chargers, inverters, and home batteries, optimising energy use based on dynamic energy prices and solar generation.</div>
-      <div class="solution-tag">Hardware + Software</div>
-    </div>
-    <div class="solution-item">
-      <div class="solution-name"><span>PV Smart Monitoring</span>Smart Combiner Box</div>
-      <div class="solution-desc">Hardware system for solar parks with arc fault detection at string level. Measures voltage, temperature, and vibration, transmitting data via NB-IoT for real-time monitoring of PV installations.</div>
-      <div class="solution-tag">Hardware + IoT</div>
-    </div>
-    <div class="solution-item">
-      <div class="solution-name"><span>Energy Monitoring</span>All-in-One Monitoring</div>
-      <div class="solution-desc">Plug-and-play monitoring system measuring electricity, solar generation, gas, and water. Operates via NB-IoT and combines multiple sensors into a single platform for real-time energy insight.</div>
-      <div class="solution-tag">Hardware + IoT Platform</div>
-    </div>
-  </div>
-</section>
-
-<hr class="divider" />
-
-<!-- TECHNOLOGY -->
-<div class="section-alt">
-  <div class="inner fade-in" id="technology">
-    <div class="label">Technology</div>
-    <h2>Hardware, sensors, and data platforms</h2>
-    <div class="tech-grid">
-      <div>
-        <p class="tech-intro">RNDX Labs develops hardware and data systems for energy management, energy monitoring, and infrastructure intelligence.</p>
-        <p class="tech-intro">IoT sensors collect data from energy and infrastructure systems. Edge computing processes signals locally before transmitting data to cloud platforms.</p>
-        <p class="tech-intro">Data pipelines convert raw measurement data into insights delivered through dashboards and analytics platforms.</p>
-        <div class="tech-stack">
-          <div class="tech-item"><div class="tech-item-dot"></div><div class="tech-item-name">IoT sensors — hardware for energy and infrastructure monitoring</div></div>
-          <div class="tech-item"><div class="tech-item-dot"></div><div class="tech-item-name">Edge computing — local data processing</div></div>
-          <div class="tech-item"><div class="tech-item-dot"></div><div class="tech-item-name">Real-time telemetry — continuous energy and infrastructure data</div></div>
-          <div class="tech-item"><div class="tech-item-dot"></div><div class="tech-item-name">Data pipelines — data ingestion and processing</div></div>
-          <div class="tech-item"><div class="tech-item-dot"></div><div class="tech-item-name">AI analytics — anomaly detection</div></div>
-          <div class="tech-item"><div class="tech-item-dot"></div><div class="tech-item-name">Energy monitoring — smart meter integration</div></div>
-          <div class="tech-item"><div class="tech-item-dot"></div><div class="tech-item-name">Cloud dashboards — monitoring and reporting</div></div>
+    <div class="hero-right fade-up fade-up-d2">
+      <p class="hero-desc">RNDX Labs develops advanced hardware and software technologies — translating complex research into operational systems and market-ready products.</p>
+      <a href="#contact" class="btn-primary">Start a conversation</a>
+      <div class="hero-stats fade-up fade-up-d3">
+        <div class="stat-item">
+          <span class="stat-num">10+</span>
+          <span class="stat-label">Years active</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">R&D</span>
+          <span class="stat-label">Core discipline</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">HW/SW</span>
+          <span class="stat-label">Full stack</span>
         </div>
       </div>
-      <div>
-        <div class="tech-box">
-          <div class="tech-box-title">Hardware Engineering &amp; Production</div>
-          <p>RNDX Labs develops custom hardware for energy and infrastructure systems.</p>
-          <p>Through a partnership and co-ownership stake in an SMD PCB production facility, the lab has direct access to professional electronics manufacturing.</p>
-          <p>This enables rapid hardware prototyping and small to mid-volume series production.</p>
-          <div class="pipeline">
-            <span class="pipe-step">Concept</span>
-            <span class="pipe-arrow">→</span>
-            <span class="pipe-step">Hardware design</span>
-            <span class="pipe-arrow">→</span>
-            <span class="pipe-step">Prototyping</span>
-            <span class="pipe-arrow">→</span>
-            <span class="pipe-step">Field testing</span>
-            <span class="pipe-arrow">→</span>
-            <span class="pipe-step last">Series production</span>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="inner">
+    <div class="section-label">About</div>
+    <div class="about-layout">
+      <div class="about-left fade-up">
+        <h2>Research,<br>engineering,<br><em>realization.</em></h2>
+      </div>
+      <div class="about-right fade-up fade-up-d1">
+        <p>RNDX Labs operates at the intersection of fundamental research and applied engineering. We design, develop, and validate technologies that are technically demanding and commercially significant.</p>
+        <p>Our work spans the full development lifecycle — from initial concept and feasibility through prototyping, system integration, and product realization. We engage where the problems are hard and the stakes are high.</p>
+        <p>Based in Utrecht, the Netherlands, we collaborate with engineering teams, research institutions, and strategic partners across Europe and beyond.</p>
+
+        <div class="about-pillars">
+          <div class="pillar fade-up">
+            <span class="pillar-num">01</span>
+            <h3>Research</h3>
+            <p>Applied research grounded in real-world constraints. We investigate what is technically feasible before committing to what must be built.</p>
+          </div>
+          <div class="pillar fade-up fade-up-d1">
+            <span class="pillar-num">02</span>
+            <h3>Engineering</h3>
+            <p>Rigorous system design across hardware and software. We build to function under operational conditions, not laboratory ideals.</p>
+          </div>
+          <div class="pillar fade-up fade-up-d2">
+            <span class="pillar-num">03</span>
+            <h3>Prototyping</h3>
+            <p>Rapid development of functional prototypes to validate performance, architecture, and scalability before full production.</p>
+          </div>
+          <div class="pillar fade-up fade-up-d3">
+            <span class="pillar-num">04</span>
+            <h3>Venture Building</h3>
+            <p>Structured pathways from technology to product. We support the organizational and commercial development of new technology ventures.</p>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+</section>
 
-<hr class="divider" />
+<!-- CORE DOMAINS -->
+<section id="domains">
+  <div class="inner">
+    <div class="section-label">Core Domains</div>
+    <h2 class="fade-up">Where we<br>operate <em>with depth.</em></h2>
+    <div class="domains-grid">
 
-<!-- SECTORS -->
-<section class="section fade-in" id="sectors">
-  <div class="label">Sectors</div>
-  <h2>Organisations with complex systems</h2>
-  <div class="industries-grid">
-    <div class="industry-card">
-      <h3>Municipalities</h3>
-      <p>Cities managing energy and infrastructure systems that require reliable monitoring and data-driven decision making.</p>
-    </div>
-    <div class="industry-card">
-      <h3>SMEs</h3>
-      <p>Businesses and industrial estates dealing with energy costs, grid congestion, and local energy systems.</p>
-    </div>
-    <div class="industry-card">
-      <h3>Energy Consultants</h3>
-      <p>Advisors guiding organisations through the energy transition who need reliable energy and monitoring data.</p>
-    </div>
-    <div class="industry-card">
-      <h3>Solar Parks</h3>
-      <p>Solar park operators requiring continuous monitoring, arc fault detection, and performance analytics.</p>
-    </div>
-    <div class="industry-card">
-      <h3>Infrastructure Managers</h3>
-      <p>Organisations managing critical infrastructure that need visibility into performance and anomalies.</p>
-    </div>
-    <div class="industry-card">
-      <h3>Technology Partners</h3>
-      <p>Engineering firms and system integrators collaborating on energy and infrastructure technology.</p>
+      <div class="domain-card fade-up">
+        <svg class="domain-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="4" y="4" width="14" height="14" stroke="rgba(247,246,243,0.6)" stroke-width="1"/>
+          <rect x="22" y="22" width="14" height="14" stroke="rgba(247,246,243,0.6)" stroke-width="1"/>
+          <line x1="18" y1="11" x2="22" y2="11" stroke="rgba(247,246,243,0.4)" stroke-width="1"/>
+          <line x1="29" y1="4" x2="29" y2="22" stroke="rgba(247,246,243,0.4)" stroke-width="1"/>
+          <circle cx="29" cy="11" r="2" fill="rgba(247,246,243,0.5)"/>
+        </svg>
+        <h3>Embedded Systems</h3>
+        <p>Low-level hardware design, firmware development, and embedded software for constrained and real-time operating environments.</p>
+        <div class="domain-tag">Hardware · Firmware · RTOS</div>
+      </div>
+
+      <div class="domain-card fade-up fade-up-d1">
+        <svg class="domain-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="20" cy="20" r="14" stroke="rgba(247,246,243,0.6)" stroke-width="1"/>
+          <circle cx="20" cy="20" r="6" stroke="rgba(247,246,243,0.4)" stroke-width="1"/>
+          <line x1="20" y1="6" x2="20" y2="14" stroke="rgba(247,246,243,0.5)" stroke-width="1"/>
+          <line x1="20" y1="26" x2="20" y2="34" stroke="rgba(247,246,243,0.5)" stroke-width="1"/>
+          <line x1="6" y1="20" x2="14" y2="20" stroke="rgba(247,246,243,0.5)" stroke-width="1"/>
+          <line x1="26" y1="20" x2="34" y2="20" stroke="rgba(247,246,243,0.5)" stroke-width="1"/>
+        </svg>
+        <h3>Sensing & Measurement</h3>
+        <p>Precision instrumentation, sensor integration, and data acquisition systems for demanding industrial and scientific applications.</p>
+        <div class="domain-tag">Sensors · Metrology · Signal Processing</div>
+      </div>
+
+      <div class="domain-card fade-up fade-up-d2">
+        <svg class="domain-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <polyline points="4,32 14,20 20,26 28,10 36,16" stroke="rgba(247,246,243,0.6)" stroke-width="1" fill="none"/>
+          <circle cx="14" cy="20" r="2" fill="rgba(247,246,243,0.4)"/>
+          <circle cx="20" cy="26" r="2" fill="rgba(247,246,243,0.4)"/>
+          <circle cx="28" cy="10" r="2" fill="rgba(247,246,243,0.4)"/>
+        </svg>
+        <h3>Data & Intelligence</h3>
+        <p>Advanced analytics, machine learning integration, and intelligent systems design for automated decision-making and process optimization.</p>
+        <div class="domain-tag">ML · Edge AI · Analytics</div>
+      </div>
+
+      <div class="domain-card fade-up">
+        <svg class="domain-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="6" y="14" width="28" height="18" rx="1" stroke="rgba(247,246,243,0.6)" stroke-width="1"/>
+          <line x1="6" y1="20" x2="34" y2="20" stroke="rgba(247,246,243,0.3)" stroke-width="1"/>
+          <rect x="12" y="8" width="16" height="6" stroke="rgba(247,246,243,0.4)" stroke-width="1"/>
+          <line x1="16" y1="25" x2="24" y2="25" stroke="rgba(247,246,243,0.4)" stroke-width="1"/>
+        </svg>
+        <h3>System Architecture</h3>
+        <p>End-to-end system design integrating hardware, software, communication protocols, and infrastructure for complex operational systems.</p>
+        <div class="domain-tag">Integration · Protocols · Infrastructure</div>
+      </div>
+
+      <div class="domain-card fade-up fade-up-d1">
+        <svg class="domain-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="20,4 36,32 4,32" stroke="rgba(247,246,243,0.6)" stroke-width="1" fill="none"/>
+          <polygon points="20,12 30,28 10,28" stroke="rgba(247,246,243,0.3)" stroke-width="1" fill="none"/>
+          <circle cx="20" cy="22" r="2" fill="rgba(247,246,243,0.5)"/>
+        </svg>
+        <h3>Product Realization</h3>
+        <p>From validated prototype to manufacturable product. Engineering for scale, reliability, compliance, and sustained operational performance.</p>
+        <div class="domain-tag">DFM · Certification · Lifecycle</div>
+      </div>
+
+      <div class="domain-card fade-up fade-up-d2">
+        <svg class="domain-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="4" y="10" width="12" height="20" rx="1" stroke="rgba(247,246,243,0.6)" stroke-width="1"/>
+          <rect x="24" y="10" width="12" height="20" rx="1" stroke="rgba(247,246,243,0.6)" stroke-width="1"/>
+          <line x1="16" y1="16" x2="24" y2="16" stroke="rgba(247,246,243,0.4)" stroke-width="1"/>
+          <line x1="16" y1="20" x2="24" y2="20" stroke="rgba(247,246,243,0.4)" stroke-width="1"/>
+          <line x1="16" y1="24" x2="24" y2="24" stroke="rgba(247,246,243,0.4)" stroke-width="1"/>
+        </svg>
+        <h3>Technology Ventures</h3>
+        <p>Supporting the formation and development of technology-driven ventures from within or alongside existing organizations and research programs.</p>
+        <div class="domain-tag">Venture · Strategy · Development</div>
+      </div>
+
     </div>
   </div>
 </section>
 
-<hr class="divider" />
-
-<!-- RESEARCH & INNOVATION -->
-<div class="section-alt">
-  <div class="inner fade-in" id="research">
-    <div class="label">Research &amp; Innovation</div>
-    <div class="research-grid">
-      <div>
-        <h2>The R&amp;D approach</h2>
-        <a href="#contact" class="btn-primary" style="margin-top:2rem;display:inline-block;">Explore collaboration</a>
+<!-- TECHNOLOGY -->
+<section id="technology">
+  <div class="inner">
+    <div class="section-label">Technology</div>
+    <div class="tech-layout">
+      <div class="tech-visual fade-up">
+        <canvas id="tech-canvas"></canvas>
       </div>
-      <div class="research-text">
-        <p>RNDX Labs operates as a technology and R&amp;D lab for energy and infrastructure systems.</p>
-        <p>Development starts with a concrete operational problem and rapid hardware and software prototyping.</p>
-        <p>Direct access to electronics production means prototypes can be built and tested quickly.</p>
-        <p>Successful systems are validated through pilot projects and prepared for small series production.</p>
+      <div class="tech-right">
+        <h2 class="fade-up">Built on<br><em>engineering rigor.</em></h2>
+        <p class="fade-up fade-up-d1">Our technology practice combines precision hardware design with robust software architecture. We work across the full stack — from silicon to system — applying disciplined engineering methods throughout.</p>
+        <p class="fade-up fade-up-d1">Every system we develop is designed for verifiable performance, long-term reliability, and clear technical accountability.</p>
+        <div class="tech-specs fade-up fade-up-d2">
+          <div class="spec-row">
+            <span class="spec-label">Hardware</span>
+            <span class="spec-value">PCB · FPGA · Embedded · Power</span>
+          </div>
+          <div class="spec-row">
+            <span class="spec-label">Software</span>
+            <span class="spec-value">Firmware · OS · Applications · APIs</span>
+          </div>
+          <div class="spec-row">
+            <span class="spec-label">Connectivity</span>
+            <span class="spec-value">Industrial protocols · IoT · Edge</span>
+          </div>
+          <div class="spec-row">
+            <span class="spec-label">Validation</span>
+            <span class="spec-value">Testing · Certification · QA</span>
+          </div>
+          <div class="spec-row">
+            <span class="spec-label">Location</span>
+            <span class="spec-value">Utrecht, Netherlands</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-</div>
+</section>
 
-<hr class="divider" />
+<!-- INDUSTRIES -->
+<section id="industries">
+  <div class="inner">
+    <div class="section-label">Industries</div>
+    <div class="industries-layout">
+      <div class="industries-left fade-up">
+        <h2>Where our<br>work <em>applies.</em></h2>
+        <p style="margin-top:24px;">We engage with industries where technology complexity is high and failure tolerance is low.</p>
+      </div>
+      <div class="industries-list fade-up fade-up-d1">
+        <div class="industry-item">
+          <span class="industry-name">Energy & Utilities</span>
+          <div class="industry-meta">
+            <span class="industry-desc">Grid · Metering · BEMS</span>
+            <span class="industry-arrow">→</span>
+          </div>
+        </div>
+        <div class="industry-item">
+          <span class="industry-name">Industrial Automation</span>
+          <div class="industry-meta">
+            <span class="industry-desc">Control · Monitoring · Integration</span>
+            <span class="industry-arrow">→</span>
+          </div>
+        </div>
+        <div class="industry-item">
+          <span class="industry-name">Mobility & Transport</span>
+          <div class="industry-meta">
+            <span class="industry-desc">EV · Fleet · Infrastructure</span>
+            <span class="industry-arrow">→</span>
+          </div>
+        </div>
+        <div class="industry-item">
+          <span class="industry-name">Life Sciences</span>
+          <div class="industry-meta">
+            <span class="industry-desc">Instrumentation · Diagnostics</span>
+            <span class="industry-arrow">→</span>
+          </div>
+        </div>
+        <div class="industry-item">
+          <span class="industry-name">Aerospace & Defence</span>
+          <div class="industry-meta">
+            <span class="industry-desc">Sensing · Systems · Reliability</span>
+            <span class="industry-arrow">→</span>
+          </div>
+        </div>
+        <div class="industry-item">
+          <span class="industry-name">Smart Infrastructure</span>
+          <div class="industry-meta">
+            <span class="industry-desc">Buildings · Cities · Networks</span>
+            <span class="industry-arrow">→</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- CONTACT -->
-<section class="section fade-in" id="contact">
-  <div class="contact-info" style="max-width:600px;">
-    <div class="label">Contact</div>
-    <h2>Start a conversation</h2>
-    <p style="margin-top:1.5rem;">RNDX Labs works with municipalities, businesses, energy consultants, and technology partners on energy and infrastructure technology.</p>
-    <p>Interested in collaboration, hardware development, pilot projects, or monitoring solutions? Get in touch.</p>
-    <a href="mailto:contact@rndxlabs.com" class="contact-email">✉ contact@rndxlabs.com</a>
-    <div class="contact-meta">
-      RNDX Labs<br>
-      Utrecht, Netherlands<br>
-      European technology lab
+<section id="contact">
+  <div class="inner">
+    <div class="section-label" style="color:rgba(247,246,243,0.3);">Contact</div>
+    <div class="contact-layout">
+      <div class="contact-left fade-up">
+        <h2>Let us discuss<br>your <em>challenge.</em></h2>
+        <p>We engage with organizations, research institutions, and technology ventures for development partnerships, technology licensing, and strategic collaboration.</p>
+        <div class="contact-info">
+          <div class="contact-row">
+            <span class="contact-row-label">Location</span>
+            <span class="contact-row-val">Utrecht, Netherlands</span>
+          </div>
+          <div class="contact-row">
+            <span class="contact-row-label">Email</span>
+            <span class="contact-row-val"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f49d9a929bb4869a908c98959687da979b99">[email&#160;protected]</a></span>
+          </div>
+          <div class="contact-row">
+            <span class="contact-row-label">Entity</span>
+            <span class="contact-row-val">RnDxLabs B.V.</span>
+          </div>
+          <div class="contact-row">
+            <span class="contact-row-label">Registration</span>
+            <span class="contact-row-val">KvK Netherlands</span>
+          </div>
+        </div>
+      </div>
+      <div class="contact-right fade-up fade-up-d1">
+        <canvas id="contact-canvas"></canvas>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-logo"><span style="font-family:'Kode Mono',monospace;font-weight:700;font-size:1.1rem;letter-spacing:0.02em;">RNDX</span><span style="font-family:'Kode Mono',monospace;font-weight:400;font-size:1.1rem;letter-spacing:0.02em;">.LABS</span></div>
-  <div class="footer-copy">© 2025 RNDX Labs · Utrecht, NL</div>
-  <div class="footer-copy" style="width:100%;margin-top:-0.5rem;text-align:center;">No cookies · No tracking · No consent required</div>
+  <div class="footer-inner">
+    <span class="footer-logo">RNDX Labs · Utrecht</span>
+    <ul class="footer-links">
+      <li><a href="#">Privacy</a></li>
+      <li><a href="#">Terms</a></li>
+      <li><a href="https://rndxlabs.com" target="_blank">rndxlabs.com</a></li>
+    </ul>
+    <span class="footer-copy">© 2025 RnDxLabs B.V. All rights reserved.</span>
+  </div>
 </footer>
 
-<script>
-  function toggleNav() { document.getElementById('mobileNav').classList.toggle('open'); }
-  document.addEventListener('click', function(e) {
-    const nav = document.getElementById('mobileNav');
-    if (!nav.contains(e.target) && !e.target.closest('.hamburger')) nav.classList.remove('open');
-  });
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // Scroll reveal
   const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0.08 });
-  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-  const allSections = document.querySelectorAll('[id]');
-  const navLinks = document.querySelectorAll('.nav-links a');
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // Nav scroll state
+  const nav = document.getElementById('main-nav');
   window.addEventListener('scroll', () => {
-    let current = '';
-    allSections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) current = s.id; });
-    navLinks.forEach(a => { a.style.color = a.getAttribute('href') === '#' + current ? 'var(--text)' : ''; });
+    nav.style.borderBottomColor = window.scrollY > 20
+      ? 'rgba(15,15,13,0.13)'
+      : 'rgba(15,15,13,0.08)';
   });
+
+  // Smooth anchor scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+
+  // ── TECHNOLOGY CANVAS ANIMATION ─────────────────────────────────────────────
+  // "Structure from Complexity" — light mode, monochrome, fitted to the visual box
+  (function initTechAnimation() {
+    const canvas = document.getElementById('tech-canvas');
+    const ctx    = canvas.getContext('2d');
+    let W, H, dpr, points = [], gridPoints = [];
+
+    const COLS = 10, ROWS = 10;
+    const CYCLE = 8000;
+
+    const eInOut = t => t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2, 3) / 2;
+
+    function resize() {
+      const wrap = canvas.parentElement;
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      W   = wrap.offsetWidth;
+      H   = wrap.offsetHeight;
+      canvas.width  = W * dpr;
+      canvas.height = H * dpr;
+      canvas.style.width  = W + 'px';
+      canvas.style.height = H + 'px';
+      ctx.scale(dpr, dpr);
+      buildGrid();
+      if (!points.length) seedPoints();
+    }
+
+    function buildGrid() {
+      gridPoints = [];
+      const mx = W * 0.09, my = H * 0.09;
+      for (let r = 0; r < ROWS; r++)
+        for (let c = 0; c < COLS; c++)
+          gridPoints.push({
+            tx: mx + (c / (COLS-1)) * (W - mx*2),
+            ty: my + (r / (ROWS-1)) * (H - my*2),
+          });
+    }
+
+    function seedPoints() {
+      points = gridPoints.map((gp, i) => ({
+        x:  W * 0.2 + Math.random() * W * 0.6,
+        y:  H * 0.2 + Math.random() * H * 0.6,
+        sx: W * 0.10 + Math.random() * W * 0.80,
+        sy: H * 0.10 + Math.random() * H * 0.80,
+        tx: gp.tx, ty: gp.ty,
+        alpha: 0.30 + Math.random() * 0.30,
+        size:  0.8  + Math.random() * 0.9,
+        phaseOffset: (i / (COLS * ROWS)) * 0.18,
+      }));
+    }
+
+    function getPhase(ct) {
+      if (ct < 0.20) return { phase: 'scatter',  t: 0 };
+      if (ct < 0.48) return { phase: 'assemble', t: (ct - 0.20) / 0.28 };
+      if (ct < 0.62) return { phase: 'grid',     t: (ct - 0.48) / 0.14 };
+      if (ct < 0.88) return { phase: 'dissolve', t: (ct - 0.62) / 0.26 };
+      return { phase: 'scatter', t: 1 };
+    }
+
+    function updatePoints(ct, now) {
+      const { phase, t: phT } = getPhase(ct);
+      points.forEach((p, i) => {
+        const pOff = p.phaseOffset;
+        let ex, ey;
+        if (phase === 'assemble') {
+          const lt = Math.max(0, Math.min(1, (phT - pOff) / (1 - pOff)));
+          const eT = eInOut(lt);
+          ex = p.sx + (p.tx - p.sx) * eT;
+          ey = p.sy + (p.ty - p.sy) * eT;
+        } else if (phase === 'grid') {
+          ex = p.tx; ey = p.ty;
+        } else if (phase === 'dissolve') {
+          const revOff = 1 - pOff;
+          const lt = Math.max(0, Math.min(1, (phT - (1 - revOff)) / revOff));
+          const eT = eInOut(lt);
+          ex = p.tx + (p.sx - p.tx) * eT;
+          ey = p.ty + (p.sy - p.ty) * eT;
+        } else {
+          ex = p.sx + Math.sin(now * 0.0003 + i * 0.7) * 1.5;
+          ey = p.sy + Math.cos(now * 0.0003 + i * 0.5) * 1.5;
+        }
+        p.x = ex; p.y = ey;
+      });
+    }
+
+    function drawGrid(phase, phT) {
+      const vis = phase === 'grid'     ? 0.5 + phT * 0.5
+                : phase === 'assemble' ? phT * 0.5
+                : phase === 'dissolve' ? (1 - phT) * 0.5
+                : 0;
+      if (vis <= 0) return;
+      const mx = W * 0.09, my = H * 0.09;
+      ctx.strokeStyle = `rgba(15,15,13,${0.14 * vis})`;
+      ctx.lineWidth = 0.5;
+      for (let r = 0; r < ROWS; r++) {
+        const y = my + (r / (ROWS-1)) * (H - my*2);
+        ctx.beginPath(); ctx.moveTo(mx, y); ctx.lineTo(W - mx, y); ctx.stroke();
+      }
+      for (let c = 0; c < COLS; c++) {
+        const x = mx + (c / (COLS-1)) * (W - mx*2);
+        ctx.beginPath(); ctx.moveTo(x, my); ctx.lineTo(x, H - my); ctx.stroke();
+      }
+    }
+
+    function drawLines(phase, phT) {
+      const MAX_DIST = Math.min(W, H) * 0.22;
+      const vis = phase === 'assemble' ? (1 - Math.pow(1 - phT, 3))
+                : phase === 'grid'     ? 1
+                : phase === 'dissolve' ? 1 - phT * phT * phT
+                : 0.04;
+      if (vis <= 0.01) return;
+      for (let i = 0; i < points.length; i++) {
+        for (let j = i + 1; j < points.length; j++) {
+          const dx = points[i].x - points[j].x;
+          const dy = points[i].y - points[j].y;
+          const d  = Math.sqrt(dx*dx + dy*dy);
+          if (d < MAX_DIST) {
+            const a = (1 - d / MAX_DIST) * 0.20 * vis;
+            ctx.beginPath();
+            ctx.moveTo(points[i].x, points[i].y);
+            ctx.lineTo(points[j].x, points[j].y);
+            ctx.strokeStyle = `rgba(15,15,13,${a})`;
+            ctx.lineWidth   = 0.5;
+            ctx.stroke();
+          }
+        }
+      }
+    }
+
+    function drawPoints(phase, phT) {
+      const am = phase === 'grid'     ? 1 + phT * 0.3
+               : phase === 'assemble' ? 0.7 + phT * 0.3
+               : phase === 'dissolve' ? 1 - phT * 0.3
+               : 0.7;
+      points.forEach(p => {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(15,15,13,${p.alpha * am})`;
+        ctx.fill();
+      });
+    }
+
+    function frame(now) {
+      ctx.clearRect(0, 0, W, H);
+      const ct = (now % CYCLE) / CYCLE;
+      const ph = getPhase(ct);
+      updatePoints(ct, now);
+      drawGrid(ph.phase, ph.t);
+      drawLines(ph.phase, ph.t);
+      drawPoints(ph.phase, ph.t);
+      requestAnimationFrame(frame);
+    }
+
+    // Start only when visible
+    const techSection = document.getElementById('technology');
+    const io = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) {
+        resize();
+        window.addEventListener('resize', resize);
+        requestAnimationFrame(frame);
+        io.disconnect();
+      }
+    }, { threshold: 0.05 });
+    io.observe(techSection);
+  })();
+
+  // ── CONTACT CANVAS ANIMATION ─────────────────────────────────────────────────
+  // "Orthogonal Routing" — PCB trace signals, dark mode
+  (function initContactAnimation() {
+    const canvas = document.getElementById('contact-canvas');
+    const ctx    = canvas.getContext('2d');
+    let W, H, dpr;
+    let GRID, COLS, ROWS, OFFSET_X = 0, OFFSET_Y = 0;
+    let nodes = [], routes = [], signals = [], topoLines = [];
+
+    const P = {
+      node:   a => `rgba(220,220,218,${a})`,
+      trace:  a => `rgba(220,220,218,${a})`,
+      signal: a => `rgba(255,255,255,${a})`,
+      glow:   a => `rgba(255,255,255,${a})`,
+    };
+
+    // — Node —
+    class Node {
+      constructor(gx, gy) {
+        this.gx = gx; this.gy = gy;
+        this.x = OFFSET_X + gx * GRID; this.y = OFFSET_Y + gy * GRID;
+        this.w = 22 + Math.random() * 22;
+        this.h = 12 + Math.random() * 14;
+        this.alpha = 0;
+        this.maxAlpha = 0.20 + Math.random() * 0.14;
+        this.state = 'fadein'; this.age = 0;
+        this.lifespan = 420 + Math.random() * 560;
+        this.fadeSpd = 0.007 + Math.random() * 0.005;
+        this.detailW = this.w * (0.3 + Math.random() * 0.3);
+      }
+      update() {
+        this.age++;
+        if (this.state === 'fadein')  { this.alpha += this.fadeSpd; if (this.alpha >= this.maxAlpha) { this.alpha = this.maxAlpha; this.state = 'live'; } }
+        if (this.state === 'live' && this.age > this.lifespan) this.state = 'fadeout';
+        if (this.state === 'fadeout') { this.alpha -= this.fadeSpd * 0.6; if (this.alpha <= 0) { this.alpha = 0; this.state = 'dead'; } }
+        return this.state !== 'dead';
+      }
+      draw() {
+        const x = this.x - this.w / 2, y = this.y - this.h / 2;
+        ctx.strokeStyle = P.node(this.alpha); ctx.lineWidth = 0.6;
+        ctx.strokeRect(x, y, this.w, this.h);
+        ctx.strokeStyle = P.node(this.alpha * 0.5); ctx.lineWidth = 0.5;
+        ctx.beginPath(); ctx.moveTo(x + 4, y + this.h / 2); ctx.lineTo(x + 4 + this.detailW, y + this.h / 2); ctx.stroke();
+        ctx.fillStyle = P.node(this.alpha * 0.7);
+        ctx.fillRect(x - 1, y - 1, 2, 2);
+        ctx.fillRect(x + this.w - 1, y - 1, 2, 2);
+      }
+    }
+
+    // — Route —
+    class Route {
+      constructor(a, b) {
+        this.a = a; this.b = b;
+        this.pts = this._build();
+        this.alpha = 0; this.maxAlpha = 0.09 + Math.random() * 0.07;
+        this.state = 'fadein'; this.age = 0;
+        this.fadeSpd = 0.004 + Math.random() * 0.004;
+      }
+      _build() {
+        const ax = this.a.x, ay = this.a.y, bx = this.b.x, by = this.b.y;
+        const mid = ax + (bx - ax) * (0.35 + Math.random() * 0.3);
+        return [{ x: ax, y: ay }, { x: mid, y: ay }, { x: mid, y: by }, { x: bx, y: by }];
+      }
+      update() {
+        this.age++;
+        if (this.a.state === 'dead' || this.b.state === 'dead') this.state = 'fadeout';
+        if (this.state === 'fadein')  { this.alpha += this.fadeSpd; if (this.alpha >= this.maxAlpha) { this.alpha = this.maxAlpha; this.state = 'live'; } }
+        if (this.state === 'fadeout') { this.alpha -= this.fadeSpd; if (this.alpha <= 0) { this.alpha = 0; this.state = 'dead'; } }
+        return this.state !== 'dead';
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.moveTo(this.pts[0].x, this.pts[0].y);
+        this.pts.slice(1).forEach(p => ctx.lineTo(p.x, p.y));
+        ctx.strokeStyle = P.trace(this.alpha); ctx.lineWidth = 0.6; ctx.stroke();
+        ctx.beginPath(); ctx.arc(this.pts[1].x, this.pts[1].y, 1.2, 0, Math.PI * 2);
+        ctx.fillStyle = P.trace(this.alpha * 1.3); ctx.fill();
+      }
+    }
+
+    // — Signal —
+    class Signal {
+      constructor(route) {
+        this.route = route; this.progress = 0;
+        this.speed = 0.0005 + Math.random() * 0.0006;
+        this.alpha = 0; this.active = true;
+        this.tailLen = 0.06 + Math.random() * 0.05;
+      }
+      posAt(p) {
+        const pts = this.route.pts;
+        const segs = pts.slice(1).map((pt, i) => Math.abs(pt.x - pts[i].x) + Math.abs(pt.y - pts[i].y));
+        const total = segs.reduce((a, b) => a + b, 0);
+        let dist = p * total;
+        for (let i = 0; i < segs.length; i++) {
+          if (dist <= segs[i]) { const t = dist / segs[i]; return { x: pts[i].x + (pts[i+1].x - pts[i].x) * t, y: pts[i].y + (pts[i+1].y - pts[i].y) * t }; }
+          dist -= segs[i];
+        }
+        return pts[pts.length - 1];
+      }
+      update(dt) {
+        this.progress += this.speed * dt;
+        this.alpha = this.progress < 0.1 ? this.progress / 0.1 : this.progress > 0.85 ? (1 - this.progress) / 0.15 : 1;
+        if (this.progress > 1) this.active = false;
+      }
+      draw() {
+        for (let i = 0; i < 7; i++) {
+          const tp = Math.max(0, this.progress - (i / 7) * this.tailLen);
+          const pos = this.posAt(tp);
+          ctx.beginPath(); ctx.arc(pos.x, pos.y, 1, 0, Math.PI * 2);
+          ctx.fillStyle = P.signal((1 - i / 7) * this.alpha * 0.3); ctx.fill();
+        }
+        const head = this.posAt(this.progress);
+        const g = ctx.createRadialGradient(head.x, head.y, 0, head.x, head.y, 7);
+        g.addColorStop(0, P.glow(this.alpha * 0.22)); g.addColorStop(1, P.glow(0));
+        ctx.beginPath(); ctx.arc(head.x, head.y, 7, 0, Math.PI * 2); ctx.fillStyle = g; ctx.fill();
+        ctx.beginPath(); ctx.arc(head.x, head.y, 1.5, 0, Math.PI * 2);
+        ctx.fillStyle = P.signal(this.alpha * 0.8); ctx.fill();
+      }
+    }
+
+    function buildTopo() {
+      topoLines = [];
+      for (let i = 0; i < 18; i++) {
+        const x1 = 40 + Math.random() * (W - 80), y1 = 40 + Math.random() * (H - 80);
+        const dx = (Math.random() - 0.5) * W * 0.38, dy = (Math.random() - 0.5) * H * 0.38;
+        topoLines.push({ pts: [{ x: x1, y: y1 }, { x: x1 + dx, y: y1 }, { x: x1 + dx, y: y1 + dy }], alpha: 0.016 + Math.random() * 0.016 });
+      }
+    }
+
+    function drawTopo() {
+      topoLines.forEach(l => {
+        ctx.beginPath(); ctx.moveTo(l.pts[0].x, l.pts[0].y); ctx.lineTo(l.pts[1].x, l.pts[1].y); ctx.lineTo(l.pts[2].x, l.pts[2].y);
+        ctx.strokeStyle = P.trace(l.alpha); ctx.lineWidth = 0.5; ctx.stroke();
+      });
+    }
+
+    function randomFreeCell() {
+      const used = new Set(nodes.map(n => `${n.gx},${n.gy}`));
+      let tries = 0;
+      while (tries++ < 80) {
+        const gx = 1 + Math.floor(Math.random() * (COLS - 2));
+        const gy = 1 + Math.floor(Math.random() * (ROWS - 2));
+        if (!used.has(`${gx},${gy}`)) return { gx, gy };
+      }
+      return null;
+    }
+
+    function spawnNode() {
+      const cell = randomFreeCell(); if (!cell) return;
+      const n = new Node(cell.gx, cell.gy);
+      nodes.push(n);
+      const cands = nodes.filter(o => o !== n && o.state !== 'dead')
+        .sort((a, b) => (Math.abs(a.gx - n.gx) + Math.abs(a.gy - n.gy)) - (Math.abs(b.gx - n.gx) + Math.abs(b.gy - n.gy)))
+        .slice(0, 3);
+      if (cands.length > 0) {
+        const pick = cands[Math.floor(Math.random() * Math.min(2, cands.length))];
+        const r = new Route(n, pick); routes.push(r);
+        setTimeout(() => { if (r.state !== 'dead') signals.push(new Signal(r)); }, 600 + Math.random() * 1200);
+      }
+    }
+
+    function resize() {
+      const wrap = canvas.parentElement;
+      dpr  = Math.min(window.devicePixelRatio || 1, 2);
+      W    = wrap.offsetWidth;
+      H    = wrap.offsetHeight;
+      canvas.width  = W * dpr; canvas.height = H * dpr;
+      canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
+      ctx.scale(dpr, dpr);
+      GRID = Math.max(40, Math.min(56, Math.round(Math.min(W, H) / 10)));
+      COLS = Math.floor(W / GRID);
+      ROWS = Math.floor(H / GRID);
+      // Center the grid so leftover space is split evenly left/right and top/bottom
+      OFFSET_X = Math.round((W - COLS * GRID) / 2);
+      OFFSET_Y = Math.round((H - ROWS * GRID) / 2);
+      nodes = []; routes = []; signals = [];
+      buildTopo();
+      for (let i = 0; i < 8; i++) spawnNode();
+    }
+
+    let lastT = 0, spawnTimer = 0, signalTimer = 0;
+
+    function frame(now) {
+      const dt = Math.min(now - lastT, 50); lastT = now;
+      ctx.clearRect(0, 0, W, H);
+      drawTopo();
+      routes  = routes.filter(r => r.update());  routes.forEach(r => r.draw());
+      nodes   = nodes.filter(n => n.update());    nodes.forEach(n => n.draw());
+      signals = signals.filter(s => s.active);    signals.forEach(s => { s.update(dt); s.draw(); });
+      if (++spawnTimer > 110 && nodes.length < 16) { spawnNode(); spawnTimer = 0; }
+      if (++signalTimer > 85) {
+        const live = routes.filter(r => r.state === 'live');
+        if (live.length > 0 && signals.length < 12) signals.push(new Signal(live[Math.floor(Math.random() * live.length)]));
+        signalTimer = 0;
+      }
+      requestAnimationFrame(frame);
+    }
+
+    const contactSection = document.getElementById('contact');
+    const ioContact = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) {
+        resize();
+        window.addEventListener('resize', resize);
+        requestAnimationFrame(frame);
+        ioContact.disconnect();
+      }
+    }, { threshold: 0.05 });
+    ioContact.observe(contactSection);
+  })();
+  function toggleMenu() {
+    const links = document.querySelector('.nav-links');
+    if (links) {
+      const visible = links.style.display === 'flex';
+      if (!visible) {
+        // Open menu
+        links.style.display = 'flex';
+        links.style.flexDirection = 'column';
+        links.style.position = 'absolute';
+        links.style.top = '72px';
+        links.style.left = '0';
+        links.style.right = '0';
+        links.style.background = 'rgba(247,246,243,0.97)';
+        links.style.padding = '24px 24px 20px';
+        links.style.gap = '24px';
+        links.style.borderBottom = '1px solid rgba(15,15,13,0.08)';
+
+        // Add language switcher at bottom if not already present
+        if (!links.querySelector('.nav-lang-mobile')) {
+          const divider = document.createElement('li');
+          divider.style.height = '1px';
+          divider.style.background = 'rgba(15,15,13,0.08)';
+          divider.style.margin = '0 0 4px';
+
+          const langItem = document.createElement('li');
+          langItem.className = 'nav-lang-mobile';
+          langItem.innerHTML = `
+            <div style="display:flex;align-items:center;gap:2px;">
+              <a href="/" style="font-family:var(--mono);font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-light);text-decoration:none;">NL</a>
+              <div style="width:1px;height:10px;background:rgba(15,15,13,0.2);margin:0 2px;"></div>
+              <a href="/en/" style="font-family:var(--mono);font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink);text-decoration:none;border-bottom:1px solid var(--ink);">EN</a>
+            </div>`;
+          links.appendChild(divider);
+          links.appendChild(langItem);
+        }
+      } else {
+        // Close menu
+        links.style.display = 'none';
+      }
+    }
+  }
 </script>
 </body>
 </html>
