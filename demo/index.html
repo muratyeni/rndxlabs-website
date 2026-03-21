@@ -120,6 +120,7 @@
   .demo-card:nth-child(1) { animation-delay: 0.05s; }
   .demo-card:nth-child(2) { animation-delay: 0.15s; }
   .demo-card:nth-child(3) { animation-delay: 0.25s; }
+  .demo-card:nth-child(4) { animation-delay: 0.35s; }
 
   @keyframes fadeUp {
     to { opacity: 1; transform: translateY(0); }
@@ -335,7 +336,7 @@
     </div>
 
     <h1 class="page-title">Product<em>demo's</em></h1>
-    <p class="page-sub">Interactieve voorbeelden van eFlexIQ — het energie-intelligence platform van RNDX Labs.</p>
+    <p class="page-sub">Interactieve voorbeelden van eFlexIQ — het energie-intelligence platform van RNDX Labs. Twee versies beschikbaar, één binnenkort.</p>
   </header>
 
   <div class="demo-grid">
@@ -366,25 +367,31 @@
       </div>
     </a>
 
-    <!-- DEMO 02 — COMING SOON -->
-    <div class="demo-card inactive">
+    <!-- DEMO 02 — LIVE -->
+    <a href="/demo/02/index.html" class="demo-card">
       <div class="card-preview">
-        <span class="preview-label">eFlexIQ Dashboard</span>
+        <span class="preview-label">eFlexIQ Rapport v2</span>
+        <div class="preview-grid">
+          <div class="preview-bar"></div>
+          <div class="preview-bar"></div>
+          <div class="preview-bar"></div>
+          <div class="preview-bar"></div>
+        </div>
         <span class="preview-number">02</span>
       </div>
       <div class="card-body">
         <div class="card-meta">
-          <span class="card-tag">eFlexIQ · C3 Layer</span>
-          <span class="card-status status-soon">Binnenkort</span>
+          <span class="card-tag">eFlexIQ · C2 Layer — Uitgebreid</span>
+          <span class="card-status status-live">● Live</span>
         </div>
-        <div class="card-title">Interactief Adviseursdashboard</div>
-        <div class="card-desc">Real-time dashboard voor energieadviseurs met scenario toggles, labelconflicten en confidence indicatoren per locatie.</div>
+        <div class="card-title">Energie Rapport v2 — Interactief</div>
+        <div class="card-desc">Uitgebreide versie met baseload analyse, tariefoptimalisatie (€ savings), confidence indicators per anomalie en interactief labeling blok voor de eindklant.</div>
         <div class="card-footer">
           <span class="card-url">rndxlabs.com/demo02</span>
           <span class="card-arrow">→</span>
         </div>
       </div>
-    </div>
+    </a>
 
     <!-- DEMO 03 — COMING SOON -->
     <div class="demo-card inactive">
