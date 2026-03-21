@@ -1,7 +1,47 @@
-[build]
-  publish = "."
+# RNDX Labs — netlify.toml
+# Voorkomt dat Cloudflare HTML aanpast + demo redirects
 
 [[headers]]
   for = "/*"
   [headers.values]
-    X-Robots-Tag = "index, follow"
+    X-Cloudflare-No-Transform = "1"
+    Cache-Control = "public, max-age=3600"
+
+[[headers]]
+  for = "*.html"
+  [headers.values]
+    X-Cloudflare-No-Transform = "1"
+
+# ── Demo redirects ──────────────────────────────────
+# Korte URL's die doorverwijzen naar de demo map
+
+[[redirects]]
+  from   = "/demo01"
+  to     = "/demo/01/index.html"
+  status = 200
+
+[[redirects]]
+  from   = "/demo02"
+  to     = "/demo/02/index.html"
+  status = 200
+
+[[redirects]]
+  from   = "/demo03"
+  to     = "/demo/03/index.html"
+  status = 200
+
+[[redirects]]
+  from   = "/demo04"
+  to     = "/demo/04/index.html"
+  status = 200
+
+[[redirects]]
+  from   = "/demo05"
+  to     = "/demo/05/index.html"
+  status = 200
+
+# Overzichtspagina
+[[redirects]]
+  from   = "/demo"
+  to     = "/demo/index.html"
+  status = 200

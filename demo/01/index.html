@@ -1,0 +1,1160 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>eFlexIQ — Energie Rapport</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:        #F7F6F3;
+    --bg-card:   #EFEDE8;
+    --bg-dark:   #1C1C1A;
+    --ink:       #1C1C1A;
+    --ink-mid:   #3A3A36;
+    --ink-soft:  #7A7A74;
+    --ink-ghost: #B0AFA9;
+    --accent:    #3A3A36;
+    --green:     #4A7C59;
+    --amber:     #B87333;
+    --red:       #8B3A3A;
+    --border:    rgba(60,60,54,0.10);
+    --radius:    16px;
+    --radius-sm: 8px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { font-size: 16px; scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── LAYOUT ── */
+  .page { max-width: 960px; margin: 0 auto; padding: 0 32px 120px; }
+
+  /* ── HEADER ── */
+  .report-header {
+    padding: 64px 0 48px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 64px;
+  }
+
+  .brand-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 48px;
+  }
+
+  .logo-mark {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .logo-svg { width: 28px; height: 28px; }
+
+  .logo-name {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    color: var(--ink-mid);
+    text-transform: uppercase;
+  }
+
+  .report-meta {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-ghost);
+    letter-spacing: 0.08em;
+    text-align: right;
+    line-height: 1.8;
+  }
+
+  .report-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 5vw, 52px);
+    font-weight: 400;
+    line-height: 1.15;
+    color: var(--ink);
+    margin-bottom: 16px;
+    letter-spacing: -0.02em;
+  }
+
+  .report-title em {
+    font-style: italic;
+    color: var(--ink-soft);
+  }
+
+  .report-subtitle {
+    font-size: 16px;
+    color: var(--ink-soft);
+    font-weight: 300;
+    max-width: 540px;
+    line-height: 1.7;
+  }
+
+  /* ── SECTION ── */
+  .section {
+    margin-bottom: 80px;
+    opacity: 0;
+    transform: translateY(24px);
+    animation: fadeUp 0.6s ease forwards;
+  }
+
+  .section:nth-child(1) { animation-delay: 0.05s; }
+  .section:nth-child(2) { animation-delay: 0.15s; }
+  .section:nth-child(3) { animation-delay: 0.25s; }
+  .section:nth-child(4) { animation-delay: 0.35s; }
+  .section:nth-child(5) { animation-delay: 0.45s; }
+  .section:nth-child(6) { animation-delay: 0.55s; }
+  .section:nth-child(7) { animation-delay: 0.65s; }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-ghost);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 400;
+    margin-bottom: 24px;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+
+  /* ── KPI GRID ── */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 2px;
+    margin-bottom: 2px;
+  }
+
+  .kpi-card {
+    background: var(--bg-card);
+    padding: 28px 24px;
+    border-radius: 0;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.2s ease;
+  }
+
+  .kpi-grid .kpi-card:first-child { border-radius: var(--radius-sm) 0 0 var(--radius-sm); }
+  .kpi-grid .kpi-card:last-child  { border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+
+  .kpi-card:hover { background: #E8E6E0; }
+
+  .kpi-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-ghost);
+    margin-bottom: 12px;
+  }
+
+  .kpi-value {
+    font-family: 'DM Mono', monospace;
+    font-size: 32px;
+    font-weight: 300;
+    color: var(--ink);
+    line-height: 1;
+    margin-bottom: 4px;
+    letter-spacing: -0.02em;
+  }
+
+  .kpi-unit {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-soft);
+    letter-spacing: 0.06em;
+  }
+
+  .kpi-trend {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 11px;
+    font-family: 'DM Mono', monospace;
+    padding: 3px 8px;
+    border-radius: 20px;
+  }
+
+  .trend-up   { background: rgba(139,58,58,0.08);  color: var(--red); }
+  .trend-down { background: rgba(74,124,89,0.08);  color: var(--green); }
+  .trend-ok   { background: rgba(74,124,89,0.08);  color: var(--green); }
+
+  /* ── STATUS BAR ── */
+  .status-bar {
+    background: var(--bg-card);
+    border-radius: var(--radius-sm);
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-top: 2px;
+  }
+
+  .status-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .dot-green  { background: var(--green); }
+  .dot-amber  { background: var(--amber); }
+  .dot-red    { background: var(--red); }
+
+  .status-text {
+    font-size: 13px;
+    color: var(--ink-mid);
+  }
+
+  .status-text strong {
+    font-weight: 500;
+    color: var(--ink);
+  }
+
+  /* ── INSIGHT CARDS ── */
+  .insight-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+  }
+
+  .insight-card {
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    transition: transform 0.2s ease, background 0.2s ease;
+  }
+
+  .insight-card:hover {
+    transform: translateY(-2px);
+    background: #E8E6E0;
+  }
+
+  .insight-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+  }
+
+  .icon-green { background: rgba(74,124,89,0.10); }
+  .icon-amber { background: rgba(184,115,51,0.10); }
+  .icon-red   { background: rgba(139,58,58,0.10); }
+  .icon-blue  { background: rgba(60,90,140,0.10); }
+
+  .insight-title {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.4;
+  }
+
+  .insight-body {
+    font-size: 13px;
+    color: var(--ink-soft);
+    line-height: 1.7;
+    flex: 1;
+  }
+
+  .insight-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    color: var(--ink-ghost);
+  }
+
+  /* ── SCORE RING ── */
+  .scores-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+  }
+
+  .score-card {
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    padding: 32px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    text-align: center;
+    transition: background 0.2s ease;
+  }
+
+  .score-card:hover { background: #E8E6E0; }
+
+  .score-ring {
+    position: relative;
+    width: 80px;
+    height: 80px;
+  }
+
+  .score-ring svg {
+    width: 80px;
+    height: 80px;
+    transform: rotate(-90deg);
+  }
+
+  .ring-bg    { fill: none; stroke: var(--border); stroke-width: 4; }
+  .ring-fill  { fill: none; stroke-width: 4; stroke-linecap: round; transition: stroke-dashoffset 1.2s cubic-bezier(0.4,0,0.2,1); }
+
+  .score-number {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'DM Mono', monospace;
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--ink);
+  }
+
+  .score-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink-mid);
+  }
+
+  .score-desc {
+    font-size: 12px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+
+  /* ── BENCHMARK ── */
+  .benchmark-row {
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    padding: 32px;
+  }
+
+  .benchmark-track {
+    position: relative;
+    height: 6px;
+    background: var(--border);
+    border-radius: 3px;
+    margin: 24px 0 12px;
+  }
+
+  .benchmark-fill {
+    position: absolute;
+    left: 0; top: 0;
+    height: 100%;
+    border-radius: 3px;
+    background: linear-gradient(90deg, var(--green), #6BAF7A);
+    transition: width 1.4s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  .benchmark-marker {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--ink);
+    border: 2px solid var(--bg);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+
+  .benchmark-labels {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--ink-ghost);
+    letter-spacing: 0.08em;
+  }
+
+  .benchmark-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--ink-mid);
+    margin-top: 16px;
+  }
+
+  /* ── TIMELINE ── */
+  .timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .timeline-item {
+    display: grid;
+    grid-template-columns: 120px 1px 1fr;
+    gap: 0 24px;
+    padding: 0 0 32px;
+  }
+
+  .timeline-item:last-child { padding-bottom: 0; }
+
+  .timeline-time {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-ghost);
+    text-align: right;
+    padding-top: 3px;
+    letter-spacing: 0.06em;
+  }
+
+  .timeline-line {
+    background: var(--border);
+    position: relative;
+    display: flex;
+    justify-content: center;
+  }
+
+  .timeline-line::before {
+    content: '';
+    position: absolute;
+    top: 4px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--ink-ghost);
+    margin-left: -3.5px;
+  }
+
+  .timeline-item.highlight .timeline-line::before {
+    background: var(--amber);
+    width: 10px;
+    height: 10px;
+    margin-left: -4.5px;
+    top: 3px;
+  }
+
+  .timeline-content {
+    padding-top: 0;
+    padding-bottom: 8px;
+  }
+
+  .timeline-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+
+  .timeline-desc {
+    font-size: 13px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+
+  /* ── ACTIONS ── */
+  .actions-list {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .action-item {
+    background: var(--bg-card);
+    border-radius: var(--radius-sm);
+    padding: 20px 24px;
+    display: grid;
+    grid-template-columns: 32px 1fr auto;
+    align-items: center;
+    gap: 16px;
+    transition: background 0.2s ease;
+    cursor: default;
+  }
+
+  .action-item:first-child { border-radius: var(--radius) var(--radius) var(--radius-sm) var(--radius-sm); }
+  .action-item:last-child  { border-radius: var(--radius-sm) var(--radius-sm) var(--radius) var(--radius); }
+  .action-item:hover { background: #E8E6E0; }
+
+  .action-rank {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--ink-ghost);
+    text-align: center;
+  }
+
+  .action-body {}
+
+  .action-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 3px;
+  }
+
+  .action-desc {
+    font-size: 12px;
+    color: var(--ink-soft);
+  }
+
+  .action-impact {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+
+  .impact-high   { background: rgba(74,124,89,0.10);  color: var(--green); }
+  .impact-medium { background: rgba(184,115,51,0.10); color: var(--amber); }
+  .impact-low    { background: rgba(60,60,54,0.08);   color: var(--ink-soft); }
+
+  /* ── DARK CALLOUT ── */
+  .dark-callout {
+    background: var(--bg-dark);
+    border-radius: var(--radius);
+    padding: 40px;
+    color: #F7F6F3;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+  }
+
+  @media (max-width: 600px) {
+    .dark-callout { grid-template-columns: 1fr; }
+  }
+
+  .dark-callout-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(247,246,243,0.35);
+    margin-bottom: 12px;
+  }
+
+  .dark-callout-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 1.3;
+    margin-bottom: 16px;
+    letter-spacing: -0.01em;
+  }
+
+  .dark-callout-body {
+    font-size: 14px;
+    color: rgba(247,246,243,0.55);
+    line-height: 1.7;
+  }
+
+  .dark-stat {
+    text-align: right;
+  }
+
+  .dark-stat-value {
+    font-family: 'DM Mono', monospace;
+    font-size: 56px;
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: #F7F6F3;
+    margin-bottom: 8px;
+  }
+
+  .dark-stat-label {
+    font-size: 13px;
+    color: rgba(247,246,243,0.45);
+  }
+
+  /* ── FOOTER ── */
+  .report-footer {
+    border-top: 1px solid var(--border);
+    padding-top: 40px;
+    margin-top: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+
+  .footer-brand {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-ghost);
+    letter-spacing: 0.10em;
+    line-height: 1.8;
+  }
+
+  .footer-note {
+    font-size: 12px;
+    color: var(--ink-ghost);
+    text-align: right;
+    line-height: 1.7;
+    max-width: 280px;
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 48px 0;
+  }
+
+  /* ── BADGE ── */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    padding: 5px 10px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    color: var(--ink-soft);
+  }
+
+  /* ── CHART BAR ── */
+  .bar-chart {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    padding: 28px;
+  }
+
+  .bar-row {
+    display: grid;
+    grid-template-columns: 100px 1fr 60px;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .bar-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-soft);
+    letter-spacing: 0.06em;
+    text-align: right;
+  }
+
+  .bar-track {
+    height: 6px;
+    background: var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .bar-fill {
+    height: 100%;
+    border-radius: 3px;
+    background: var(--ink-mid);
+    transition: width 1.2s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  .bar-fill.low  { background: var(--green); }
+  .bar-fill.mid  { background: var(--amber); }
+  .bar-fill.high { background: var(--red); }
+
+  .bar-value {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--ink-soft);
+  }
+
+  /* ── PRINT ── */
+  @media print {
+    body { background: #fff; }
+    .section { opacity: 1 !important; transform: none !important; }
+  }
+
+  @media (max-width: 640px) {
+    .page { padding: 0 20px 80px; }
+    .brand-row { flex-direction: column; align-items: flex-start; gap: 16px; }
+    .report-meta { text-align: left; }
+    .kpi-grid { grid-template-columns: 1fr 1fr; }
+    .kpi-grid .kpi-card:first-child { border-radius: var(--radius-sm) var(--radius-sm) 0 0; }
+    .kpi-grid .kpi-card:last-child  { border-radius: 0 0 var(--radius-sm) var(--radius-sm); }
+    .dark-stat { text-align: left; }
+    .dark-stat-value { font-size: 40px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <header class="report-header">
+    <div class="brand-row">
+      <div class="logo-mark">
+        <svg class="logo-svg" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="28" height="28" rx="6" fill="#1C1C1A"/>
+          <circle cx="9"  cy="9"  r="2" fill="#F7F6F3" opacity="0.9"/>
+          <circle cx="19" cy="9"  r="2" fill="#F7F6F3" opacity="0.9"/>
+          <circle cx="9"  cy="19" r="2" fill="#F7F6F3" opacity="0.9"/>
+          <circle cx="19" cy="19" r="2" fill="#F7F6F3" opacity="0.9"/>
+          <circle cx="14" cy="14" r="2.5" fill="#F7F6F3"/>
+          <line x1="9" y1="9" x2="14" y2="14" stroke="#F7F6F3" stroke-width="0.8" opacity="0.4"/>
+          <line x1="19" y1="9" x2="14" y2="14" stroke="#F7F6F3" stroke-width="0.8" opacity="0.4"/>
+          <line x1="9" y1="19" x2="14" y2="14" stroke="#F7F6F3" stroke-width="0.8" opacity="0.4"/>
+          <line x1="19" y1="19" x2="14" y2="14" stroke="#F7F6F3" stroke-width="0.8" opacity="0.4"/>
+        </svg>
+        <span class="logo-name">eFlexIQ — RNDX Labs</span>
+      </div>
+      <div class="report-meta">
+        Rapport #EFQ-2024-0312<br>
+        Meetperiode: 01.03 – 31.03.2024<br>
+        Locatie: Bakkerij De Molen B.V.
+      </div>
+    </div>
+
+    <h1 class="report-title">Energie<em>analyse</em><br>& Advies</h1>
+    <p class="report-subtitle">Een gestructureerd inzicht in uw energieprofiel, verbruikspatronen en concrete mogelijkheden voor besparing en flexibiliteit.</p>
+  </header>
+
+  <!-- SECTION 1: KPI's -->
+  <section class="section">
+    <div class="section-label">01 — Kerncijfers</div>
+    <h2 class="section-title">Basismetrieken meetperiode</h2>
+
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">Totaalverbruik</div>
+        <div class="kpi-value">18.420</div>
+        <div class="kpi-unit">kWh</div>
+        <div class="kpi-trend trend-up">+8%</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Piekvermogen</div>
+        <div class="kpi-value">87,4</div>
+        <div class="kpi-unit">kW</div>
+        <div class="kpi-trend trend-up">+12%</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Gem. vermogen</div>
+        <div class="kpi-value">24,8</div>
+        <div class="kpi-unit">kW</div>
+        <div class="kpi-trend trend-ok">±0%</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Load factor</div>
+        <div class="kpi-value">0,28</div>
+        <div class="kpi-unit">ratio</div>
+        <div class="kpi-trend trend-up">laag</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Dag/nacht ratio</div>
+        <div class="kpi-value">4,2</div>
+        <div class="kpi-unit">ratio</div>
+        <div class="kpi-trend trend-ok">normaal</div>
+      </div>
+    </div>
+
+    <div class="status-bar">
+      <div class="status-item">
+        <div class="status-dot dot-amber"></div>
+        <div class="status-text"><strong>Lage load factor</strong> — piekvermogen wordt inefficiënt benut</div>
+      </div>
+      <div class="status-item">
+        <div class="status-dot dot-green"></div>
+        <div class="status-text"><strong>Dag/nacht</strong> — verbruiksprofiel normaal voor uw sector</div>
+      </div>
+      <div class="status-item">
+        <div class="status-dot dot-red"></div>
+        <div class="status-text"><strong>Piekvermogen</strong> — stijging t.o.v. vorige periode</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2: SCORES -->
+  <section class="section">
+    <div class="section-label">02 — Systeemscores</div>
+    <h2 class="section-title">Flexibiliteit & efficiëntie</h2>
+
+    <div class="scores-row">
+      <div class="score-card">
+        <div class="score-ring">
+          <svg viewBox="0 0 80 80">
+            <circle class="ring-bg" cx="40" cy="40" r="34"/>
+            <circle class="ring-fill" cx="40" cy="40" r="34"
+              stroke="#4A7C59"
+              stroke-dasharray="213.6"
+              stroke-dashoffset="85"
+              style="stroke-dashoffset:85"/>
+          </svg>
+          <div class="score-number">60</div>
+        </div>
+        <div class="score-label">Flex Score</div>
+        <div class="score-desc">Goed flexibiliteitspotentieel. Verschuiving van ~18 kW haalbaar.</div>
+      </div>
+      <div class="score-card">
+        <div class="score-ring">
+          <svg viewBox="0 0 80 80">
+            <circle class="ring-bg" cx="40" cy="40" r="34"/>
+            <circle class="ring-fill" cx="40" cy="40" r="34"
+              stroke="#B87333"
+              stroke-dasharray="213.6"
+              stroke-dashoffset="128"
+              style="stroke-dashoffset:128"/>
+          </svg>
+          <div class="score-number">40</div>
+        </div>
+        <div class="score-label">Inefficiëntie</div>
+        <div class="score-desc">Matige inefficiëntie. Aandachtspunten aanwezig, actie aanbevolen.</div>
+      </div>
+      <div class="score-card">
+        <div class="score-ring">
+          <svg viewBox="0 0 80 80">
+            <circle class="ring-bg" cx="40" cy="40" r="34"/>
+            <circle class="ring-fill" cx="40" cy="40" r="34"
+              stroke="#4A7C59"
+              stroke-dasharray="213.6"
+              stroke-dashoffset="64"
+              style="stroke-dashoffset:64"/>
+          </svg>
+          <div class="score-number">70</div>
+        </div>
+        <div class="score-label">Prestatie-index</div>
+        <div class="score-desc">Boven sectorgemiddelde. U presteert beter dan 68% van uw sector.</div>
+      </div>
+      <div class="score-card">
+        <div class="score-ring">
+          <svg viewBox="0 0 80 80">
+            <circle class="ring-bg" cx="40" cy="40" r="34"/>
+            <circle class="ring-fill" cx="40" cy="40" r="34"
+              stroke="#3C5A8C"
+              stroke-dasharray="213.6"
+              stroke-dashoffset="43"
+              style="stroke-dashoffset:43"/>
+          </svg>
+          <div class="score-number">80</div>
+        </div>
+        <div class="score-label">Piekconcentratie</div>
+        <div class="score-desc">Hoge concentratie. Pieken goed stuurbaar en voorspelbaar.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3: BENCHMARK -->
+  <section class="section">
+    <div class="section-label">03 — Sectorpositie</div>
+    <h2 class="section-title">Benchmark classificatie</h2>
+
+    <div class="benchmark-row">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:16px;">
+        <div>
+          <div class="badge">Sector: Voedingsmiddelen & Bakkerij</div>
+          <p style="font-size:13px; color:var(--ink-soft); margin-top:12px; line-height:1.7;">
+            Uw totaalverbruik van 18.420 kWh wordt vergeleken met<br>
+            vergelijkbare bedrijven in uw sector (SBI 10.7).
+          </p>
+        </div>
+        <div style="text-align:right;">
+          <div style="font-family:'DM Mono',monospace; font-size:11px; color:var(--ink-ghost); margin-bottom:4px;">Afwijking t.o.v. gemiddelde</div>
+          <div style="font-family:'DM Mono',monospace; font-size:28px; font-weight:300; color:var(--green);">−14%</div>
+        </div>
+      </div>
+
+      <div class="benchmark-track">
+        <div class="benchmark-fill" style="width:62%"></div>
+        <div class="benchmark-marker" style="left:62%"></div>
+      </div>
+      <div class="benchmark-labels">
+        <span>P10 — Beste</span>
+        <span>P25</span>
+        <span>Gem.</span>
+        <span>P75</span>
+        <span>P90 — Slechtste</span>
+      </div>
+
+      <div style="margin-top:24px; display:flex; gap:24px; flex-wrap:wrap;">
+        <div class="benchmark-status">
+          <div class="status-dot dot-green"></div>
+          <span>Verbruik: <strong>within</strong> — binnen normale sectorbandbreedte</span>
+        </div>
+        <div class="benchmark-status">
+          <div class="status-dot dot-amber"></div>
+          <span>Load factor: <strong>below</strong> — meer piekgedreven dan sectorgemiddelde</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 4: VERBRUIKSPROFIEL -->
+  <section class="section">
+    <div class="section-label">04 — Verbruiksprofiel</div>
+    <h2 class="section-title">Lastprofiel & tijdsegmentatie</h2>
+
+    <div class="bar-chart">
+      <div style="font-size:13px; color:var(--ink-soft); margin-bottom:8px;">Verdeling hoog verbruik over dagdelen</div>
+      <div class="bar-row">
+        <div class="bar-label">Ochtend</div>
+        <div class="bar-track"><div class="bar-fill high" style="width:72%"></div></div>
+        <div class="bar-value">72%</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Middag</div>
+        <div class="bar-track"><div class="bar-fill mid" style="width:18%"></div></div>
+        <div class="bar-value">18%</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Avond</div>
+        <div class="bar-track"><div class="bar-fill low" style="width:7%"></div></div>
+        <div class="bar-value">7%</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Nacht</div>
+        <div class="bar-track"><div class="bar-fill low" style="width:3%"></div></div>
+        <div class="bar-value">3%</div>
+      </div>
+
+      <div class="divider" style="margin: 20px 0;"></div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:24px; text-align:center;">
+        <div>
+          <div style="font-family:'DM Mono',monospace; font-size:10px; color:var(--ink-ghost); letter-spacing:0.12em; text-transform:uppercase; margin-bottom:8px;">Werkdag gem.</div>
+          <div style="font-family:'DM Mono',monospace; font-size:22px; font-weight:300;">27,4 <span style="font-size:12px; color:var(--ink-soft);">kW</span></div>
+        </div>
+        <div>
+          <div style="font-family:'DM Mono',monospace; font-size:10px; color:var(--ink-ghost); letter-spacing:0.12em; text-transform:uppercase; margin-bottom:8px;">Weekend gem.</div>
+          <div style="font-family:'DM Mono',monospace; font-size:22px; font-weight:300;">18,1 <span style="font-size:12px; color:var(--ink-soft);">kW</span></div>
+        </div>
+        <div>
+          <div style="font-family:'DM Mono',monospace; font-size:10px; color:var(--ink-ghost); letter-spacing:0.12em; text-transform:uppercase; margin-bottom:8px;">Tarief 2 aandeel</div>
+          <div style="font-family:'DM Mono',monospace; font-size:22px; font-weight:300;">68 <span style="font-size:12px; color:var(--ink-soft);">%</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 5: FLEXIBILITEIT CALLOUT -->
+  <section class="section">
+    <div class="section-label">05 — Flexibiliteitspotentieel</div>
+    <h2 class="section-title">Verschuifbaar vermogen</h2>
+
+    <div class="dark-callout">
+      <div>
+        <div class="dark-callout-label">Congestiegeschiktheid</div>
+        <div class="dark-callout-title">Uw locatie komt in aanmerking voor deelname aan een congestieprogramma.</div>
+        <div class="dark-callout-body">
+          Op basis van uw flex score (60), structureel piekgedrag en verschuifbaar vermogen van 18 kW voldoet u aan de minimumvereisten. Beste verschuiftijden: 13:00–15:00 en 19:00–21:00 op tarief 1.
+        </div>
+        <div style="margin-top:24px; display:flex; gap:12px; flex-wrap:wrap;">
+          <span style="font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.12em; padding:6px 14px; border-radius:20px; background:rgba(247,246,243,0.08); color:rgba(247,246,243,0.5);">FLEX-SCORE 60/100</span>
+          <span style="font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.12em; padding:6px 14px; border-radius:20px; background:rgba(247,246,243,0.08); color:rgba(247,246,243,0.5);">CONGESTIE ✓</span>
+        </div>
+      </div>
+      <div class="dark-stat">
+        <div class="dark-stat-value">18<span style="font-size:28px; opacity:0.4"> kW</span></div>
+        <div class="dark-stat-label">verschuifbaar vermogen</div>
+        <div style="margin-top:24px;">
+          <div class="dark-stat-value" style="font-size:36px;">1.240<span style="font-size:18px; opacity:0.4"> kWh</span></div>
+          <div class="dark-stat-label">tariefverschuivingspotentieel</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 6: ANOMALIES -->
+  <section class="section">
+    <div class="section-label">06 — Anomaliedetectie</div>
+    <h2 class="section-title">Gedetecteerde afwijkingen</h2>
+
+    <div class="timeline">
+      <div class="timeline-item highlight">
+        <div class="timeline-time">06 mrt, 07:14</div>
+        <div class="timeline-line"></div>
+        <div class="timeline-content">
+          <div class="timeline-title">Piek buiten verwacht tijdblok — 91,2 kW</div>
+          <div class="timeline-desc">Vermogenspiek gedetecteerd buiten de verwachte ochtendpiekblokken (08:00–11:00). Afwijking van +4,3% t.o.v. historisch maximum. Type: <strong>peak</strong> — ernst: hoog.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-time">12 mrt, 02:38</div>
+        <div class="timeline-line"></div>
+        <div class="timeline-content">
+          <div class="timeline-title">Verhoogd nachtverbruik — 8,4 kW</div>
+          <div class="timeline-desc">Nachtelijk verbruik 2,3× boven verwachte baseload (3,6 kW). Mogelijk vergeten apparatuur of nachtproductie. Type: <strong>outlier</strong> — ernst: medium.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-time">18 mrt, 11:02</div>
+        <div class="timeline-line"></div>
+        <div class="timeline-content">
+          <div class="timeline-title">Faseonbalans gedetecteerd — index 0,31</div>
+          <div class="timeline-desc">Sterke fase-onbalans tussen L1 (68A) en L3 (42A). Overschrijdt drempelwaarde van 0,25. Mogelijke oorzaak: eenzijdige belasting. Type: <strong>deviation</strong> — ernst: medium.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-time">24 mrt, 09:15</div>
+        <div class="timeline-line"></div>
+        <div class="timeline-content">
+          <div class="timeline-title">Structurele verbruiksverschuiving — +22%</div>
+          <div class="timeline-desc">24-uurs rolgemiddelde 22% boven verwacht weekdagniveau. Mogelijke proceswijziging of extra productie. Type: <strong>shift</strong> — ernst: laag.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 7: AANBEVELINGEN -->
+  <section class="section">
+    <div class="section-label">07 — Aanbevelingen</div>
+    <h2 class="section-title">Geprioriteerde acties</h2>
+
+    <div class="actions-list">
+      <div class="action-item">
+        <div class="action-rank">01</div>
+        <div class="action-body">
+          <div class="action-title">Piekverschuiving ochtendblok</div>
+          <div class="action-desc">Verschuif flexibele lasten van 07:00–09:00 naar 13:00–15:00 om piekvermogen te reduceren en tarief 2 verbruik te verlagen.</div>
+        </div>
+        <div class="action-impact impact-high">Hoog</div>
+      </div>
+      <div class="action-item">
+        <div class="action-rank">02</div>
+        <div class="action-body">
+          <div class="action-title">Audit nachtelijk verbruik</div>
+          <div class="action-desc">Inventariseer apparatuur die actief blijft buiten bedrijfsuren. Geschat besparingspotentieel: 680–1.360 kWh per maand.</div>
+        </div>
+        <div class="action-impact impact-high">Hoog</div>
+      </div>
+      <div class="action-item">
+        <div class="action-rank">03</div>
+        <div class="action-body">
+          <div class="action-title">Faseverdeling herbalanceren</div>
+          <div class="action-desc">Herverdeel belasting van fase L1 naar L3 om faseonbalans (index 0,31) te reduceren. Verbetert installatierendement en vermindert verliezen.</div>
+        </div>
+        <div class="action-impact impact-medium">Medium</div>
+      </div>
+      <div class="action-item">
+        <div class="action-rank">04</div>
+        <div class="action-body">
+          <div class="action-title">Deelname congestieprogramma verkennen</div>
+          <div class="action-desc">Uw locatie voldoet aan de minimumvereisten (flex score 60, 18 kW verschuifbaar). Neem contact op met uw netbeheerder voor aanmelding.</div>
+        </div>
+        <div class="action-impact impact-medium">Medium</div>
+      </div>
+      <div class="action-item">
+        <div class="action-rank">05</div>
+        <div class="action-body">
+          <div class="action-title">Tariefoptimalisatie — tarief 1 verschuiving</div>
+          <div class="action-desc">68% van uw verbruik valt in tarief 2. Verschuiving van 1.240 kWh naar tarief 1 levert directe kostenbesparing op.</div>
+        </div>
+        <div class="action-impact impact-low">Laag</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 8: INZICHTEN -->
+  <section class="section">
+    <div class="section-label">08 — Managementsamenvatting</div>
+    <h2 class="section-title">Drie kernbevindingen</h2>
+
+    <div class="insight-grid">
+      <div class="insight-card">
+        <div class="insight-icon icon-amber">⚡</div>
+        <div class="insight-title">Piekgedreven verbruik met optimalisatiepotentieel</div>
+        <div class="insight-body">Uw load factor van 0,28 ligt onder het sectorgemiddelde. Het gemiddeld vermogen bedraagt slechts 28% van uw piek — een indicatie dat capaciteit inefficiënt wordt ingezet. Verschuiving van ochtendpieken kan dit significant verbeteren.</div>
+        <div class="insight-tag">C2-E1 · C2-E2 · C2-E5</div>
+      </div>
+      <div class="insight-card">
+        <div class="insight-icon icon-green">◎</div>
+        <div class="insight-title">Sterke flexibiliteitspositie voor netdiensten</div>
+        <div class="insight-body">Met een flex score van 60 en geconcentreerde pieken (score 80) is uw locatie goed gepositioneerd voor vraagrespons en congestiediensten. Het verschuifbare vermogen van 18 kW biedt concrete deelnamemogelijkheid.</div>
+        <div class="insight-tag">C2-E6 · C2-E2</div>
+      </div>
+      <div class="insight-card">
+        <div class="insight-icon icon-red">△</div>
+        <div class="insight-title">Faseonbalans vereist technische aandacht</div>
+        <div class="insight-body">De fase-onbalans index van 0,31 overschrijdt de aanbevolen grens. Fase L1 draagt structureel 38% meer last dan L3. Dit verhoogt verliezen in motoren en installaties en verdient prioritaire aandacht van een installateur.</div>
+        <div class="insight-tag">C2-E8 · C2-AI1</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="report-footer">
+    <div class="footer-brand">
+      eFlexIQ — Energie Intelligence Platform<br>
+      Ontwikkeld door RNDX Labs · rndxlabs.com<br>
+      Zeist, Nederland · 2024
+    </div>
+    <div class="footer-note">
+      Dit rapport is gegenereerd op basis van gemeten sensordata en statistische analyse. Aanbevelingen zijn indicatief. Raadpleeg een gecertificeerd energieadviseur voor implementatie.
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  // Animate bars and rings on load
+  window.addEventListener('load', () => {
+    // Animate ring stroke-dashoffsets
+    document.querySelectorAll('.ring-fill').forEach(ring => {
+      const target = ring.style.strokeDashoffset;
+      ring.style.strokeDashoffset = '213.6';
+      setTimeout(() => { ring.style.strokeDashoffset = target; }, 200);
+    });
+
+    // Animate bar fills
+    document.querySelectorAll('.bar-fill').forEach(bar => {
+      const target = bar.style.width;
+      bar.style.width = '0%';
+      setTimeout(() => { bar.style.width = target; }, 300);
+    });
+
+    // Animate benchmark fill
+    document.querySelectorAll('.benchmark-fill').forEach(fill => {
+      const target = fill.style.width;
+      fill.style.width = '0%';
+      setTimeout(() => { fill.style.width = target; }, 400);
+    });
+  });
+</script>
+</body>
+</html>

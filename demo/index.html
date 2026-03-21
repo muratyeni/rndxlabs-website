@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Demo's — RNDX Labs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:       #F7F6F3;
+    --bg-card:  #EFEDE8;
+    --ink:      #1C1C1A;
+    --ink-mid:  #3A3A36;
+    --ink-soft: #7A7A74;
+    --ink-ghost:#B0AFA9;
+    --border:   rgba(60,60,54,0.10);
+    --radius:   16px;
+    --radius-sm:8px;
+    --green:    #4A7C59;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 16px; scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+
+  .page { max-width: 880px; margin: 0 auto; padding: 0 32px 120px; }
+
+  /* HEADER */
+  .header {
+    padding: 56px 0 48px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 64px;
+  }
+
+  .brand-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 40px;
+  }
+
+  .logo-mark {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .logo-name {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    color: var(--ink-mid);
+    text-transform: uppercase;
+  }
+
+  .back-link {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-ghost);
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.2s;
+  }
+
+  .back-link:hover { color: var(--ink-soft); }
+
+  .page-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 5vw, 44px);
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 14px;
+  }
+
+  .page-title em { font-style: italic; color: var(--ink-soft); }
+
+  .page-sub {
+    font-size: 15px;
+    color: var(--ink-soft);
+    font-weight: 300;
+    line-height: 1.7;
+    max-width: 480px;
+  }
+
+  /* DEMO GRID */
+  .demo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 16px;
+  }
+
+  /* DEMO CARD */
+  .demo-card {
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease, background 0.2s ease;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.5s ease forwards;
+  }
+
+  .demo-card:nth-child(1) { animation-delay: 0.05s; }
+  .demo-card:nth-child(2) { animation-delay: 0.15s; }
+  .demo-card:nth-child(3) { animation-delay: 0.25s; }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .demo-card:hover {
+    transform: translateY(-3px);
+    background: #E8E6E0;
+  }
+
+  .demo-card.inactive {
+    opacity: 0.45 !important;
+    pointer-events: none;
+    animation-delay: 0.20s;
+  }
+
+  .demo-card.inactive:hover { transform: none; }
+
+  /* CARD PREVIEW */
+  .card-preview {
+    height: 180px;
+    background: #1C1C1A;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .preview-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    padding: 24px;
+    width: 100%;
+  }
+
+  .preview-bar {
+    background: rgba(247,246,243,0.08);
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .preview-bar::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: rgba(247,246,243,0.25);
+    border-radius: 4px;
+  }
+
+  .preview-bar:nth-child(1) { height: 80px; }
+  .preview-bar:nth-child(1)::after { height: 65%; }
+  .preview-bar:nth-child(2) { height: 80px; }
+  .preview-bar:nth-child(2)::after { height: 40%; background: rgba(184,115,51,0.5); }
+  .preview-bar:nth-child(3) { height: 80px; }
+  .preview-bar:nth-child(3)::after { height: 80%; }
+  .preview-bar:nth-child(4) { height: 80px; }
+  .preview-bar:nth-child(4)::after { height: 25%; background: rgba(74,124,89,0.6); }
+
+  .preview-label {
+    position: absolute;
+    top: 16px;
+    left: 20px;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(247,246,243,0.3);
+  }
+
+  .preview-number {
+    position: absolute;
+    bottom: 16px;
+    right: 20px;
+    font-family: 'DM Mono', monospace;
+    font-size: 28px;
+    font-weight: 300;
+    color: rgba(247,246,243,0.15);
+    letter-spacing: -0.02em;
+  }
+
+  /* CARD BODY */
+  .card-body {
+    padding: 24px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .card-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .card-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-ghost);
+  }
+
+  .card-status {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    padding: 3px 8px;
+    border-radius: 20px;
+  }
+
+  .status-live    { background: rgba(74,124,89,0.10); color: var(--green); }
+  .status-soon    { background: rgba(60,60,54,0.06);  color: var(--ink-ghost); }
+
+  .card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 19px;
+    font-weight: 400;
+    color: var(--ink);
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+  }
+
+  .card-desc {
+    font-size: 13px;
+    color: var(--ink-soft);
+    line-height: 1.65;
+    flex: 1;
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    margin-top: 4px;
+  }
+
+  .card-url {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-ghost);
+    letter-spacing: 0.06em;
+  }
+
+  .card-arrow {
+    font-size: 14px;
+    color: var(--ink-ghost);
+    transition: transform 0.2s ease, color 0.2s ease;
+  }
+
+  .demo-card:hover .card-arrow {
+    transform: translateX(3px);
+    color: var(--ink-mid);
+  }
+
+  /* FOOTER */
+  .page-footer {
+    border-top: 1px solid var(--border);
+    padding-top: 40px;
+    margin-top: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .footer-brand {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-ghost);
+    letter-spacing: 0.10em;
+    line-height: 1.8;
+  }
+
+  .footer-note {
+    font-size: 12px;
+    color: var(--ink-ghost);
+  }
+
+  @media (max-width: 640px) {
+    .page { padding: 0 20px 80px; }
+    .demo-grid { grid-template-columns: 1fr; }
+    .brand-row { flex-direction: column; align-items: flex-start; gap: 16px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="header">
+    <div class="brand-row">
+      <div class="logo-mark">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+          <rect width="28" height="28" rx="6" fill="#1C1C1A"/>
+          <circle cx="9"  cy="9"  r="2" fill="#F7F6F3" opacity="0.9"/>
+          <circle cx="19" cy="9"  r="2" fill="#F7F6F3" opacity="0.9"/>
+          <circle cx="9"  cy="19" r="2" fill="#F7F6F3" opacity="0.9"/>
+          <circle cx="19" cy="19" r="2" fill="#F7F6F3" opacity="0.9"/>
+          <circle cx="14" cy="14" r="2.5" fill="#F7F6F3"/>
+          <line x1="9" y1="9" x2="14" y2="14" stroke="#F7F6F3" stroke-width="0.8" opacity="0.4"/>
+          <line x1="19" y1="9" x2="14" y2="14" stroke="#F7F6F3" stroke-width="0.8" opacity="0.4"/>
+          <line x1="9" y1="19" x2="14" y2="14" stroke="#F7F6F3" stroke-width="0.8" opacity="0.4"/>
+          <line x1="19" y1="19" x2="14" y2="14" stroke="#F7F6F3" stroke-width="0.8" opacity="0.4"/>
+        </svg>
+        <span class="logo-name">RNDX Labs</span>
+      </div>
+      <a href="/" class="back-link">← rndxlabs.com</a>
+    </div>
+
+    <h1 class="page-title">Product<em>demo's</em></h1>
+    <p class="page-sub">Interactieve voorbeelden van eFlexIQ — het energie-intelligence platform van RNDX Labs.</p>
+  </header>
+
+  <div class="demo-grid">
+
+    <!-- DEMO 01 — LIVE -->
+    <a href="/demo/01/index.html" class="demo-card">
+      <div class="card-preview">
+        <span class="preview-label">eFlexIQ Rapport</span>
+        <div class="preview-grid">
+          <div class="preview-bar"></div>
+          <div class="preview-bar"></div>
+          <div class="preview-bar"></div>
+          <div class="preview-bar"></div>
+        </div>
+        <span class="preview-number">01</span>
+      </div>
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-tag">eFlexIQ · C2 Layer</span>
+          <span class="card-status status-live">● Live</span>
+        </div>
+        <div class="card-title">Energie Analyse & Adviesrapport</div>
+        <div class="card-desc">Volledig energierapport voor adviseur en eindklant. KPI's, flexibiliteit, benchmark, anomaliedetectie en geprioriteerde aanbevelingen.</div>
+        <div class="card-footer">
+          <span class="card-url">rndxlabs.com/demo01</span>
+          <span class="card-arrow">→</span>
+        </div>
+      </div>
+    </a>
+
+    <!-- DEMO 02 — COMING SOON -->
+    <div class="demo-card inactive">
+      <div class="card-preview">
+        <span class="preview-label">eFlexIQ Dashboard</span>
+        <span class="preview-number">02</span>
+      </div>
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-tag">eFlexIQ · C3 Layer</span>
+          <span class="card-status status-soon">Binnenkort</span>
+        </div>
+        <div class="card-title">Interactief Adviseursdashboard</div>
+        <div class="card-desc">Real-time dashboard voor energieadviseurs met scenario toggles, labelconflicten en confidence indicatoren per locatie.</div>
+        <div class="card-footer">
+          <span class="card-url">rndxlabs.com/demo02</span>
+          <span class="card-arrow">→</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- DEMO 03 — COMING SOON -->
+    <div class="demo-card inactive">
+      <div class="card-preview">
+        <span class="preview-label">eFlexIQ Klantmodule</span>
+        <span class="preview-number">03</span>
+      </div>
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-tag">eFlexIQ · C3-E5</span>
+          <span class="card-status status-soon">Binnenkort</span>
+        </div>
+        <div class="card-title">Klantinteractie & Labeling</div>
+        <div class="card-desc">Eindklant-interface voor het bekijken van piekmomenten, bevestigen van events en opgeven van flex-intentie voor congestieprogramma's.</div>
+        <div class="card-footer">
+          <span class="card-url">rndxlabs.com/demo03</span>
+          <span class="card-arrow">→</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer class="page-footer">
+    <div class="footer-brand">
+      RNDX Labs · rndxlabs.com<br>
+      Zeist, Nederland · 2024
+    </div>
+    <div class="footer-note">eFlexIQ — Energie Intelligence Platform</div>
+  </footer>
+
+</div>
+</body>
+</html>
