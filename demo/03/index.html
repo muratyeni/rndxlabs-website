@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>eFlexIQ — Energie Rapport v3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:        #F7F6F3;
+    --bg-card:   #EFEDE8;
+    --bg-dark:   #1C1C1A;
+    --ink:       #1C1C1A;
+    --ink-mid:   #3A3A36;
+    --ink-soft:  #7A7A74;
+    --ink-ghost: #B0AFA9;
+    --green:     #4A7C59;
+    --amber:     #B87333;
+    --red:       #8B3A3A;
+    --blue:      #3C5A8C;
+    --border:    rgba(60,60,54,0.10);
+    --radius:    16px;
+    --radius-sm: 8px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 16px; scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page { max-width: 960px; margin: 0 auto; padding: 0 32px 120px; }
+
+  /* ── HEADER ── */
+  .report-header {
+    padding: 64px 0 48px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 64px;
+  }
+  .brand-row {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 48px;
+  }
+  .logo-mark { display: flex; align-items: center; gap: 10px; }
+  .logo-name {
+    font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 500;
+    letter-spacing: 0.12em; color: var(--ink-mid); text-transform: uppercase;
+  }
+  .report-meta {
+    font-family: 'DM Mono', monospace; font-size: 11px; color: var(--ink-ghost);
+    letter-spacing: 0.08em; text-align: right; line-height: 1.8;
+  }
+  .report-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 5vw, 52px); font-weight: 400;
+    line-height: 1.15; color: var(--ink); margin-bottom: 12px;
+    letter-spacing: -0.02em;
+  }
+  .report-title em { font-style: italic; color: var(--ink-soft); }
+  .report-subtitle {
+    font-size: 16px; color: var(--ink-soft); font-weight: 300;
+    max-width: 540px; line-height: 1.7; margin-bottom: 20px;
+  }
+  .version-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: 'DM Mono', monospace; font-size: 10px;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 5px 12px; border-radius: 20px;
+    background: var(--bg-card); color: var(--ink-ghost);
+    border: 1px solid var(--border);
+  }
+  .version-badge span { color: var(--blue); }
+
+  /* ── SECTIONS ── */
+  .section {
+    margin-bottom: 80px;
+    opacity: 0; transform: translateY(24px);
+    animation: fadeUp 0.6s ease forwards;
+  }
+  .section:nth-child(1) { animation-delay: 0.05s; }
+  .section:nth-child(2) { animation-delay: 0.12s; }
+  .section:nth-child(3) { animation-delay: 0.19s; }
+  .section:nth-child(4) { animation-delay: 0.26s; }
+  .section:nth-child(5) { animation-delay: 0.33s; }
+  .section:nth-child(6) { animation-delay: 0.40s; }
+  .section:nth-child(7) { animation-delay: 0.47s; }
+  .section:nth-child(8) { animation-delay: 0.54s; }
+  @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+  .section-label {
+    font-family: 'DM Mono', monospace; font-size: 10px;
+    letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-ghost);
+    margin-bottom: 20px; display: flex; align-items: center; gap: 12px;
+  }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+  .section-title {
+    font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 400;
+    margin-bottom: 24px; color: var(--ink); letter-spacing: -0.01em;
+  }
+  .section-sub {
+    font-size: 14px; color: var(--ink-soft); font-weight: 300;
+    margin-top: -16px; margin-bottom: 24px; line-height: 1.7;
+  }
+
+  /* ══ BLOK 1 — HERO STATUS ══ */
+  .hero-block {
+    background: var(--bg-dark); border-radius: var(--radius);
+    padding: 48px; color: #F7F6F3;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;
+  }
+  .hero-status-row { display: flex; align-items: center; gap: 8px; margin-bottom: 20px; }
+  .status-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-amber { background: var(--amber); }
+  .status-label-text {
+    font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: rgba(247,246,243,0.5);
+  }
+  .hero-verdict {
+    font-family: 'Playfair Display', serif; font-size: clamp(22px, 3.5vw, 30px);
+    font-weight: 400; line-height: 1.3; color: #F7F6F3; margin-bottom: 16px;
+    letter-spacing: -0.01em;
+  }
+  .hero-benchmark { font-size: 14px; color: rgba(247,246,243,0.55); line-height: 1.7; margin-bottom: 24px; }
+  .hero-trend-pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.10em;
+    text-transform: uppercase; color: rgba(247,246,243,0.45);
+    background: rgba(247,246,243,0.07); padding: 7px 14px; border-radius: 20px;
+  }
+  .trend-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--amber); flex-shrink: 0; }
+
+  .hero-right { text-align: right; }
+  .hero-score-label {
+    font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.18em;
+    text-transform: uppercase; color: rgba(247,246,243,0.35); margin-bottom: 12px;
+  }
+  .hero-score-value {
+    font-family: 'DM Mono', monospace; font-size: 88px; font-weight: 300;
+    line-height: 1; letter-spacing: -0.03em; color: #F7F6F3; margin-bottom: 8px;
+  }
+  .hero-score-sub { font-size: 13px; color: rgba(247,246,243,0.4); margin-bottom: 24px; }
+  .hero-stat-row { display: flex; flex-direction: column; gap: 8px; align-items: flex-end; }
+  .hero-stat { display: flex; align-items: center; gap: 8px; font-size: 12px; color: rgba(247,246,243,0.5); }
+  .hero-stat-val { font-family: 'DM Mono', monospace; font-size: 12px; color: rgba(247,246,243,0.8); }
+
+  /* ══ BLOK 2 — SIGNALEN ══ */
+  .signals-list { display: flex; flex-direction: column; gap: 3px; }
+  .signal-item { background: var(--bg-card); border-radius: var(--radius-sm); overflow: hidden; }
+  .signal-item:first-child { border-radius: var(--radius) var(--radius) var(--radius-sm) var(--radius-sm); }
+  .signal-item:last-child  { border-radius: var(--radius-sm) var(--radius-sm) var(--radius) var(--radius); }
+  .signal-header {
+    display: grid; grid-template-columns: 36px 1fr auto;
+    align-items: center; gap: 16px; padding: 22px 24px;
+    cursor: pointer; transition: background 0.15s;
+  }
+  .signal-header:hover { background: #E8E6E0; }
+  .signal-icon {
+    width: 36px; height: 36px; border-radius: var(--radius-sm);
+    display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0;
+  }
+  .icon-red   { background: rgba(139,58,58,0.08); }
+  .icon-amber { background: rgba(184,115,51,0.08); }
+  .signal-title { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .signal-sub   { font-size: 12px; color: var(--ink-soft); }
+  .signal-badge {
+    font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.08em;
+    text-transform: uppercase; padding: 3px 10px; border-radius: 20px; white-space: nowrap;
+  }
+  .badge-red   { background: rgba(139,58,58,0.10);  color: var(--red); }
+  .badge-amber { background: rgba(184,115,51,0.10); color: var(--amber); }
+  .signal-detail {
+    display: none; padding: 0 24px 20px 76px;
+    font-size: 13px; color: var(--ink-soft); line-height: 1.7;
+  }
+  .signal-detail.open { display: block; }
+  .signal-detail p + p { margin-top: 10px; }
+  .signal-detail strong { color: var(--ink-mid); font-weight: 500; }
+
+  /* ══ BLOK 3 — AI OBSERVATIES ══ */
+  .insight-block { background: var(--bg-card); border-radius: var(--radius); overflow: hidden; }
+  .insight-block-header {
+    padding: 20px 28px; border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 12px;
+  }
+  .ai-tag {
+    font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.12em;
+    text-transform: uppercase; padding: 4px 10px; border-radius: 20px;
+    background: var(--bg-dark); color: rgba(247,246,243,0.8);
+  }
+  .insight-block-sub { font-size: 13px; color: var(--ink-soft); }
+  .insight-item {
+    display: grid; grid-template-columns: 4px 1fr;
+    gap: 0 20px; padding: 20px 28px; border-bottom: 1px solid var(--border);
+  }
+  .insight-item:last-child { border-bottom: none; }
+  .insight-stripe { width: 4px; border-radius: 2px; background: var(--border); align-self: stretch; margin-top: 2px; }
+  .insight-stripe.amber { background: var(--amber); opacity: 0.5; }
+  .insight-stripe.green { background: var(--green); opacity: 0.5; }
+  .insight-text { font-size: 14px; color: var(--ink-mid); line-height: 1.6; margin-bottom: 4px; }
+  .insight-text strong { color: var(--ink); font-weight: 500; }
+  .insight-when {
+    font-family: 'DM Mono', monospace; font-size: 10px; color: var(--ink-ghost);
+    letter-spacing: 0.08em; text-transform: uppercase;
+  }
+
+  /* ══ BLOK 4 — BESPARING ══ */
+  .savings-hero {
+    background: var(--bg-card); border-radius: var(--radius); padding: 40px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start;
+    margin-bottom: 3px;
+  }
+  .savings-amount-label {
+    font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--ink-ghost); margin-bottom: 12px;
+  }
+  .savings-amount-value {
+    font-family: 'DM Mono', monospace; font-size: 56px; font-weight: 300;
+    color: var(--green); line-height: 1; letter-spacing: -0.03em; margin-bottom: 8px;
+  }
+  .savings-amount-sub { font-size: 13px; color: var(--ink-soft); line-height: 1.6; margin-bottom: 24px; }
+  .savings-opportunity { font-size: 14px; color: var(--ink-mid); line-height: 1.7; }
+  .savings-opportunity strong { color: var(--ink); font-weight: 500; }
+  .savings-breakdown { display: flex; flex-direction: column; gap: 3px; }
+  .savings-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 16px; border-radius: var(--radius-sm); background: rgba(60,60,54,0.04);
+  }
+  .savings-row.highlight { background: rgba(74,124,89,0.08); }
+  .savings-row-label { font-size: 13px; color: var(--ink-soft); }
+  .savings-row.highlight .savings-row-label { color: var(--green); font-weight: 500; }
+  .savings-row-value { font-family: 'DM Mono', monospace; font-size: 15px; font-weight: 300; color: var(--ink); }
+  .savings-row.highlight .savings-row-value { color: var(--green); }
+  .savings-note-bar {
+    background: var(--bg-card); border-radius: var(--radius-sm); padding: 16px 20px;
+    font-size: 11px; color: var(--ink-ghost); font-style: italic; line-height: 1.6;
+  }
+
+  /* ══ BLOK 5 — ACTIES ══ */
+  .actions-list { display: flex; flex-direction: column; gap: 3px; }
+  .action-item {
+    background: var(--bg-card); border-radius: var(--radius-sm); padding: 20px 24px;
+    display: grid; grid-template-columns: 32px 1fr auto; align-items: center;
+    gap: 16px; transition: background 0.2s ease;
+  }
+  .action-item:first-child { border-radius: var(--radius) var(--radius) var(--radius-sm) var(--radius-sm); }
+  .action-item:last-child  { border-radius: var(--radius-sm) var(--radius-sm) var(--radius) var(--radius); }
+  .action-item:hover { background: #E8E6E0; }
+  .action-rank { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--ink-ghost); text-align: center; }
+  .action-title { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .action-desc  { font-size: 12px; color: var(--ink-soft); }
+  .action-impact {
+    font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.08em;
+    text-transform: uppercase; padding: 4px 10px; border-radius: 20px; white-space: nowrap;
+  }
+  .impact-high   { background: rgba(74,124,89,0.10);  color: var(--green); }
+  .impact-medium { background: rgba(184,115,51,0.10); color: var(--amber); }
+
+  /* ══ BLOK 6 — TECHNISCH ══ */
+  .tech-list { display: flex; flex-direction: column; gap: 3px; }
+  .tech-item {
+    background: var(--bg-card); border-radius: var(--radius-sm); padding: 20px 24px;
+    display: grid; grid-template-columns: 36px 1fr; gap: 16px; align-items: start;
+    transition: background 0.2s ease;
+  }
+  .tech-item:first-child { border-radius: var(--radius) var(--radius) var(--radius-sm) var(--radius-sm); }
+  .tech-item:last-child  { border-radius: var(--radius-sm) var(--radius-sm) var(--radius) var(--radius); }
+  .tech-item:hover { background: #E8E6E0; }
+  .tech-icon-wrap {
+    width: 36px; height: 36px; border-radius: var(--radius-sm);
+    background: rgba(184,115,51,0.08); display: flex; align-items: center;
+    justify-content: center; font-size: 16px; flex-shrink: 0;
+  }
+  .tech-title { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 4px; }
+  .tech-desc  { font-size: 12px; color: var(--ink-soft); line-height: 1.6; }
+
+  /* ══ BLOK 7 — LABELING ══ */
+  .labeling-section { background: var(--bg-card); border-radius: var(--radius); overflow: hidden; }
+  .labeling-header {
+    padding: 24px 28px; border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+  }
+  .labeling-header-title { font-size: 15px; font-weight: 500; color: var(--ink); margin-bottom: 4px; }
+  .labeling-header-sub   { font-size: 13px; color: var(--ink-soft); }
+  .labeling-progress { display: flex; align-items: center; gap: 10px; }
+  .progress-text { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--ink-soft); }
+  .progress-track { width: 80px; height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; }
+  .progress-fill  { height: 100%; background: var(--green); border-radius: 2px; width: 0%; transition: width 0.4s ease; }
+  .event-list { display: flex; flex-direction: column; }
+  .event-row {
+    padding: 20px 28px; border-bottom: 1px solid var(--border);
+    display: grid; grid-template-columns: 1fr auto;
+    align-items: start; gap: 20px; transition: background 0.15s;
+  }
+  .event-row:last-child { border-bottom: none; }
+  .event-row:hover { background: rgba(60,60,54,0.02); }
+  .event-row.labeled { background: rgba(74,124,89,0.04); }
+  .event-top { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; flex-wrap: wrap; }
+  .event-type {
+    font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.10em;
+    text-transform: uppercase; padding: 2px 8px; border-radius: 10px;
+    background: rgba(60,60,54,0.07); color: var(--ink-soft);
+  }
+  .event-time { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--ink-ghost); }
+  .event-title  { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 4px; }
+  .event-detail { font-size: 12px; color: var(--ink-soft); line-height: 1.5; }
+  .event-labels { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+  .label-select { display: flex; flex-wrap: wrap; gap: 6px; justify-content: flex-end; }
+  .label-btn {
+    font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.08em;
+    padding: 5px 10px; border-radius: 20px; border: 1px solid var(--border);
+    background: transparent; color: var(--ink-soft); cursor: pointer;
+    transition: all 0.15s ease; white-space: nowrap;
+  }
+  .label-btn:hover { background: var(--bg-dark); color: #F7F6F3; border-color: var(--bg-dark); }
+  .label-btn.selected { background: var(--bg-dark); color: #F7F6F3; border-color: var(--bg-dark); }
+  .label-status { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--ink-ghost); letter-spacing: 0.08em; height: 16px; }
+  .label-status.saved { color: var(--green); }
+  .labeling-footer {
+    padding: 20px 28px; border-top: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+  }
+  .labeling-footer-note { font-size: 12px; color: var(--ink-ghost); line-height: 1.6; max-width: 480px; }
+  .submit-btn {
+    font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.10em;
+    text-transform: uppercase; padding: 10px 20px; border-radius: var(--radius-sm);
+    background: var(--bg-dark); color: #F7F6F3; border: none; cursor: pointer;
+    transition: opacity 0.2s ease;
+  }
+  .submit-btn:hover { opacity: 0.8; }
+  .submit-btn:disabled { opacity: 0.3; cursor: default; }
+
+  /* confidence badge */
+  .confidence-badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.08em;
+    padding: 3px 8px; border-radius: 20px; white-space: nowrap; flex-shrink: 0;
+  }
+  .conf-high   { background: rgba(74,124,89,0.10);  color: var(--green); }
+  .conf-medium { background: rgba(184,115,51,0.10); color: var(--amber); }
+  .conf-low    { background: rgba(60,60,54,0.08);   color: var(--ink-soft); }
+
+  /* ══ BLOK 8 — ACCORDION DETAILS ══ */
+  .details-accordion { display: flex; flex-direction: column; gap: 3px; }
+  .accordion-item { background: var(--bg-card); border-radius: var(--radius-sm); overflow: hidden; }
+  .accordion-item:first-child { border-radius: var(--radius) var(--radius) var(--radius-sm) var(--radius-sm); }
+  .accordion-item:last-child  { border-radius: var(--radius-sm) var(--radius-sm) var(--radius) var(--radius); }
+  .accordion-trigger {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 24px; cursor: pointer; transition: background 0.15s; user-select: none;
+  }
+  .accordion-trigger:hover { background: #E8E6E0; }
+  .accordion-trigger-left { display: flex; align-items: center; gap: 12px; }
+  .accordion-num {
+    font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.10em;
+    text-transform: uppercase; color: var(--ink-ghost);
+  }
+  .accordion-title { font-size: 14px; font-weight: 500; color: var(--ink); }
+  .accordion-chevron {
+    font-family: 'DM Mono', monospace; font-size: 12px; color: var(--ink-ghost);
+    transition: transform 0.25s ease;
+  }
+  .accordion-chevron.open { transform: rotate(180deg); }
+  .accordion-body { display: none; padding: 0 24px 28px; border-top: 1px solid var(--border); }
+  .accordion-body.open { display: block; }
+
+  /* KPI tiles */
+  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 2px; margin-top: 20px; }
+  .kpi-card {
+    background: rgba(60,60,54,0.04); padding: 24px 20px; position: relative; overflow: hidden;
+    transition: background 0.2s ease;
+  }
+  .kpi-card:first-child { border-radius: var(--radius-sm) 0 0 var(--radius-sm); }
+  .kpi-card:last-child  { border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+  .kpi-card:hover { background: rgba(60,60,54,0.07); }
+  .kpi-label {
+    font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--ink-ghost); margin-bottom: 10px;
+  }
+  .kpi-value {
+    font-family: 'DM Mono', monospace; font-size: 28px; font-weight: 300;
+    color: var(--ink); line-height: 1; margin-bottom: 3px; letter-spacing: -0.02em;
+  }
+  .kpi-unit  { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--ink-soft); }
+  .kpi-trend {
+    position: absolute; top: 16px; right: 16px;
+    font-family: 'DM Mono', monospace; font-size: 10px; padding: 2px 7px; border-radius: 20px;
+  }
+  .trend-up   { background: rgba(139,58,58,0.08);  color: var(--red); }
+  .trend-down { background: rgba(74,124,89,0.08);  color: var(--green); }
+  .trend-ok   { background: rgba(74,124,89,0.08);  color: var(--green); }
+
+  /* bar chart */
+  .bar-chart { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }
+  .bar-row { display: grid; grid-template-columns: 90px 1fr 64px; align-items: center; gap: 16px; }
+  .bar-label {
+    font-family: 'DM Mono', monospace; font-size: 11px; color: var(--ink-soft);
+    letter-spacing: 0.06em; text-align: right;
+  }
+  .bar-track { height: 5px; background: var(--border); border-radius: 3px; overflow: hidden; }
+  .bar-fill  { height: 100%; border-radius: 3px; transition: width 1.2s cubic-bezier(0.4,0,0.2,1); }
+  .bf-dark   { background: var(--ink-mid); }
+  .bf-green  { background: var(--green); }
+  .bf-amber  { background: var(--amber); }
+  .bf-ghost  { background: var(--ink-ghost); }
+  .bar-value { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--ink-soft); }
+
+  /* benchmark */
+  .benchmark-block {
+    background: rgba(60,60,54,0.04); border-radius: var(--radius-sm); padding: 24px; margin-top: 20px;
+  }
+  .benchmark-track {
+    position: relative; height: 6px; background: var(--border); border-radius: 3px; margin: 20px 0 10px;
+  }
+  .benchmark-zone { position: absolute; height: 100%; border-radius: 3px; background: rgba(60,60,54,0.08); }
+  .benchmark-marker {
+    position: absolute; top: 50%; transform: translate(-50%,-50%);
+    width: 14px; height: 14px; border-radius: 50%; background: var(--ink);
+    border: 2px solid var(--bg-card); box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+  .benchmark-labels {
+    display: flex; justify-content: space-between;
+    font-family: 'DM Mono', monospace; font-size: 10px; color: var(--ink-ghost); letter-spacing: 0.08em;
+  }
+  .bench-deviation {
+    font-family: 'DM Mono', monospace; font-size: 28px; font-weight: 300;
+    color: var(--green); letter-spacing: -0.02em; margin-top: 16px;
+  }
+
+  /* detail table */
+  .detail-table { width: 100%; border-collapse: collapse; margin-top: 16px; }
+  .detail-table th {
+    text-align: left; font-family: 'DM Mono', monospace; font-size: 10px;
+    letter-spacing: 0.10em; text-transform: uppercase; color: var(--ink-ghost);
+    padding: 0 0 10px; border-bottom: 1px solid var(--border);
+  }
+  .detail-table td {
+    padding: 10px 0; font-size: 13px; color: var(--ink-mid);
+    border-bottom: 1px solid var(--border);
+  }
+  .detail-table td:last-child { text-align: right; font-family: 'DM Mono', monospace; color: var(--ink); }
+  .detail-table tr:last-child td { border-bottom: none; }
+  .td-green { color: var(--green) !important; }
+  .td-amber { color: var(--amber) !important; }
+
+  /* timeline */
+  .timeline { display: flex; flex-direction: column; gap: 0; margin-top: 20px; }
+  .timeline-item { display: grid; grid-template-columns: 110px 1px 1fr; gap: 0 24px; padding: 0 0 28px; }
+  .timeline-item:last-child { padding-bottom: 0; }
+  .timeline-time {
+    font-family: 'DM Mono', monospace; font-size: 11px; color: var(--ink-ghost);
+    text-align: right; padding-top: 3px; letter-spacing: 0.06em;
+  }
+  .timeline-line { background: var(--border); position: relative; display: flex; justify-content: center; }
+  .timeline-line::before {
+    content: ''; position: absolute; top: 4px; width: 8px; height: 8px;
+    border-radius: 50%; background: var(--ink-ghost); margin-left: -3.5px;
+  }
+  .sev-high   .timeline-line::before { background: var(--red);   width: 10px; height: 10px; margin-left: -4.5px; top: 3px; }
+  .sev-medium .timeline-line::before { background: var(--amber); width: 10px; height: 10px; margin-left: -4.5px; top: 3px; }
+  .sev-low    .timeline-line::before { background: var(--green); }
+  .timeline-content { padding-bottom: 8px; }
+  .timeline-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 6px; flex-wrap: wrap; }
+  .timeline-title { font-size: 14px; font-weight: 500; color: var(--ink); }
+  .timeline-desc  { font-size: 13px; color: var(--ink-soft); line-height: 1.6; }
+  .confidence-bar { display: flex; align-items: center; gap: 8px; margin-top: 10px; }
+  .conf-track { flex: 1; height: 3px; background: var(--border); border-radius: 2px; overflow: hidden; }
+  .conf-fill  { height: 100%; border-radius: 2px; transition: width 1.2s cubic-bezier(0.4,0,0.2,1); }
+  .conf-label { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--ink-ghost); letter-spacing: 0.06em; white-space: nowrap; }
+
+  /* ── FOOTER ── */
+  .report-footer {
+    border-top: 1px solid var(--border); padding-top: 40px; margin-top: 80px;
+    display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 24px;
+  }
+  .footer-brand { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--ink-ghost); letter-spacing: 0.10em; line-height: 1.8; }
+  .footer-note  { font-size: 12px; color: var(--ink-ghost); text-align: right; line-height: 1.7; max-width: 280px; }
+
+  @media (max-width: 680px) {
+    .page { padding: 0 20px 80px; }
+    .brand-row { flex-direction: column; align-items: flex-start; gap: 16px; }
+    .report-meta { text-align: left; }
+    .hero-block { grid-template-columns: 1fr; }
+    .hero-right { text-align: left; }
+    .savings-hero { grid-template-columns: 1fr; }
+    .event-row { grid-template-columns: 1fr; }
+    .event-labels { align-items: flex-start; }
+    .label-select { justify-content: flex-start; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <header class="report-header">
+    <div class="brand-row">
+      <div class="logo-mark">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+          <rect width="28" height="28" rx="6" fill="#1C1C1A"/>
+          <circle cx="9"  cy="9"  r="2" fill="#F7F6F3" opacity="0.9"/>
+          <circle cx="19" cy="9"  r="2" fill="#F7F6F3" opacity="0.9"/>
+          <circle cx="9"  cy="19" r="2" fill="#F7F6F3" opacity="0.9"/>
+          <circle cx="19" cy="19" r="2" fill="#F7F6F3" opacity="0.9"/>
+          <circle cx="14" cy="14" r="2.5" fill="#F7F6F3"/>
+          <line x1="9" y1="9" x2="14" y2="14" stroke="#F7F6F3" stroke-width="0.8" opacity="0.4"/>
+          <line x1="19" y1="9" x2="14" y2="14" stroke="#F7F6F3" stroke-width="0.8" opacity="0.4"/>
+          <line x1="9" y1="19" x2="14" y2="14" stroke="#F7F6F3" stroke-width="0.8" opacity="0.4"/>
+          <line x1="19" y1="19" x2="14" y2="14" stroke="#F7F6F3" stroke-width="0.8" opacity="0.4"/>
+        </svg>
+        <span class="logo-name">eFlexIQ — RNDX Labs</span>
+      </div>
+      <div class="report-meta">
+        Rapport #EFQ-2024-0312 · v3<br>
+        Meetperiode: 01.03 – 31.03.2024<br>
+        Locatie: Bakkerij De Molen B.V.
+      </div>
+    </div>
+    <h1 class="report-title">Energie<em>analyse</em><br>& Advies</h1>
+    <p class="report-subtitle">Een eenvoudig, direct inzicht in uw energieprofiel — waar het goed gaat, waar het misgaat, en wat u kunt doen.</p>
+    <div style="margin-top:20px;">
+      <span class="version-badge">Versie 3 · <span>Consumer-first rapport</span> · Interactief</span>
+    </div>
+  </header>
+
+  <!-- 01 HOE DOE JE HET? -->
+  <section class="section">
+    <div class="section-label">01 — Hoe doe je het?</div>
+    <h2 class="section-title">Jouw energieprestatie in één oogopslag</h2>
+    <div class="hero-block">
+      <div class="hero-left">
+        <div class="hero-status-row">
+          <div class="status-dot dot-amber"></div>
+          <span class="status-label-text">Kan beter</span>
+        </div>
+        <div class="hero-verdict">Je presteert beter dan vergelijkbare bedrijven — maar er zijn duidelijke kansen</div>
+        <p class="hero-benchmark">Je totaalverbruik ligt 14% onder het sectorgemiddelde. Tegelijk zijn je pieken hoog en laat je besparingspotentieel onbenut. Met gerichte aanpassingen kun je flink verder verbeteren.</p>
+        <div class="hero-trend-pill">
+          <div class="trend-dot"></div>
+          Verbruik licht gestegen de afgelopen maand (+8%)
+        </div>
+      </div>
+      <div class="hero-right">
+        <div class="hero-score-label">Prestatie-index</div>
+        <div class="hero-score-value">70</div>
+        <div class="hero-score-sub">van de 100 — boven sectorgemiddelde</div>
+        <div class="hero-stat-row">
+          <div class="hero-stat"><span>Totaalverbruik</span><span class="hero-stat-val">18.420 kWh</span></div>
+          <div class="hero-stat"><span>Piekvermogen</span><span class="hero-stat-val">87,4 kW</span></div>
+          <div class="hero-stat"><span>Sector</span><span class="hero-stat-val">Voedingsmiddelen</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 WAAR GAAT HET MIS? -->
+  <section class="section">
+    <div class="section-label">02 — Waar gaat het mis?</div>
+    <h2 class="section-title">De drie belangrijkste signalen</h2>
+    <p class="section-sub">Klik op een signaal voor meer uitleg over oorzaak en impact.</p>
+    <div class="signals-list">
+
+      <div class="signal-item">
+        <div class="signal-header" onclick="toggleSignal(this)">
+          <div class="signal-icon icon-red">⚡</div>
+          <div>
+            <div class="signal-title">Je pieken zijn structureel hoog</div>
+            <div class="signal-sub">Je verbruikt veel op momenten dat het netwerk al druk is — dit kost extra</div>
+          </div>
+          <span class="signal-badge badge-red">Hoog</span>
+        </div>
+        <div class="signal-detail">
+          <p>Je piekvermogen van <strong>87,4 kW</strong> stijgt nog met 12% ten opzichte van vorige maand. De pieken concentreren zich sterk in de ochtend — 72% van alle hoge momenten valt tussen 06:00 en 12:00.</p>
+          <p>Dit heeft twee gevolgen: hogere kosten op tarief 2, en mogelijk toekomstige netproblemen. Door ochtendpieken te verschuiven naar 13:00–15:00 reduceer je direct je kosten.</p>
+        </div>
+      </div>
+
+      <div class="signal-item">
+        <div class="signal-header" onclick="toggleSignal(this)">
+          <div class="signal-icon icon-amber">🌙</div>
+          <div>
+            <div class="signal-title">Er gaat 's nachts meer energie verloren dan verwacht</div>
+            <div class="signal-sub">Dit zien we regelmatig terugkomen in je verbruikspatroon</div>
+          </div>
+          <span class="signal-badge badge-amber">Medium</span>
+        </div>
+        <div class="signal-detail">
+          <p>Op <strong>12 maart om 02:38</strong> maten we een nachtelijk verbruik van 8,4 kW — meer dan tweemaal je verwachte altijd-aan verbruik van 3,6 kW.</p>
+          <p>Dit wijst op apparatuur die onnodig doorloopt buiten bedrijfsuren. Een korte rondloop buiten werktijd — ovens in stand-by, koeling op maximale stand — kan al snel iets opleveren.</p>
+        </div>
+      </div>
+
+      <div class="signal-item">
+        <div class="signal-header" onclick="toggleSignal(this)">
+          <div class="signal-icon icon-amber">📉</div>
+          <div>
+            <div class="signal-title">Je capaciteit wordt weinig efficiënt benut</div>
+            <div class="signal-sub">Groot verschil tussen je piekvermogen en gemiddeld gebruik</div>
+          </div>
+          <span class="signal-badge badge-amber">Medium</span>
+        </div>
+        <div class="signal-detail">
+          <p>Je netaansluiting is aangelegd voor <strong>87,4 kW</strong>, maar gemiddeld gebruik je maar <strong>24,8 kW</strong> — minder dan een derde van de capaciteit.</p>
+          <p>Je betaalt als het ware voor ruimte die je zelden gebruikt. Door piekmomenten te spreiden, benut je de netaansluiting beter én bespaar je op capaciteitskosten.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 03 WAT VALT OP? -->
+  <section class="section">
+    <div class="section-label">03 — Wat valt op?</div>
+    <h2 class="section-title">Onze analyse herkende drie veranderingen</h2>
+    <p class="section-sub">Automatisch gesignaleerd — zonder dat je ernaar hoefde te zoeken.</p>
+    <div class="insight-block">
+      <div class="insight-block-header">
+        <span class="ai-tag">Automatisch herkend</span>
+        <span class="insight-block-sub">3 opvallende patronen in maart 2024</span>
+      </div>
+      <div class="insight-item">
+        <div class="insight-stripe amber"></div>
+        <div>
+          <div class="insight-text"><strong>Je verbruik is de afgelopen maand 8% gestegen</strong> ten opzichte van februari. Op jaarbasis telt dat flink op.</div>
+          <div class="insight-when">Veranderd t.o.v. vorige periode</div>
+        </div>
+      </div>
+      <div class="insight-item">
+        <div class="insight-stripe amber"></div>
+        <div>
+          <div class="insight-text"><strong>Er was een opvallende piek op 6 maart om 07:14</strong> — ruim een kwartier eerder dan je normale ochtendstart. We weten nog niet waardoor dit komt.</div>
+          <div class="insight-when">Buiten jouw normale patroon</div>
+        </div>
+      </div>
+      <div class="insight-item">
+        <div class="insight-stripe green"></div>
+        <div>
+          <div class="insight-text"><strong>Vanaf 24 maart verbruik je structureel 22% meer</strong> dan de weken daarvoor. Mogelijk een nieuwe machine of hogere productie — je kunt hieronder aangeven wat er speelde.</div>
+          <div class="insight-when">Patroonverschuiving — dit valt op</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 WAT KUN JE BESPAREN? -->
+  <section class="section">
+    <div class="section-label">04 — Wat kun je besparen?</div>
+    <h2 class="section-title">Concrete besparingsmogelijkheden</h2>
+    <div class="savings-hero">
+      <div>
+        <div class="savings-amount-label">Geschatte jaarlijkse besparing</div>
+        <div class="savings-amount-value">€ 893</div>
+        <p class="savings-amount-sub">bij slim verplaatsen van verbruik naar daluren — zonder proceswijziging</p>
+        <p class="savings-opportunity">Je grootste kans zit in het verlagen van nachtverbruik en het verschuiven van ochtendpieken naar <strong>13:00–15:00</strong>. Je flexibiliteitsscore van <strong>60/100</strong> geeft aan dat je hier ook geschikt voor bent.</p>
+      </div>
+      <div>
+        <div class="savings-breakdown">
+          <div class="savings-row">
+            <span class="savings-row-label">Sluipverbruik verminderen (20%)</span>
+            <span class="savings-row-value">534 kWh/mnd</span>
+          </div>
+          <div class="savings-row highlight">
+            <span class="savings-row-label">↓ Verwacht (30%)</span>
+            <span class="savings-row-value">801 kWh/mnd</span>
+          </div>
+          <div class="savings-row">
+            <span class="savings-row-label">Optimistisch (40%)</span>
+            <span class="savings-row-value">1.068 kWh/mnd</span>
+          </div>
+          <div class="savings-row" style="margin-top:3px;">
+            <span class="savings-row-label">Tariefverschuiving T2→T1</span>
+            <span class="savings-row-value">1.240 kWh</span>
+          </div>
+          <div class="savings-row">
+            <span class="savings-row-label">Besparing per kWh</span>
+            <span class="savings-row-value">€ 0,06</span>
+          </div>
+          <div class="savings-row highlight">
+            <span class="savings-row-label">Jaarlijkse besparing tarief</span>
+            <span class="savings-row-value">€ 893</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="savings-note-bar">
+      Berekend op basis van baseload_kw × reductiefactor × meetperiode (744 uur) en tariff_shift_potential_kwh × tariefverschil. Exacte besparing afhankelijk van energiecontract.
+    </div>
+  </section>
+
+  <!-- 05 WAT KUN JE DOEN? -->
+  <section class="section">
+    <div class="section-label">05 — Wat kun je doen?</div>
+    <h2 class="section-title">Drie concrete acties, op volgorde van impact</h2>
+    <div class="actions-list">
+      <div class="action-item">
+        <span class="action-rank">01</span>
+        <div>
+          <div class="action-title">Vermijd extra gebruik tussen 07:00 en 09:00</div>
+          <div class="action-desc">Verschuif flexibele lasten naar 13:00–15:00. Dat verlaagt je piekvermogen én je tarief 2 kosten direct.</div>
+        </div>
+        <span class="action-impact impact-high">Hoog</span>
+      </div>
+      <div class="action-item">
+        <span class="action-rank">02</span>
+        <div>
+          <div class="action-title">Controleer welke apparaten 's nachts aanstaan</div>
+          <div class="action-desc">Loop door de bakkerij buiten bedrijfsuren. Ovens in stand-by, koelkasten op maximale stand, vergeten apparatuur — allemaal te voorkomen.</div>
+        </div>
+        <span class="action-impact impact-high">Hoog</span>
+      </div>
+      <div class="action-item">
+        <span class="action-rank">03</span>
+        <div>
+          <div class="action-title">Vraag naar congestiedeelname bij je netbeheerder</div>
+          <div class="action-desc">Je voldoet aan de minimumvereisten. Met 18 kW verschuifbaar vermogen en flex score 60 kan dit een extra inkomstenbron zijn.</div>
+        </div>
+        <span class="action-impact impact-medium">Medium</span>
+      </div>
+      <div class="action-item">
+        <span class="action-rank">04</span>
+        <div>
+          <div class="action-title">Laat de faseverdeling controleren door een installateur</div>
+          <div class="action-desc">Fase L1 draagt structureel 38% meer last dan L3. Dit verhoogt verliezen en slijtage. Relatief eenvoudig op te lossen.</div>
+        </div>
+        <span class="action-impact impact-medium">Medium</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 TECHNISCH -->
+  <section class="section">
+    <div class="section-label">06 — Technische aandachtspunten</div>
+    <h2 class="section-title">Iets om naar te laten kijken</h2>
+    <p class="section-sub">Relevant voor een installateur of technisch adviseur — niet urgent, maar de moeite waard.</p>
+    <div class="tech-list">
+      <div class="tech-item">
+        <div class="tech-icon-wrap">⚖️</div>
+        <div>
+          <div class="tech-title">Je stroomverdeling over de drie aansluitingen is niet gelijkmatig</div>
+          <div class="tech-desc">Fase L1 draagt structureel 38% meer last dan fase L3 (index 0,31 — boven de aanbevolen grens van 0,25). Dit verhoogt slijtage en verliezen. Een installateur kan dit relatief eenvoudig herbalanceren.</div>
+        </div>
+      </div>
+      <div class="tech-item">
+        <div class="tech-icon-wrap">📈</div>
+        <div>
+          <div class="tech-title">Afwijkend elektrisch gedrag op 18 maart</div>
+          <div class="tech-desc">We zagen een sterke fase-onbalans tussen L1 (68A) en L3 (42A). Mogelijke oorzaak: een grote eenzijdige machine. Goed om dit te laten controleren.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 LABELING -->
+  <section class="section">
+    <div class="section-label">07 — Jij weet het beste</div>
+    <h2 class="section-title">Help ons de analyse te verfijnen</h2>
+    <p class="section-sub">We hebben 4 opvallende momenten gevonden. Kun je aangeven wat er achter zit?</p>
+    <div class="labeling-section">
+      <div class="labeling-header">
+        <div>
+          <div class="labeling-header-title">Events ter beoordeling</div>
+          <div class="labeling-header-sub">4 events — selecteer een label per event</div>
+        </div>
+        <div class="labeling-progress">
+          <span class="progress-text" id="progress-text">0 / 4 gelabeld</span>
+          <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+        </div>
+      </div>
+      <div class="event-list">
+
+        <div class="event-row" id="ev1">
+          <div class="event-info">
+            <div class="event-top">
+              <span class="event-type">peak</span>
+              <span class="event-time">06 mrt, 07:14 — 91,2 kW</span>
+              <span class="confidence-badge conf-high">✓ Conf. 0,87</span>
+            </div>
+            <div class="event-title">Piek buiten verwacht tijdblok</div>
+            <div class="event-detail">Vermogenspiek vóór de normale ochtendstart (08:00–11:00). Wat was de oorzaak?</div>
+          </div>
+          <div class="event-labels">
+            <div class="label-select">
+              <button class="label-btn" onclick="selectLabel(this,'ev1')">Normaal opstarten</button>
+              <button class="label-btn" onclick="selectLabel(this,'ev1')">Vroege productie</button>
+              <button class="label-btn" onclick="selectLabel(this,'ev1')">Kan verplaatst worden</button>
+              <button class="label-btn" onclick="selectLabel(this,'ev1')">Weet ik niet</button>
+            </div>
+            <div class="label-status" id="ev1-status"></div>
+          </div>
+        </div>
+
+        <div class="event-row" id="ev2">
+          <div class="event-info">
+            <div class="event-top">
+              <span class="event-type">outlier</span>
+              <span class="event-time">12 mrt, 02:38 — 8,4 kW</span>
+              <span class="confidence-badge conf-medium">~ Conf. 0,61</span>
+            </div>
+            <div class="event-title">Verhoogd nachtverbruik</div>
+            <div class="event-detail">Nachtelijk verbruik 2,3× boven verwachte baseload (3,6 kW). Herkent u dit?</div>
+          </div>
+          <div class="event-labels">
+            <div class="label-select">
+              <button class="label-btn" onclick="selectLabel(this,'ev2')">Nachtproductie</button>
+              <button class="label-btn" onclick="selectLabel(this,'ev2')">Vergeten apparaat</button>
+              <button class="label-btn" onclick="selectLabel(this,'ev2')">Storing</button>
+              <button class="label-btn" onclick="selectLabel(this,'ev2')">Incidenteel</button>
+              <button class="label-btn" onclick="selectLabel(this,'ev2')">Weet ik niet</button>
+            </div>
+            <div class="label-status" id="ev2-status"></div>
+          </div>
+        </div>
+
+        <div class="event-row" id="ev3">
+          <div class="event-info">
+            <div class="event-top">
+              <span class="event-type">deviation</span>
+              <span class="event-time">18 mrt, 11:02 — index 0,31</span>
+              <span class="confidence-badge conf-high">✓ Conf. 0,79</span>
+            </div>
+            <div class="event-title">Faseonbalans gedetecteerd</div>
+            <div class="event-detail">L1 draagt significant meer last dan L3. Herkent u een verklaring?</div>
+          </div>
+          <div class="event-labels">
+            <div class="label-select">
+              <button class="label-btn" onclick="selectLabel(this,'ev3')">Grote machine op L1</button>
+              <button class="label-btn" onclick="selectLabel(this,'ev3')">Normaal voor ons</button>
+              <button class="label-btn" onclick="selectLabel(this,'ev3')">Installatiefout</button>
+              <button class="label-btn" onclick="selectLabel(this,'ev3')">Weet ik niet</button>
+            </div>
+            <div class="label-status" id="ev3-status"></div>
+          </div>
+        </div>
+
+        <div class="event-row" id="ev4">
+          <div class="event-info">
+            <div class="event-top">
+              <span class="event-type">shift</span>
+              <span class="event-time">24 mrt, 09:15 — +22%</span>
+              <span class="confidence-badge conf-low">? Conf. 0,38</span>
+            </div>
+            <div class="event-title">Structurele verbruiksverschuiving</div>
+            <div class="event-detail">24-uurs rolgemiddelde 22% boven verwacht weekdagniveau. Proceswijziging of extra productie?</div>
+          </div>
+          <div class="event-labels">
+            <div class="label-select">
+              <button class="label-btn" onclick="selectLabel(this,'ev4')">Extra productie</button>
+              <button class="label-btn" onclick="selectLabel(this,'ev4')">Nieuwe machine</button>
+              <button class="label-btn" onclick="selectLabel(this,'ev4')">Seizoen</button>
+              <button class="label-btn" onclick="selectLabel(this,'ev4')">Incidenteel</button>
+              <button class="label-btn" onclick="selectLabel(this,'ev4')">Weet ik niet</button>
+            </div>
+            <div class="label-status" id="ev4-status"></div>
+          </div>
+        </div>
+
+      </div>
+      <div class="labeling-footer">
+        <div class="labeling-footer-note">Uw labels worden vertrouwelijk verwerkt en uitsluitend gebruikt om de energieanalyse te verbeteren. U kunt labels achteraf aanpassen via uw adviseur.</div>
+        <button class="submit-btn" id="submit-btn" disabled onclick="submitLabels()">Labels versturen →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 08 VERDIEPING -->
+  <section class="section">
+    <div class="section-label">08 — Verdieping & Details</div>
+    <h2 class="section-title">Alle onderliggende data</h2>
+    <p class="section-sub">Standaard gesloten — open wat je wilt inzien.</p>
+    <div class="details-accordion">
+
+      <!-- Kerncijfers -->
+      <div class="accordion-item">
+        <div class="accordion-trigger" onclick="toggleAccordion(this)">
+          <div class="accordion-trigger-left">
+            <span class="accordion-num">01</span>
+            <span class="accordion-title">Kerncijfers meetperiode</span>
+          </div>
+          <span class="accordion-chevron">▾</span>
+        </div>
+        <div class="accordion-body">
+          <div class="kpi-grid">
+            <div class="kpi-card"><div class="kpi-label">Totaalverbruik</div><div class="kpi-value">18.420</div><div class="kpi-unit">kWh</div><div class="kpi-trend trend-up">+8%</div></div>
+            <div class="kpi-card"><div class="kpi-label">Piekvermogen</div><div class="kpi-value">87,4</div><div class="kpi-unit">kW</div><div class="kpi-trend trend-up">+12%</div></div>
+            <div class="kpi-card"><div class="kpi-label">Gem. vermogen</div><div class="kpi-value">24,8</div><div class="kpi-unit">kW</div><div class="kpi-trend trend-ok">±0%</div></div>
+            <div class="kpi-card"><div class="kpi-label">Load factor</div><div class="kpi-value">0,28</div><div class="kpi-unit">ratio</div><div class="kpi-trend trend-up">laag</div></div>
+            <div class="kpi-card"><div class="kpi-label">Dag/nacht ratio</div><div class="kpi-value">4,2</div><div class="kpi-unit">ratio</div><div class="kpi-trend trend-ok">normaal</div></div>
+            <div class="kpi-card"><div class="kpi-label">Baseload</div><div class="kpi-value">3,6</div><div class="kpi-unit">kW</div><div class="kpi-trend trend-ok">14,5%</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Verbruiksprofiel -->
+      <div class="accordion-item">
+        <div class="accordion-trigger" onclick="toggleAccordion(this)">
+          <div class="accordion-trigger-left">
+            <span class="accordion-num">02</span>
+            <span class="accordion-title">Verbruiksprofiel & tijdsegmentatie</span>
+          </div>
+          <span class="accordion-chevron">▾</span>
+        </div>
+        <div class="accordion-body">
+          <div class="bar-chart">
+            <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-ghost);margin-bottom:4px;margin-top:8px;">Verdeling hoog verbruik over dagdelen</div>
+            <div class="bar-row"><span class="bar-label">Ochtend</span><div class="bar-track"><div class="bar-fill bf-dark" style="width:72%"></div></div><span class="bar-value">72%</span></div>
+            <div class="bar-row"><span class="bar-label">Middag</span><div class="bar-track"><div class="bar-fill bf-green" style="width:18%"></div></div><span class="bar-value">18%</span></div>
+            <div class="bar-row"><span class="bar-label">Avond</span><div class="bar-track"><div class="bar-fill bf-ghost" style="width:7%"></div></div><span class="bar-value">7%</span></div>
+            <div class="bar-row"><span class="bar-label">Nacht</span><div class="bar-track"><div class="bar-fill bf-ghost" style="width:3%"></div></div><span class="bar-value">3%</span></div>
+          </div>
+          <div class="bar-chart" style="margin-top:20px;padding-top:16px;border-top:1px solid var(--border);">
+            <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-ghost);margin-bottom:4px;">Werkdag vs weekend</div>
+            <div class="bar-row"><span class="bar-label">Werkdag</span><div class="bar-track"><div class="bar-fill bf-dark" style="width:70%"></div></div><span class="bar-value">27,4 kW</span></div>
+            <div class="bar-row"><span class="bar-label">Weekend</span><div class="bar-track"><div class="bar-fill bf-ghost" style="width:46%"></div></div><span class="bar-value">18,1 kW</span></div>
+          </div>
+          <div class="bar-chart" style="margin-top:20px;padding-top:16px;border-top:1px solid var(--border);">
+            <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-ghost);margin-bottom:4px;">Tariefverdeling</div>
+            <div class="bar-row"><span class="bar-label">Tarief 2</span><div class="bar-track"><div class="bar-fill bf-amber" style="width:68%"></div></div><span class="bar-value">68%</span></div>
+            <div class="bar-row"><span class="bar-label">Tarief 1</span><div class="bar-track"><div class="bar-fill bf-green" style="width:32%"></div></div><span class="bar-value">32%</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Benchmark -->
+      <div class="accordion-item">
+        <div class="accordion-trigger" onclick="toggleAccordion(this)">
+          <div class="accordion-trigger-left">
+            <span class="accordion-num">03</span>
+            <span class="accordion-title">Sectorpositie — Benchmark classificatie</span>
+          </div>
+          <span class="accordion-chevron">▾</span>
+        </div>
+        <div class="accordion-body">
+          <div class="benchmark-block">
+            <div style="font-size:13px;color:var(--ink-soft);line-height:1.6;">Sector: Voedingsmiddelen &amp; Bakkerij (SBI 10.7)<br>Totaalverbruik van 18.420 kWh vergeleken met vergelijkbare bedrijven.</div>
+            <div class="bench-deviation">−14%</div>
+            <div style="font-size:12px;color:var(--ink-soft);margin-bottom:12px;">afwijking t.o.v. sectorgemiddelde</div>
+            <div class="benchmark-track">
+              <div class="benchmark-zone" style="left:20%;width:50%;"></div>
+              <div class="benchmark-marker" style="left:38%;"></div>
+            </div>
+            <div class="benchmark-labels"><span>P10 — Beste</span><span>P25</span><span>Gem.</span><span>P75</span><span>P90 — Slechtste</span></div>
+          </div>
+          <table class="detail-table">
+            <thead><tr><th>Indicator</th><th>Jouw waarde</th><th>Positie</th></tr></thead>
+            <tbody>
+              <tr><td>Totaalverbruik</td><td>18.420 kWh</td><td class="td-green">within ✓</td></tr>
+              <tr><td>Load factor</td><td>0,28</td><td class="td-amber">below ⚠</td></tr>
+              <tr><td>Prestatie-index</td><td>70 / 100</td><td class="td-green">boven gem. ✓</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Faseverdeling -->
+      <div class="accordion-item">
+        <div class="accordion-trigger" onclick="toggleAccordion(this)">
+          <div class="accordion-trigger-left">
+            <span class="accordion-num">04</span>
+            <span class="accordion-title">Faseverdeling & stroombalans</span>
+          </div>
+          <span class="accordion-chevron">▾</span>
+        </div>
+        <div class="accordion-body">
+          <div class="bar-chart" style="margin-top:20px;">
+            <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-ghost);margin-bottom:4px;">Piekstroom per fase</div>
+            <div class="bar-row"><span class="bar-label">L1</span><div class="bar-track"><div class="bar-fill bf-amber" style="width:68%"></div></div><span class="bar-value">68 A</span></div>
+            <div class="bar-row"><span class="bar-label">L2</span><div class="bar-track"><div class="bar-fill bf-dark" style="width:54%"></div></div><span class="bar-value">54 A</span></div>
+            <div class="bar-row"><span class="bar-label">L3</span><div class="bar-track"><div class="bar-fill bf-green" style="width:42%"></div></div><span class="bar-value">42 A</span></div>
+          </div>
+          <table class="detail-table">
+            <thead><tr><th>Fase</th><th>Baseload</th><th>Piekstroom</th></tr></thead>
+            <tbody>
+              <tr><td>L1</td><td>1,8 W</td><td>68 A</td></tr>
+              <tr><td>L2</td><td>1,2 W</td><td>54 A</td></tr>
+              <tr><td>L3</td><td>0,6 W</td><td>42 A</td></tr>
+            </tbody>
+          </table>
+          <div style="margin-top:16px;font-size:12px;color:var(--ink-soft);">Fase-onbalans index: <strong style="color:var(--amber);">0,31</strong> — boven de aanbevolen grens van 0,25. L1 draagt structureel de meeste last.</div>
+        </div>
+      </div>
+
+      <!-- Anomaliedetectie -->
+      <div class="accordion-item">
+        <div class="accordion-trigger" onclick="toggleAccordion(this)">
+          <div class="accordion-trigger-left">
+            <span class="accordion-num">05</span>
+            <span class="accordion-title">Gedetecteerde afwijkingen (AI)</span>
+          </div>
+          <span class="accordion-chevron">▾</span>
+        </div>
+        <div class="accordion-body">
+          <div class="timeline">
+            <div class="timeline-item sev-high">
+              <div class="timeline-time">06 mrt<br>07:14</div>
+              <div class="timeline-line"></div>
+              <div class="timeline-content">
+                <div class="timeline-header">
+                  <span class="timeline-title">Piek buiten verwacht tijdblok — 91,2 kW</span>
+                  <span class="confidence-badge conf-high">✓ Conf. 0,87</span>
+                </div>
+                <div class="timeline-desc">Vermogenspiek buiten de verwachte ochtendpiekblokken (08:00–11:00). Afwijking van +4,3% t.o.v. historisch maximum. Type: <strong>peak</strong> — ernst: hoog.</div>
+                <div class="confidence-bar">
+                  <div class="conf-track"><div class="conf-fill" style="width:87%;background:var(--green);"></div></div>
+                  <span class="conf-label">Model confidence 0,87</span>
+                </div>
+              </div>
+            </div>
+            <div class="timeline-item sev-medium">
+              <div class="timeline-time">12 mrt<br>02:38</div>
+              <div class="timeline-line"></div>
+              <div class="timeline-content">
+                <div class="timeline-header">
+                  <span class="timeline-title">Verhoogd nachtverbruik — 8,4 kW</span>
+                  <span class="confidence-badge conf-medium">~ Conf. 0,61</span>
+                </div>
+                <div class="timeline-desc">Nachtelijk verbruik 2,3× boven verwachte baseload (3,6 kW). Mogelijk vergeten apparatuur of nachtproductie. Type: <strong>outlier</strong> — ernst: medium.</div>
+                <div class="confidence-bar">
+                  <div class="conf-track"><div class="conf-fill" style="width:61%;background:var(--amber);"></div></div>
+                  <span class="conf-label">Model confidence 0,61</span>
+                </div>
+              </div>
+            </div>
+            <div class="timeline-item sev-medium">
+              <div class="timeline-time">18 mrt<br>11:02</div>
+              <div class="timeline-line"></div>
+              <div class="timeline-content">
+                <div class="timeline-header">
+                  <span class="timeline-title">Faseonbalans gedetecteerd — index 0,31</span>
+                  <span class="confidence-badge conf-high">✓ Conf. 0,79</span>
+                </div>
+                <div class="timeline-desc">Sterke fase-onbalans tussen L1 (68A) en L3 (42A). Overschrijdt drempelwaarde 0,25. Type: <strong>deviation</strong> — ernst: medium.</div>
+                <div class="confidence-bar">
+                  <div class="conf-track"><div class="conf-fill" style="width:79%;background:var(--green);"></div></div>
+                  <span class="conf-label">Model confidence 0,79</span>
+                </div>
+              </div>
+            </div>
+            <div class="timeline-item sev-low">
+              <div class="timeline-time">24 mrt<br>09:15</div>
+              <div class="timeline-line"></div>
+              <div class="timeline-content">
+                <div class="timeline-header">
+                  <span class="timeline-title">Structurele verbruiksverschuiving — +22%</span>
+                  <span class="confidence-badge conf-low">? Conf. 0,38</span>
+                </div>
+                <div class="timeline-desc">24-uurs rolgemiddelde 22% boven verwacht weekdagniveau. Mogelijke proceswijziging of extra productie. Type: <strong>shift</strong> — ernst: laag.</div>
+                <div class="confidence-bar">
+                  <div class="conf-track"><div class="conf-fill" style="width:38%;background:var(--ink-ghost);"></div></div>
+                  <span class="conf-label">Model confidence 0,38</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /accordion -->
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="report-footer">
+    <div class="footer-brand">
+      eFlexIQ — Energie Intelligence Platform<br>
+      Ontwikkeld door RNDX Labs · rndxlabs.com<br>
+      Zeist, Nederland · 2024
+    </div>
+    <div class="footer-note">
+      Dit rapport is gegenereerd op basis van gemeten sensordata en statistische analyse. Aanbevelingen zijn indicatief. Raadpleeg een gecertificeerd energieadviseur voor implementatie.
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  function toggleSignal(header) {
+    const item = header.closest('.signal-item');
+    const detail = item.querySelector('.signal-detail');
+    if (!detail) return;
+    const isOpen = detail.classList.contains('open');
+    document.querySelectorAll('.signal-detail.open').forEach(d => d.classList.remove('open'));
+    if (!isOpen) detail.classList.add('open');
+  }
+
+  function toggleAccordion(trigger) {
+    const body = trigger.nextElementSibling;
+    const chevron = trigger.querySelector('.accordion-chevron');
+    const isOpen = body.classList.contains('open');
+    body.classList.toggle('open', !isOpen);
+    chevron.classList.toggle('open', !isOpen);
+  }
+
+  const labeled = {};
+  function selectLabel(btn, eventId) {
+    const row = document.getElementById(eventId);
+    row.querySelectorAll('.label-btn').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    labeled[eventId] = btn.textContent.trim();
+    const statusEl = document.getElementById(eventId + '-status');
+    statusEl.textContent = 'Opgeslagen';
+    statusEl.classList.add('saved');
+    row.classList.add('labeled');
+    const count = Object.keys(labeled).length;
+    document.getElementById('progress-text').textContent = count + ' / 4 gelabeld';
+    document.getElementById('progress-fill').style.width = (count / 4 * 100) + '%';
+    document.getElementById('submit-btn').disabled = count < 4;
+  }
+
+  function submitLabels() {
+    const btn = document.getElementById('submit-btn');
+    btn.textContent = 'Verstuurd ✓';
+    btn.disabled = true;
+    btn.style.background = 'var(--green)';
+  }
+</script>
+</body>
+</html>
