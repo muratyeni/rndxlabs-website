@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>eFlexIQ — Vooranalyse</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#F7F6F3; --bg-card:#EFEDE8; --bg-dark:#1C1C1A;
+  --ink:#1C1C1A; --ink-mid:#3A3A36; --ink-soft:#7A7A74; --ink-ghost:#B0AFA9;
+  --green:#4A7C59; --amber:#B87333; --red:#8B3A3A; --blue:#3C5A8C;
+  --border:rgba(60,60,54,0.10); --radius:16px; --radius-sm:8px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{font-size:16px;scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;}
+.page{max-width:960px;margin:0 auto;padding:0 32px 120px;}
+
+/* HEADER */
+.report-header{padding:64px 0 48px;border-bottom:1px solid var(--border);margin-bottom:0;}
+.brand-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:48px;}
+.logo-mark{display:flex;align-items:center;gap:10px;}
+.logo-name{font-family:'DM Mono',monospace;font-size:13px;font-weight:500;letter-spacing:.12em;color:var(--ink-mid);text-transform:uppercase;}
+.report-meta{font-family:'DM Mono',monospace;font-size:11px;color:var(--ink-ghost);letter-spacing:.08em;text-align:right;line-height:1.8;}
+.report-title{font-family:'Playfair Display',serif;font-size:clamp(36px,5vw,52px);font-weight:400;line-height:1.15;color:var(--ink);margin-bottom:12px;letter-spacing:-.02em;}
+.report-title em{font-style:italic;color:var(--ink-soft);}
+.report-subtitle{font-size:16px;color:var(--ink-soft);font-weight:300;max-width:560px;line-height:1.7;margin-bottom:20px;}
+.version-badge{display:inline-flex;align-items:center;gap:6px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:5px 12px;border-radius:20px;background:var(--bg-card);color:var(--ink-ghost);border:1px solid var(--border);}
+.version-badge span{color:var(--blue);}
+
+/* PROGRESS NAV */
+.progress-nav{position:sticky;top:0;z-index:100;background:rgba(247,246,243,0.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:14px 0;margin-bottom:64px;}
+.progress-nav-inner{max-width:960px;margin:0 auto;padding:0 32px;display:flex;align-items:center;gap:4px;}
+.prog-step{display:flex;align-items:center;gap:7px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.10em;text-transform:uppercase;color:var(--ink-ghost);transition:color .3s;cursor:pointer;text-decoration:none;white-space:nowrap;}
+.prog-step.active{color:var(--ink-mid);}
+.prog-step.done{color:var(--green);}
+.prog-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;transition:background .3s;border:1.5px solid var(--ink-ghost);}
+.prog-step.active .prog-dot{background:var(--ink);border-color:var(--ink);}
+.prog-step.done .prog-dot{background:var(--green);border-color:var(--green);}
+.prog-connector{flex:1;height:1px;background:var(--border);}
+
+/* SECTIONS */
+.section{margin-bottom:80px;opacity:0;transform:translateY(24px);animation:fadeUp .6s ease forwards;}
+.section:nth-child(1){animation-delay:.05s;} .section:nth-child(2){animation-delay:.12s;}
+.section:nth-child(3){animation-delay:.19s;} .section:nth-child(4){animation-delay:.26s;}
+.section:nth-child(5){animation-delay:.33s;} .section:nth-child(6){animation-delay:.40s;}
+@keyframes fadeUp{to{opacity:1;transform:translateY(0);}}
+.section-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-ghost);margin-bottom:20px;display:flex;align-items:center;gap:12px;}
+.section-label::after{content:'';flex:1;height:1px;background:var(--border);}
+.section-title{font-family:'Playfair Display',serif;font-size:26px;font-weight:400;margin-bottom:8px;color:var(--ink);letter-spacing:-.01em;}
+.section-why{font-size:12px;color:var(--ink-ghost);font-family:'DM Mono',monospace;letter-spacing:.06em;margin-bottom:28px;line-height:1.7;}
+
+/* FORM CARD */
+.form-card{background:var(--bg-card);border-radius:var(--radius);overflow:hidden;}
+.form-block{padding:28px 32px;border-bottom:1px solid var(--border);}
+.form-block:last-child{border-bottom:none;}
+.form-block-label{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:16px;display:block;}
+.form-hint{font-size:12px;color:var(--ink-ghost);margin-top:10px;line-height:1.6;}
+
+/* CHIP */
+.chip-group{display:flex;flex-wrap:wrap;gap:8px;}
+.chip{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:9px 16px;border-radius:20px;border:1.5px solid var(--border);background:transparent;color:var(--ink-soft);cursor:pointer;transition:all .15s;user-select:none;}
+.chip:hover{border-color:var(--ink-ghost);color:var(--ink-mid);background:rgba(60,60,54,.04);}
+.chip.selected{background:var(--ink);border-color:var(--ink);color:var(--bg);}
+
+/* CARD SELECT */
+.card-select-group{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.card-select{background:rgba(60,60,54,.04);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:20px 18px;cursor:pointer;transition:all .15s;user-select:none;}
+.card-select:hover{border-color:var(--ink-ghost);background:rgba(60,60,54,.07);}
+.card-select.selected{border-color:var(--ink);background:rgba(28,28,26,.06);}
+.card-select-icon{font-size:22px;margin-bottom:10px;display:block;}
+.card-select-title{font-size:14px;font-weight:500;color:var(--ink);margin-bottom:4px;}
+.card-select-desc{font-size:12px;color:var(--ink-soft);line-height:1.4;}
+
+/* DAY SELECTOR */
+.day-group{display:flex;gap:6px;flex-wrap:wrap;}
+.day-btn{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--border);background:transparent;cursor:pointer;transition:all .15s;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-soft);display:flex;align-items:center;justify-content:center;user-select:none;}
+.day-btn:hover{border-color:var(--ink-ghost);color:var(--ink-mid);}
+.day-btn.selected{background:var(--ink);border-color:var(--ink);color:var(--bg);}
+
+/* TIME SELECT */
+.time-range-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.time-range-row .sep{font-family:'DM Mono',monospace;font-size:12px;color:var(--ink-ghost);}
+.time-select{font-family:'DM Mono',monospace;font-size:13px;color:var(--ink);background:rgba(60,60,54,.06);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:9px 14px;cursor:pointer;outline:none;appearance:none;-webkit-appearance:none;transition:border-color .15s;}
+.time-select:focus{border-color:var(--ink);}
+
+/* TOGGLE */
+.toggle-row{display:flex;gap:8px;}
+.toggle-btn{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.10em;text-transform:uppercase;padding:10px 28px;border-radius:20px;border:1.5px solid var(--border);background:transparent;color:var(--ink-soft);cursor:pointer;transition:all .15s;user-select:none;}
+.toggle-btn:hover{border-color:var(--ink-ghost);color:var(--ink-mid);}
+.toggle-btn.sel-yes{background:var(--green);border-color:var(--green);color:#fff;}
+.toggle-btn.sel-no{background:var(--ink-mid);border-color:var(--ink-mid);color:var(--bg);}
+
+/* CONSUMERS */
+.consumer-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
+.consumer-card{background:rgba(60,60,54,.04);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:16px 18px;cursor:pointer;transition:all .15s;user-select:none;display:flex;align-items:flex-start;gap:12px;}
+.consumer-card:hover{border-color:var(--ink-ghost);background:rgba(60,60,54,.07);}
+.consumer-card.selected{border-color:var(--green);background:rgba(74,124,89,.07);}
+.consumer-card-icon{font-size:20px;flex-shrink:0;margin-top:1px;}
+.consumer-card-body{flex:1;}
+.consumer-card-title{font-size:14px;font-weight:500;color:var(--ink);margin-bottom:2px;}
+.consumer-card-desc{font-size:12px;color:var(--ink-soft);}
+.consumer-card.selected .consumer-card-title{color:var(--green);}
+.consumer-detail{display:none;margin-top:10px;}
+.consumer-card.selected .consumer-detail{display:block;}
+.consumer-detail input{width:100%;padding:8px 12px;font-family:'DM Sans',sans-serif;font-size:12px;color:var(--ink);background:rgba(255,255,255,.5);border:1px solid var(--border);border-radius:var(--radius-sm);outline:none;}
+.consumer-detail input:focus{border-color:var(--ink-ghost);}
+
+/* GOALS */
+.goal-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
+.goal-card{background:rgba(60,60,54,.04);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:24px 22px;cursor:pointer;transition:all .15s;user-select:none;}
+.goal-card:hover{border-color:var(--ink-ghost);background:rgba(60,60,54,.07);}
+.goal-card.selected{border-color:var(--blue);background:rgba(60,90,140,.07);}
+.goal-icon{font-size:24px;margin-bottom:10px;display:block;}
+.goal-title{font-size:15px;font-weight:500;color:var(--ink);margin-bottom:4px;}
+.goal-desc{font-size:12px;color:var(--ink-soft);line-height:1.5;}
+.goal-card.selected .goal-title{color:var(--blue);}
+
+/* MEETBEVINDINGEN */
+.metric-row{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin-bottom:3px;}
+.metric-cell{background:var(--bg-card);padding:22px 24px;border-radius:var(--radius-sm);}
+.metric-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-ghost);margin-bottom:8px;}
+.metric-value{font-family:'DM Mono',monospace;font-size:28px;font-weight:300;color:var(--ink);letter-spacing:-.02em;line-height:1;margin-bottom:4px;}
+.metric-unit{font-size:12px;color:var(--ink-soft);}
+.metric-flag{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border-radius:10px;display:inline-block;margin-top:6px;}
+.flag-amber{background:rgba(184,115,51,.10);color:var(--amber);}
+.flag-red{background:rgba(139,58,58,.10);color:var(--red);}
+.flag-green{background:rgba(74,124,89,.10);color:var(--green);}
+
+.signal-strip{background:var(--bg-card);border-radius:var(--radius-sm);padding:16px 20px;display:flex;align-items:center;gap:16px;margin-bottom:3px;}
+.strip-icon{width:36px;height:36px;border-radius:var(--radius-sm);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:16px;}
+.strip-icon.amber{background:rgba(184,115,51,.08);}
+.strip-icon.red{background:rgba(139,58,58,.08);}
+.strip-icon.green{background:rgba(74,124,89,.08);}
+.strip-body{flex:1;}
+.strip-title{font-size:14px;font-weight:500;color:var(--ink);margin-bottom:2px;}
+.strip-desc{font-size:12px;color:var(--ink-soft);}
+.strip-badge{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:20px;white-space:nowrap;flex-shrink:0;}
+.badge-amber{background:rgba(184,115,51,.10);color:var(--amber);}
+.badge-red{background:rgba(139,58,58,.10);color:var(--red);}
+.badge-green{background:rgba(74,124,89,.10);color:var(--green);}
+
+/* LABELING */
+.labeling-wrap{background:var(--bg-card);border-radius:var(--radius);overflow:hidden;}
+.labeling-header{padding:24px 28px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.labeling-header-left .lh-title{font-size:15px;font-weight:500;color:var(--ink);margin-bottom:4px;}
+.labeling-header-left .lh-sub{font-size:13px;color:var(--ink-soft);}
+.labeling-progress{display:flex;align-items:center;gap:10px;}
+.prog-text{font-family:'DM Mono',monospace;font-size:11px;color:var(--ink-soft);}
+.prog-track{width:80px;height:4px;background:var(--border);border-radius:2px;overflow:hidden;}
+.prog-fill{height:100%;background:var(--green);border-radius:2px;width:0%;transition:width .4s ease;}
+
+.event-row{padding:22px 28px;border-bottom:1px solid var(--border);transition:background .15s;}
+.event-row:last-child{border-bottom:none;}
+.event-row.labeled{background:rgba(74,124,89,.04);}
+.event-meta{display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap;}
+.event-sev-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.dot-high{background:var(--red);} .dot-medium{background:var(--amber);} .dot-low{background:var(--green);}
+.event-type-tag{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.10em;text-transform:uppercase;padding:2px 8px;border-radius:10px;background:rgba(60,60,54,.07);color:var(--ink-soft);}
+.event-ts{font-family:'DM Mono',monospace;font-size:11px;color:var(--ink-ghost);}
+.event-title{font-size:14px;font-weight:500;color:var(--ink);margin-bottom:4px;}
+.event-desc{font-size:12px;color:var(--ink-soft);line-height:1.6;margin-bottom:14px;}
+.label-q{font-size:13px;font-weight:500;color:var(--ink-mid);margin-bottom:10px;}
+.label-chips{display:flex;flex-wrap:wrap;gap:6px;}
+.label-chip{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:7px 14px;border-radius:20px;border:1.5px solid var(--border);background:transparent;color:var(--ink-soft);cursor:pointer;transition:all .15s;user-select:none;}
+.label-chip:hover{border-color:var(--ink-ghost);color:var(--ink-mid);}
+.label-chip.selected{background:var(--green);border-color:var(--green);color:#fff;}
+.label-saved{font-family:'DM Mono',monospace;font-size:10px;color:var(--green);letter-spacing:.10em;text-transform:uppercase;margin-top:8px;display:none;}
+.label-saved.show{display:block;}
+
+/* SUBMIT */
+.submit-bar{background:var(--bg-dark);border-radius:var(--radius);padding:36px 40px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-top:40px;}
+.submit-left .s-title{font-family:'Playfair Display',serif;font-size:20px;color:#F7F6F3;margin-bottom:6px;}
+.submit-left .s-sub{font-size:13px;color:rgba(247,246,243,.5);}
+.submit-btn{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;padding:14px 32px;border-radius:20px;border:none;background:var(--green);color:#fff;cursor:pointer;transition:all .2s;}
+.submit-btn:hover{background:#3d6849;}
+.submit-btn:disabled{background:rgba(247,246,243,.15);color:rgba(247,246,243,.4);cursor:not-allowed;}
+
+/* FOOTER */
+.report-footer{border-top:1px solid var(--border);padding-top:40px;margin-top:80px;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:24px;}
+.footer-brand{font-family:'DM Mono',monospace;font-size:11px;color:var(--ink-ghost);letter-spacing:.10em;line-height:1.8;}
+.footer-note{font-size:12px;color:var(--ink-ghost);text-align:right;line-height:1.7;max-width:280px;}
+
+@media(max-width:680px){
+  .page{padding:0 20px 80px;}
+  .brand-row{flex-direction:column;align-items:flex-start;gap:16px;}
+  .report-meta{text-align:left;}
+  .card-select-group{grid-template-columns:1fr;}
+  .consumer-grid,.goal-grid{grid-template-columns:1fr;}
+  .metric-row{grid-template-columns:1fr;}
+  .prog-step .prog-label{display:none;}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- HEADER -->
+<header class="report-header">
+  <div class="brand-row">
+    <div class="logo-mark">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+        <rect width="28" height="28" rx="6" fill="#1C1C1A"/>
+        <circle cx="9" cy="9" r="2" fill="#F7F6F3" opacity=".9"/>
+        <circle cx="19" cy="9" r="2" fill="#F7F6F3" opacity=".9"/>
+        <circle cx="9" cy="19" r="2" fill="#F7F6F3" opacity=".9"/>
+        <circle cx="19" cy="19" r="2" fill="#F7F6F3" opacity=".9"/>
+        <circle cx="14" cy="14" r="2.5" fill="#F7F6F3"/>
+        <line x1="9" y1="9" x2="14" y2="14" stroke="#F7F6F3" stroke-width=".8" opacity=".4"/>
+        <line x1="19" y1="9" x2="14" y2="14" stroke="#F7F6F3" stroke-width=".8" opacity=".4"/>
+        <line x1="9" y1="19" x2="14" y2="14" stroke="#F7F6F3" stroke-width=".8" opacity=".4"/>
+        <line x1="19" y1="19" x2="14" y2="14" stroke="#F7F6F3" stroke-width=".8" opacity=".4"/>
+      </svg>
+      <span class="logo-name">eFlexIQ — RNDX Labs</span>
+    </div>
+    <div class="report-meta">
+      Stap 1 van 2 · Vooranalyse<br>
+      Meetperiode: 01.03 – 31.03.2024<br>
+      Locatie: Bakkerij De Molen B.V.
+    </div>
+  </div>
+  <h1 class="report-title">Voor<em>analyse</em><br>& Context</h1>
+  <p class="report-subtitle">We hebben uw meter al geanalyseerd. Vul hieronder wat context in — zodat ons rapport klopt voor uw situatie. Dit duurt ongeveer 5 minuten.</p>
+  <div style="margin-top:20px;">
+    <span class="version-badge">Stap 1 · <span>Invullen & labelen</span> · Daarna ontvangt u het volledig rapport</span>
+  </div>
+</header>
+
+<!-- PROGRESS NAV -->
+<nav class="progress-nav">
+  <div class="progress-nav-inner">
+    <a class="prog-step active" href="#s1"><div class="prog-dot"></div><span class="prog-label">Bedrijf</span></a>
+    <div class="prog-connector"></div>
+    <a class="prog-step" href="#s2"><div class="prog-dot"></div><span class="prog-label">Ritme</span></a>
+    <div class="prog-connector"></div>
+    <a class="prog-step" href="#s3"><div class="prog-dot"></div><span class="prog-label">Verbruikers</span></a>
+    <div class="prog-connector"></div>
+    <a class="prog-step" href="#s4"><div class="prog-dot"></div><span class="prog-label">Doel</span></a>
+    <div class="prog-connector"></div>
+    <a class="prog-step" href="#s5"><div class="prog-dot"></div><span class="prog-label">Bevindingen</span></a>
+    <div class="prog-connector"></div>
+    <a class="prog-step" href="#s6"><div class="prog-dot"></div><span class="prog-label">Labeling</span></a>
+  </div>
+</nav>
+
+<!-- 01 BEDRIJFSPROFIEL -->
+<section class="section" id="s1">
+  <div class="section-label">01 — Bedrijfsprofiel</div>
+  <h2 class="section-title">Vertel ons wie u bent</h2>
+  <p class="section-why">Bepaalt de benchmark, verwachtingen en AI-interpretatie van uw energieprofiel.</p>
+
+  <div class="form-card">
+    <div class="form-block">
+      <span class="form-block-label">Sector</span>
+      <div class="chip-group" id="sector-group">
+        <div class="chip" onclick="selectOne(this,'sector-group')">Voedingsmiddelen</div>
+        <div class="chip" onclick="selectOne(this,'sector-group')">Retail</div>
+        <div class="chip" onclick="selectOne(this,'sector-group')">Kantoor</div>
+        <div class="chip" onclick="selectOne(this,'sector-group')">Productie / Industrie</div>
+        <div class="chip" onclick="selectOne(this,'sector-group')">Horeca</div>
+        <div class="chip" onclick="selectOne(this,'sector-group')">Zorg</div>
+        <div class="chip" onclick="selectOne(this,'sector-group')">Logistiek</div>
+        <div class="chip" onclick="selectOne(this,'sector-group')">Anders</div>
+      </div>
+    </div>
+
+    <div class="form-block">
+      <span class="form-block-label">Type locatie</span>
+      <div class="card-select-group">
+        <div class="card-select" onclick="selectOne(this,'locatie-group')" data-group="locatie-group">
+          <span class="card-select-icon">🏭</span>
+          <div class="card-select-title">Productie</div>
+          <div class="card-select-desc">Machines, lijnen of procesinstallaties aanwezig</div>
+        </div>
+        <div class="card-select" onclick="selectOne(this,'locatie-group')" data-group="locatie-group">
+          <span class="card-select-icon">🏢</span>
+          <div class="card-select-title">Kantoor</div>
+          <div class="card-select-desc">Voornamelijk werkplekken, IT en klimaatbeheersing</div>
+        </div>
+        <div class="card-select" onclick="selectOne(this,'locatie-group')" data-group="locatie-group">
+          <span class="card-select-icon">🔀</span>
+          <div class="card-select-title">Gemengd</div>
+          <div class="card-select-desc">Combinatie van productie, opslag of kantoor</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-block">
+      <span class="form-block-label">Grootte van de locatie</span>
+      <div class="chip-group" id="size-group">
+        <div class="chip" onclick="selectOne(this,'size-group')">Klein &lt; 500 m²</div>
+        <div class="chip" onclick="selectOne(this,'size-group')">Middel 500–2.000 m²</div>
+        <div class="chip" onclick="selectOne(this,'size-group')">Groot 2.000–10.000 m²</div>
+        <div class="chip" onclick="selectOne(this,'size-group')">XL &gt; 10.000 m²</div>
+      </div>
+      <p class="form-hint">Of in medewerkers: &nbsp;
+        <span class="chip" style="display:inline-flex;cursor:pointer;" onclick="selectOne(this,'fte-group')" data-group="fte-group">1–10 FTE</span>&nbsp;
+        <span class="chip" style="display:inline-flex;cursor:pointer;" onclick="selectOne(this,'fte-group')" data-group="fte-group">10–50 FTE</span>&nbsp;
+        <span class="chip" style="display:inline-flex;cursor:pointer;" onclick="selectOne(this,'fte-group')" data-group="fte-group">50–200 FTE</span>&nbsp;
+        <span class="chip" style="display:inline-flex;cursor:pointer;" onclick="selectOne(this,'fte-group')" data-group="fte-group">&gt;200 FTE</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- 02 GEBRUIK & RITME -->
+<section class="section" id="s2">
+  <div class="section-label">02 — Gebruik &amp; Ritme</div>
+  <h2 class="section-title">Hoe werkt u?</h2>
+  <p class="section-why">Cruciaal voor het onderscheid tussen normaal en afwijkend gedrag — en voor de detectie van verspilling buiten bedrijfsuren.</p>
+
+  <div class="form-card">
+    <div class="form-block">
+      <span class="form-block-label">Openingstijden (globaal)</span>
+      <div class="time-range-row">
+        <select class="time-select" id="open-from">
+          <option>05:00</option><option>06:00</option><option selected>07:00</option>
+          <option>08:00</option><option>09:00</option><option>10:00</option>
+        </select>
+        <span class="sep">tot</span>
+        <select class="time-select" id="open-to">
+          <option>15:00</option><option>16:00</option><option selected>17:00</option>
+          <option>18:00</option><option>19:00</option><option>20:00</option><option>22:00</option>
+        </select>
+      </div>
+      <p class="form-hint">Vul in wanneer de locatie normaal gesproken actief is. Dit hoeft niet exact — een globale indicatie is voldoende.</p>
+    </div>
+
+    <div class="form-block">
+      <span class="form-block-label">Op welke dagen bent u actief?</span>
+      <div class="day-group">
+        <div class="day-btn selected" onclick="toggleDay(this)">Ma</div>
+        <div class="day-btn selected" onclick="toggleDay(this)">Di</div>
+        <div class="day-btn selected" onclick="toggleDay(this)">Wo</div>
+        <div class="day-btn selected" onclick="toggleDay(this)">Do</div>
+        <div class="day-btn selected" onclick="toggleDay(this)">Vr</div>
+        <div class="day-btn" onclick="toggleDay(this)">Za</div>
+        <div class="day-btn" onclick="toggleDay(this)">Zo</div>
+      </div>
+    </div>
+
+    <div class="form-block">
+      <span class="form-block-label">Zijn er activiteiten buiten deze tijden?</span>
+      <div class="toggle-row">
+        <div class="toggle-btn" onclick="toggleYesNo(this,'night-toggle','yes')">Ja, soms</div>
+        <div class="toggle-btn" onclick="toggleYesNo(this,'night-toggle','no')">Nee, zelden</div>
+      </div>
+      <div id="night-detail" style="display:none;margin-top:16px;">
+        <div class="chip-group" id="night-group">
+          <div class="chip" onclick="toggleMulti(this)">Nachtproductie</div>
+          <div class="chip" onclick="toggleMulti(this)">Schoonmaak</div>
+          <div class="chip" onclick="toggleMulti(this)">Bewaking / beveiliging</div>
+          <div class="chip" onclick="toggleMulti(this)">Koeling actief</div>
+          <div class="chip" onclick="toggleMulti(this)">Anders</div>
+        </div>
+      </div>
+      <p class="form-hint">We maten op 12 maart om 02:38 een verhoogd nachtverbruik van 8,4 kW. Uw antwoord helpt ons dit te interpreteren.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 03 VERBRUIKERS -->
+<section class="section" id="s3">
+  <div class="section-label">03 — Verbruikers</div>
+  <h2 class="section-title">Wat gebruikt de meeste energie?</h2>
+  <p class="section-why">80% van het energieverbruik zit in een handvol grote verbruikers. Dit bepaalt de kwaliteit van ons advies.</p>
+
+  <div class="form-card">
+    <div class="form-block">
+      <span class="form-block-label">Selecteer wat van toepassing is (meerdere mogelijk)</span>
+      <div class="consumer-grid">
+
+        <div class="consumer-card" onclick="toggleConsumer(this)">
+          <div class="consumer-card-icon">⚙️</div>
+          <div class="consumer-card-body">
+            <div class="consumer-card-title">Machines &amp; Productie</div>
+            <div class="consumer-card-desc">Productie-installaties, lijnen of zware apparatuur</div>
+            <div class="consumer-detail"><input type="text" placeholder="Bijv. oven, mengmachine, verpakkingslijn…"></div>
+          </div>
+        </div>
+
+        <div class="consumer-card" onclick="toggleConsumer(this)">
+          <div class="consumer-card-icon">❄️</div>
+          <div class="consumer-card-body">
+            <div class="consumer-card-title">Koeling &amp; Vriezers</div>
+            <div class="consumer-card-desc">Industriële koeling, vriesopslag of showcases</div>
+            <div class="consumer-detail"><input type="text" placeholder="Bijv. aantal koelcellen, vermogen…"></div>
+          </div>
+        </div>
+
+        <div class="consumer-card" onclick="toggleConsumer(this)">
+          <div class="consumer-card-icon">🌡️</div>
+          <div class="consumer-card-body">
+            <div class="consumer-card-title">Verwarming (elektrisch)</div>
+            <div class="consumer-card-desc">Warmtepomp, elektrische boiler of infraroodpanelen</div>
+            <div class="consumer-detail"><input type="text" placeholder="Bijv. warmtepomp 15 kW…"></div>
+          </div>
+        </div>
+
+        <div class="consumer-card" onclick="toggleConsumer(this)">
+          <div class="consumer-card-icon">🚗</div>
+          <div class="consumer-card-body">
+            <div class="consumer-card-title">EV Laden</div>
+            <div class="consumer-card-desc">Laadpalen voor bedrijfs- of personeelsvoertuigen</div>
+            <div class="consumer-detail"><input type="text" placeholder="Bijv. 3 laadpunten, 22 kW per stuk…"></div>
+          </div>
+        </div>
+
+        <div class="consumer-card" onclick="toggleConsumer(this)">
+          <div class="consumer-card-icon">💡</div>
+          <div class="consumer-card-body">
+            <div class="consumer-card-title">Verlichting</div>
+            <div class="consumer-card-desc">Grote verlichtingsinstallaties, kassen of werkplaatsen</div>
+            <div class="consumer-detail"><input type="text" placeholder="Bijv. TL-verlichting 800 m²…"></div>
+          </div>
+        </div>
+
+        <div class="consumer-card" onclick="toggleConsumer(this)">
+          <div class="consumer-card-icon">📦</div>
+          <div class="consumer-card-body">
+            <div class="consumer-card-title">Overig grootverbruik</div>
+            <div class="consumer-card-desc">Compressoren, pompen, liften of anders</div>
+            <div class="consumer-detail"><input type="text" placeholder="Omschrijf kort…"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 DOEL & PRIORITEIT -->
+<section class="section" id="s4">
+  <div class="section-label">04 — Doel &amp; Prioriteit</div>
+  <h2 class="section-title">Wat wilt u bereiken?</h2>
+  <p class="section-why">Dit maakt uw rapport persoonlijk en stuurt hoe wij onze aanbevelingen prioriteren.</p>
+
+  <div class="form-card">
+    <div class="form-block">
+      <span class="form-block-label">Wat is voor u het belangrijkste? (kies er één)</span>
+      <div class="goal-grid">
+        <div class="goal-card" onclick="selectOne(this,'goal-group')" data-group="goal-group">
+          <span class="goal-icon">💶</span>
+          <div class="goal-title">Kosten verlagen</div>
+          <div class="goal-desc">Minder op de energierekening, slimmer inkopen en verbruik verschuiven naar goedkopere momenten.</div>
+        </div>
+        <div class="goal-card" onclick="selectOne(this,'goal-group')" data-group="goal-group">
+          <span class="goal-icon">⚡</span>
+          <div class="goal-title">Piekbelasting verlagen</div>
+          <div class="goal-desc">Congestie vermijden, netaansluiting optimaliseren of deelnemen aan een flex-programma.</div>
+        </div>
+        <div class="goal-card" onclick="selectOne(this,'goal-group')" data-group="goal-group">
+          <span class="goal-icon">🌱</span>
+          <div class="goal-title">Verduurzamen</div>
+          <div class="goal-desc">CO₂-voetafdruk verkleinen, duurzaamheidsrapportage ondersteunen of certificering halen.</div>
+        </div>
+        <div class="goal-card" onclick="selectOne(this,'goal-group')" data-group="goal-group">
+          <span class="goal-icon">🔍</span>
+          <div class="goal-title">Inzicht krijgen</div>
+          <div class="goal-desc">Begrijpen wat er in ons gebouw gebeurt, welke apparatuur wat verbruikt en waar we kunnen verbeteren.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 EERSTE MEETBEVINDINGEN -->
+<section class="section" id="s5">
+  <div class="section-label">05 — Eerste Meetbevindingen</div>
+  <h2 class="section-title">Dit zagen wij al in uw meter</h2>
+  <p class="section-why">Een eerste blik op de ruwe data van maart 2024 — nog zonder uw context. In het definitief rapport worden deze bevindingen volledig uitgewerkt.</p>
+
+  <div class="metric-row">
+    <div class="metric-cell">
+      <div class="metric-label">Totaalverbruik</div>
+      <div class="metric-value">18.420</div>
+      <div class="metric-unit">kWh in maart</div>
+      <span class="metric-flag flag-green">−14% t.o.v. sector</span>
+    </div>
+    <div class="metric-cell">
+      <div class="metric-label">Piekvermogen</div>
+      <div class="metric-value">87,4</div>
+      <div class="metric-unit">kW (hoogste meting)</div>
+      <span class="metric-flag flag-amber">Structureel hoog</span>
+    </div>
+    <div class="metric-cell">
+      <div class="metric-label">Load factor</div>
+      <div class="metric-value">0,28</div>
+      <div class="metric-unit">gem. / piek verhouding</div>
+      <span class="metric-flag flag-red">Laag — piekgedreven</span>
+    </div>
+  </div>
+  <div class="metric-row">
+    <div class="metric-cell">
+      <div class="metric-label">Baseload</div>
+      <div class="metric-value">3,6</div>
+      <div class="metric-unit">kW altijd-aan verbruik</div>
+    </div>
+    <div class="metric-cell">
+      <div class="metric-label">Flexibiliteitsscore</div>
+      <div class="metric-value">61</div>
+      <div class="metric-unit">van de 100</div>
+      <span class="metric-flag flag-green">Potentieel aanwezig</span>
+    </div>
+    <div class="metric-cell">
+      <div class="metric-label">Fase-onbalans</div>
+      <div class="metric-value">0,31</div>
+      <div class="metric-unit">index (grens: 0,25)</div>
+      <span class="metric-flag flag-amber">Boven aanbevolen</span>
+    </div>
+  </div>
+
+  <div style="margin-top:3px;">
+    <div class="signal-strip">
+      <div class="strip-icon red">⚡</div>
+      <div class="strip-body">
+        <div class="strip-title">Structurele ochtendpieken gedetecteerd</div>
+        <div class="strip-desc">72% van de hoge vermogens valt tussen 06:00 en 12:00 — concentratie wijst op stuurbaar procesgedrag.</div>
+      </div>
+      <span class="strip-badge badge-red">Hoog</span>
+    </div>
+    <div class="signal-strip">
+      <div class="strip-icon amber">🌙</div>
+      <div class="strip-body">
+        <div class="strip-title">Verhoogd nachtverbruik op 12 maart</div>
+        <div class="strip-desc">8,4 kW om 02:38 — meer dan tweemaal de verwachte baseload van 3,6 kW.</div>
+      </div>
+      <span class="strip-badge badge-amber">Medium</span>
+    </div>
+    <div class="signal-strip">
+      <div class="strip-icon amber">📐</div>
+      <div class="strip-body">
+        <div class="strip-title">Fase-onbalans boven drempelwaarde</div>
+        <div class="strip-desc">L1 draagt structureel meer last dan L2 en L3. Index 0,31 overschrijdt de aanbevolen grens van 0,25.</div>
+      </div>
+      <span class="strip-badge badge-amber">Medium</span>
+    </div>
+  </div>
+</section>
+
+<!-- 06 LABELING -->
+<section class="section" id="s6">
+  <div class="section-label">06 — Labeling</div>
+  <h2 class="section-title">Herkent u deze momenten?</h2>
+  <p class="section-why">Ons systeem detecteerde vier opvallende momenten. U kent uw bedrijfsprocessen het best — help ons begrijpen wat er speelde.</p>
+
+  <div class="labeling-wrap">
+    <div class="labeling-header">
+      <div class="labeling-header-left">
+        <div class="lh-title">4 momenten om te beoordelen</div>
+        <div class="lh-sub">Klik op het label dat het beste past bij wat u die dag deed</div>
+      </div>
+      <div class="labeling-progress">
+        <span class="prog-text" id="prog-text">0 / 4 beoordeeld</span>
+        <div class="prog-track"><div class="prog-fill" id="prog-fill"></div></div>
+      </div>
+    </div>
+
+    <!-- Event 1 -->
+    <div class="event-row" id="ev1">
+      <div class="event-meta">
+        <div class="event-sev-dot dot-high"></div>
+        <span class="event-type-tag">Vermogenspiek</span>
+        <span class="event-ts">06 mrt · 07:14</span>
+      </div>
+      <div class="event-title">Vroege ochtendpiek — 91,2 kW</div>
+      <div class="event-desc">We maten een hoog vermogen van 91,2 kW om 07:14 — buiten het verwachte piekvenster van 08:00–11:00. Dit was de hoogste meting van de maand.</div>
+      <div class="label-q">Wat speelde er die ochtend?</div>
+      <div class="label-chips">
+        <div class="label-chip" onclick="labelEvent('ev1',this)">Normaal opstarten</div>
+        <div class="label-chip" onclick="labelEvent('ev1',this)">Opstarten machines</div>
+        <div class="label-chip" onclick="labelEvent('ev1',this)">Intensieve productie</div>
+        <div class="label-chip" onclick="labelEvent('ev1',this)">Eenmalige situatie</div>
+        <div class="label-chip" onclick="labelEvent('ev1',this)">Storing of probleem</div>
+        <div class="label-chip" onclick="labelEvent('ev1',this)">Weet ik niet</div>
+      </div>
+      <div class="label-saved" id="ev1-saved">✓ Opgeslagen</div>
+    </div>
+
+    <!-- Event 2 -->
+    <div class="event-row" id="ev2">
+      <div class="event-meta">
+        <div class="event-sev-dot dot-medium"></div>
+        <span class="event-type-tag">Nachtverbruik</span>
+        <span class="event-ts">12 mrt · 02:38</span>
+      </div>
+      <div class="event-title">Verhoogd nachtverbruik — 8,4 kW</div>
+      <div class="event-desc">Midden in de nacht maten we een verbruik van 8,4 kW — ruim meer dan het gebruikelijke altijd-aan verbruik van 3,6 kW.</div>
+      <div class="label-q">Weet u wat er die nacht actief was?</div>
+      <div class="label-chips">
+        <div class="label-chip" onclick="labelEvent('ev2',this)">Normaal — koeling loopt altijd</div>
+        <div class="label-chip" onclick="labelEvent('ev2',this)">Nachtproductie</div>
+        <div class="label-chip" onclick="labelEvent('ev2',this)">Schoonmaak of onderhoud</div>
+        <div class="label-chip" onclick="labelEvent('ev2',this)">Kon verschoven worden</div>
+        <div class="label-chip" onclick="labelEvent('ev2',this)">Storing of probleem</div>
+        <div class="label-chip" onclick="labelEvent('ev2',this)">Weet ik niet</div>
+      </div>
+      <div class="label-saved" id="ev2-saved">✓ Opgeslagen</div>
+    </div>
+
+    <!-- Event 3 -->
+    <div class="event-row" id="ev3">
+      <div class="event-meta">
+        <div class="event-sev-dot dot-medium"></div>
+        <span class="event-type-tag">Fase-onbalans</span>
+        <span class="event-ts">18 mrt · 11:02</span>
+      </div>
+      <div class="event-title">Sterke fase-onbalans — index 0,31</div>
+      <div class="event-desc">Fase L1 trok 68 ampère terwijl L3 slechts 42 ampère verbruikte. Dit wijst op een ongelijke verdeling van apparatuur over de fasen.</div>
+      <div class="label-q">Herkent u dit in uw installatie?</div>
+      <div class="label-chips">
+        <div class="label-chip" onclick="labelEvent('ev3',this)">Dit is altijd zo bij ons</div>
+        <div class="label-chip" onclick="labelEvent('ev3',this)">Intensieve productie op L1</div>
+        <div class="label-chip" onclick="labelEvent('ev3',this)">Eenmalige situatie</div>
+        <div class="label-chip" onclick="labelEvent('ev3',this)">Geen idee, klinkt als een probleem</div>
+        <div class="label-chip" onclick="labelEvent('ev3',this)">Weet ik niet</div>
+      </div>
+      <div class="label-saved" id="ev3-saved">✓ Opgeslagen</div>
+    </div>
+
+    <!-- Event 4 -->
+    <div class="event-row" id="ev4">
+      <div class="event-meta">
+        <div class="event-sev-dot dot-low"></div>
+        <span class="event-type-tag">Verbruikspatroon</span>
+        <span class="event-ts">24 mrt · 09:15</span>
+      </div>
+      <div class="event-title">Verbruik structureel +22% boven verwacht</div>
+      <div class="event-desc">Het 24-uurs gemiddelde lag die week 22% boven wat we normaal verwachten op weekdagen. Mogelijk extra productie of een proceswijziging.</div>
+      <div class="label-q">Wat was er die week anders?</div>
+      <div class="label-chips">
+        <div class="label-chip" onclick="labelEvent('ev4',this)">Extra productie die week</div>
+        <div class="label-chip" onclick="labelEvent('ev4',this)">Nieuwe machine of installatie</div>
+        <div class="label-chip" onclick="labelEvent('ev4',this)">Seizoensgebonden drukte</div>
+        <div class="label-chip" onclick="labelEvent('ev4',this)">Eenmalige situatie</div>
+        <div class="label-chip" onclick="labelEvent('ev4',this)">Klopt niet — dit was normaal</div>
+        <div class="label-chip" onclick="labelEvent('ev4',this)">Weet ik niet</div>
+      </div>
+      <div class="label-saved" id="ev4-saved">✓ Opgeslagen</div>
+    </div>
+
+  </div><!-- /labeling-wrap -->
+
+  <!-- SUBMIT -->
+  <div class="submit-bar">
+    <div class="submit-left">
+      <div class="s-title">Klaar? Verstuur uw vooranalyse</div>
+      <div class="s-sub">Na verwerking ontvangt u het definitief rapport met persoonlijk advies.</div>
+    </div>
+    <button class="submit-btn" id="submit-btn" disabled onclick="handleSubmit()">
+      Verstuur vooranalyse →
+    </button>
+  </div>
+</section>
+
+<footer class="report-footer">
+  <div class="footer-brand">
+    eFlexIQ — Energie Intelligence Platform<br>
+    Ontwikkeld door RNDX Labs · rndxlabs.com<br>
+    Zeist, Nederland · 2024
+  </div>
+  <div class="footer-note">
+    Uw antwoorden worden vertrouwelijk verwerkt en uitsluitend gebruikt voor de analyse van uw energieprofiel.
+  </div>
+</footer>
+
+</div><!-- /page -->
+
+<script>
+const labeled = {};
+
+function selectOne(el, group) {
+  const g = el.dataset.group || group;
+  document.querySelectorAll('[data-group="'+g+'"], #'+g+' .chip, #'+g+' .card-select, #'+g+' .goal-card').forEach(e => e.classList.remove('selected'));
+  el.classList.add('selected');
+  updateProgress();
+}
+
+function toggleDay(btn) {
+  btn.classList.toggle('selected');
+}
+
+function toggleMulti(chip) {
+  chip.classList.toggle('selected');
+}
+
+function toggleYesNo(btn, id, val) {
+  const row = btn.closest('.toggle-row');
+  row.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('sel-yes','sel-no'));
+  btn.classList.add(val === 'yes' ? 'sel-yes' : 'sel-no');
+  const detail = document.getElementById('night-detail');
+  if (detail) detail.style.display = val === 'yes' ? 'block' : 'none';
+}
+
+function toggleConsumer(card) {
+  card.classList.toggle('selected');
+}
+
+function labelEvent(evId, chip) {
+  const row = document.getElementById(evId);
+  row.querySelectorAll('.label-chip').forEach(c => c.classList.remove('selected'));
+  chip.classList.add('selected');
+  labeled[evId] = chip.textContent.trim();
+  row.classList.add('labeled');
+  const saved = document.getElementById(evId + '-saved');
+  saved.classList.add('show');
+  const count = Object.keys(labeled).length;
+  document.getElementById('prog-text').textContent = count + ' / 4 beoordeeld';
+  document.getElementById('prog-fill').style.width = (count / 4 * 100) + '%';
+  document.getElementById('submit-btn').disabled = count < 4;
+  updateNavProgress();
+}
+
+function updateProgress() { updateNavProgress(); }
+
+function updateNavProgress() {
+  const steps = document.querySelectorAll('.prog-step');
+  const count = Object.keys(labeled).length;
+  // simple: mark step 6 done when all labeled
+  if (count >= 4) steps[5].classList.add('done');
+}
+
+// Intersection Observer to highlight active nav step
+const sections = ['s1','s2','s3','s4','s5','s6'];
+const navSteps = document.querySelectorAll('.prog-step');
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const idx = sections.indexOf(entry.target.id);
+      navSteps.forEach((s,i) => {
+        s.classList.remove('active');
+        if (i === idx) s.classList.add('active');
+      });
+    }
+  });
+}, { threshold: 0.3, rootMargin: '-80px 0px -60% 0px' });
+sections.forEach(id => { const el = document.getElementById(id); if(el) obs.observe(el); });
+
+function handleSubmit() {
+  const btn = document.getElementById('submit-btn');
+  btn.textContent = 'Verstuurd ✓';
+  btn.disabled = true;
+  btn.style.background = 'var(--green)';
+}
+</script>
+</body>
+</html>
