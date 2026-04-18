@@ -1,0 +1,34 @@
+# macOS
+.DS_Store
+.AppleDouble
+._*
+
+# Editors
+.idea/
+*.swp
+*.swo
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Build artifacts
+dist/
+build/
+.cache/
+.parcel-cache/
+
+# Dependencies
+node_modules/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Netlify
+.netlify/
+
+# Claude Code local state
+.claude/settings.local.json
+.claude/worktrees/
